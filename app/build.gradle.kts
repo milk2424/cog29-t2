@@ -1,6 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -27,15 +29,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
         buildConfig = true
+        compose = true
     }
 }
 
@@ -43,16 +46,41 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
 
-    // UI layer libraries
-    implementation(libs.ui.material)
-    implementation(libs.ui.constraintLayout)
-
     // region Unit tests
     testImplementation(libs.unitTests.junit)
-    // endregion
 
     // region UI tests
     androidTestImplementation(libs.uiTests.junitExt)
     androidTestImplementation(libs.uiTests.espressoCore)
-    // endregion
+
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.compose.ui.tooling)
+
+    // Network
+    implementation(libs.bundles.network)
+
+    // Database
+    implementation(libs.bundles.room)
+    ksp(libs.database.roomCompiler)
+
+    // Images
+    implementation(libs.images.coilCompose)
+
+    // DI
+    implementation(libs.di.koinAndroid)
+    implementation(libs.di.koinCompose)
+
+    // Storage
+    implementation(libs.storage.datastore)
+
+    // Coroutines
+    implementation(libs.bundles.coroutines)
+
+    // Lifecycle
+    implementation(libs.lifecycle.runtime)
+
+    //временка пока не переделаем темы на композ
+    implementation(libs.ui.material)
 }
