@@ -81,6 +81,6 @@ dependencies {
     // Lifecycle
     implementation(libs.lifecycle.runtime)
 
-    //временка пока не переделаем темы на композ
+    // временка пока не переделаем темы на композ
     implementation(libs.ui.material)
 }
