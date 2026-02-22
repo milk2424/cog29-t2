@@ -1,13 +1,13 @@
 package ru.practicum.android.diploma.ui.theme
 
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import ru.practicum.android.diploma.R
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import ru.practicum.android.diploma.R
 
-object AppTypography {
+object Typography {
     val YsDisplay = FontFamily(
         Font(R.font.ys_display_regular, FontWeight.Normal),
         Font(R.font.ys_display_medium, FontWeight.Medium),

@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-object ColorsRaw {
+object Colors {
     val BlackDay = Color(COLOR_BLACK_DAY)
     val BlackNight = Color(COLOR_BLACK_NIGHT)
     val BlackUniversal = Color(COLOR_BLACK_UNIVERSAL)
