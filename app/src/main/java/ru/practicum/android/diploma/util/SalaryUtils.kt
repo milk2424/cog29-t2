@@ -13,6 +13,7 @@ data class SalaryStrings(
     val to: String,
     val noSalary: String
 )
+
 /**
  * @param min - минимальная зарплата
  * @param max - максимальная зарплата
