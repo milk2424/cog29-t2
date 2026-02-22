@@ -12,15 +12,22 @@ fun formatNumber(value: Int?): String {
  * @param max - максимальная зарплата
  * @param currency - валюта зарплаты
  */
-fun formatSalaryRange(min: Int?, max: Int?, currency: Currency?): String {
+fun formatSalaryRange(
+    min: Int?,
+    max: Int?,
+    currency: Currency?,
+    fromText: String,
+    toText: String,
+    noSalaryText: String
+    ): String {
     val minStr = min?.let { formatNumber(it) } ?: ""
     val maxStr = max?.let { formatNumber(it) } ?: ""
     val symbol = currency?.symbol ?: ""
 
     return when {
-        min != null && max != null -> "От $minStr до $maxStr $symbol"
-        min != null -> "От $minStr $symbol"
-        max != null -> "До $maxStr $symbol"
-        else -> "Зарплата не указана"
+        min != null && max != null -> "$fromText $minStr $toText $maxStr $symbol"
+        min != null -> "$fromText $minStr $symbol"
+        max != null -> "$toText $maxStr $symbol"
+        else -> noSalaryText
     }
 }

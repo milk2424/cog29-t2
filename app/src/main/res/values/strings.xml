@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+    <string name="no_salary">Зарплата не указана</string>
+    <string name="from">От</string>
+    <string name="to">До</string>
+
 </resources>
