@@ -47,6 +47,7 @@ fun DiplomaTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
+        typography = DiplomaTypography,
         content = content
     )
 }
