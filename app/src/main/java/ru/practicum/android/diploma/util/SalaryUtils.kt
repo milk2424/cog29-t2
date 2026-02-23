@@ -1,11 +1,18 @@
 package ru.practicum.android.diploma.util
 
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
+
 /**
  * Форматирует число в строку с пробелами между разраядами
  */
 fun formatNumber(value: Int?): String {
     if (value == null) return ""
-    return "%,d".format(value).replace(",", " ")
+    val symbols = DecimalFormatSymbols(Locale.US).apply {
+        groupingSeparator = ' '
+    }
+    return DecimalFormat("#,###", symbols).format(value)
 }
 
 data class SalaryStrings(

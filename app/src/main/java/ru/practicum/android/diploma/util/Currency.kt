@@ -5,6 +5,7 @@ package ru.practicum.android.diploma.util
  */
 
 enum class Currency(val symbol: String) {
+    RUB("₽"),
     RUR("₽"),
     USD("$"),
     EUR("€"),
@@ -14,5 +15,5 @@ enum class Currency(val symbol: String) {
     GEL("₾"),
     UAH("₴"),
     UZS("so'm"),
-    KGT("com")
+    KGT("cом")
 }
