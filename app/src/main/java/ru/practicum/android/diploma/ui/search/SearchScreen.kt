@@ -6,5 +6,5 @@ import androidx.navigation.NavController
 
 @Composable
 fun SearchScreen(navController: NavController) {
-    Text("Search Screen")
+    Text("Main Screen")
 }

@@ -15,6 +15,7 @@ private val LightColorScheme = lightColorScheme(
     surface = Colors.LightGray, // фон строки поиска
     onSurface = Colors.BlackUniversal, // текст результата поиска
     onSurfaceVariant = Colors.Gray, // второстепенный текст
+    outline = Colors.LightGray,
 
     // цвета для поля зарплаты
     tertiary = Colors.Gray,
@@ -35,7 +36,8 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = Colors.WhiteUniversal,
     onTertiary = Colors.Blue,
     secondary = Colors.WhiteUniversal,
-    onSecondary = Colors.BlackUniversal
+    onSecondary = Colors.BlackUniversal,
+    outline = Colors.LightGray
 )
 
 @Composable
