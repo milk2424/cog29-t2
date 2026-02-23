@@ -47,7 +47,11 @@ fun MainScreen() {
             composable(NavRoute.Team.route) { TeamScreen() }
             composable(NavRoute.VacancyDetails.route) { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
-                VacancyScreen(navController, id)
+                if (id.isNotEmpty()) {
+                    VacancyScreen(navController, id)
+                } else {
+                    navController.popBackStack()
+                }
             }
             composable(NavRoute.Filter.route) { FilterScreen(navController) }
         }
