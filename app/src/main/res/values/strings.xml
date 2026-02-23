@@ -4,4 +4,7 @@
     <string name="from">От</string>
     <string name="to">До</string>
 
+    <string name="tab_main">Главная</string>
+    <string name="tab_favorites">Избранное</string>
+    <string name="tab_team">Команда</string>
 </resources>
