@@ -1,3 +1,5 @@
 package ru.practicum.android.diploma.data.dto.vacancydetail
 
-data class VacancyDetailRequest(val id: String)
+import ru.practicum.android.diploma.data.dto.AppRequest
+
+data class VacancyDetailRequest(val id: String): AppRequest

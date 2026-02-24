@@ -1,3 +1,5 @@
 package ru.practicum.android.diploma.data.dto.industries
 
-object IndustriesRequest
+import ru.practicum.android.diploma.data.dto.AppRequest
+
+object IndustriesRequest : AppRequest

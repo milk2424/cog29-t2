@@ -2,18 +2,20 @@ package ru.practicum.android.diploma.data.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.dto.AppRequest
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.areas.AreasRequest
 import ru.practicum.android.diploma.data.dto.areas.AreasResponse
 import ru.practicum.android.diploma.data.dto.industries.IndustriesRequest
 import ru.practicum.android.diploma.data.dto.industries.IndustriesResponse
 import ru.practicum.android.diploma.data.dto.vacancies.VacanciesByFilterRequest
+import ru.practicum.android.diploma.data.dto.vacancies.toQueryMap
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailRequest
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailResponse
 import ru.practicum.android.diploma.domain.NetworkChecker
 
 class RetrofitClient(private val apiService: ApiService, private val networkChecker: NetworkChecker) : NetworkClient {
-    override suspend fun doRequest(dto: Any): Response {
+    override suspend fun doRequest(dto: AppRequest): Response {
         if (!networkChecker.isNetworkAvailable()) {
             return Response().apply { resultCode = NO_INTERNET }
         }
