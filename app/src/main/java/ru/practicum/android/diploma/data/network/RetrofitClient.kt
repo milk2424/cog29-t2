@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.network
 
-import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.dto.AreasRequest
@@ -11,10 +10,12 @@ import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacanciesByFilterRequest
 import ru.practicum.android.diploma.data.dto.VacancyDetailRequest
 import ru.practicum.android.diploma.data.dto.VacancyDetailResponse
+import ru.practicum.android.diploma.domain.NetworkChecker
 
-class RetrofitClient(private val apiService: ApiService, private val context: Context) : NetworkClient {
+class RetrofitClient(private val apiService: ApiService, private val networkChecker: NetworkChecker) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-        if (true) return Response().apply { resultCode = -1 } //TODO заменить на !context.isNetworkAvailable() после слияния с вспомогательными функициями
+        if (!networkChecker.isNetworkAvailable())
+            return Response().apply { resultCode = -1 }
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
@@ -40,5 +41,6 @@ class RetrofitClient(private val apiService: ApiService, private val context: Co
             }
         }
     }
+
     private fun Response.ok() = apply { resultCode = 200 }
 }
