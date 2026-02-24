@@ -2,11 +2,11 @@ package ru.practicum.android.diploma.data.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.areas.AreasRequest
 import ru.practicum.android.diploma.data.dto.areas.AreasResponse
 import ru.practicum.android.diploma.data.dto.industries.IndustriesRequest
 import ru.practicum.android.diploma.data.dto.industries.IndustriesResponse
-import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.vacancies.VacanciesByFilterRequest
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailRequest
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailResponse
@@ -22,19 +22,8 @@ class RetrofitClient(private val apiService: ApiService, private val networkChec
                 when (dto) {
                     is AreasRequest -> AreasResponse(apiService.getAreas()).ok()
                     is IndustriesRequest -> IndustriesResponse(apiService.getIndustries()).ok()
-                    is VacanciesByFilterRequest -> apiService.getVacancies(
-                        area = dto.area,
-                        industry = dto.industry,
-                        text = dto.text,
-                        salary = dto.salary,
-                        page = dto.page,
-                        onlyWithSalary = dto.onlyWithSalary
-                    ).ok()
-
-                    is VacancyDetailRequest -> VacancyDetailResponse(
-                        apiService.getVacancyById(dto.id)
-                    ).ok()
-
+                    is VacanciesByFilterRequest -> apiService.getVacancies(dto.toQueryMap()).ok()
+                    is VacancyDetailRequest -> VacancyDetailResponse(apiService.getVacancyById(dto.id)).ok()
                     else -> Response().apply { resultCode = HTTP_BAD_REQUEST }
                 }
             } catch (_: Throwable) {

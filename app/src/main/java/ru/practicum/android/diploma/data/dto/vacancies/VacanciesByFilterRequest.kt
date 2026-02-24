@@ -7,4 +7,13 @@ data class VacanciesByFilterRequest(
     val salary: Int? = null,
     val onlyWithSalary: Boolean? = null,
     val page: Int? = null
-)
+){
+    fun toQueryMap(): Map<String, String> = buildMap {
+        area?.let { put("area", it.toString()) }
+        industry?.let { put("industry", it.toString()) }
+        text?.let { put("text", it) }
+        salary?.let { put("salary", it.toString()) }
+        onlyWithSalary?.let { put("only_with_salary", it.toString()) }
+        page?.let { put("page", it.toString()) }
+    }
+}
