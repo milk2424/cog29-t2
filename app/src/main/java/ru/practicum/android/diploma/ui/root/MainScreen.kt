@@ -28,7 +28,7 @@ fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             if (currentRoute in listOf(
-                    NavRoute.Search.route,
+                    NavRoute.Main.route,
                     NavRoute.Favorites.route,
                     NavRoute.Team.route
                 )
@@ -39,10 +39,10 @@ fun MainScreen() {
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = NavRoute.Search.route,
+            startDestination = NavRoute.Main.route,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(NavRoute.Search.route) { SearchScreen(navController) }
+            composable(NavRoute.Main.route) { SearchScreen(navController) }
             composable(NavRoute.Favorites.route) { FavoritesScreen(navController) }
             composable(NavRoute.Team.route) { TeamScreen() }
             composable(NavRoute.VacancyDetails.route) { backStackEntry ->
