@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.database.AppDatabase
+import ru.practicum.android.diploma.data.database.SkillsConverter
 import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkClient
@@ -19,7 +20,6 @@ private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.c
 private const val NETWORK_TIMEOUT_SEC = 5L
 
 val dataModule = module {
-
     single<NetworkChecker> { NetworkCheckerImpl(androidContext()) }
 
     single<ApiService> {
@@ -48,8 +48,11 @@ val dataModule = module {
 
     single<NetworkClient> { RetrofitClient(get(), get()) }
 
+    single { SkillsConverter(get()) }
+
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
+            .addTypeConverter(get<SkillsConverter>())
             .fallbackToDestructiveMigration(false)
             .build()
     }
