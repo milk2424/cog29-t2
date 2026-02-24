@@ -8,5 +8,3 @@ open class Response {
         const val HTTP_OK = 200
     }
 }
-
-
