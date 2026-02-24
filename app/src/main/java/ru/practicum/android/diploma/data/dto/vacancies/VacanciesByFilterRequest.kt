@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto
+package ru.practicum.android.diploma.data.dto.vacancies
 
 data class VacanciesByFilterRequest(
     val area: Int? = null,
