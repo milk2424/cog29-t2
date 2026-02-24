@@ -6,6 +6,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.database.AppDatabase
 import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
@@ -13,9 +14,9 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitClient
 import ru.practicum.android.diploma.domain.NetworkChecker
 import java.util.concurrent.TimeUnit
-import ru.practicum.android.diploma.BuildConfig
 
 private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.com/"
+private const val NETWORK_TIMEOUT_SEC = 5L
 
 val dataModule = module {
 
@@ -31,9 +32,9 @@ val dataModule = module {
                             .build()
                     )
                 }
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(NETWORK_TIMEOUT_SEC, TimeUnit.SECONDS)
+                .readTimeout(NETWORK_TIMEOUT_SEC, TimeUnit.SECONDS)
+                .writeTimeout(NETWORK_TIMEOUT_SEC, TimeUnit.SECONDS)
                 .build()
 
         val retrofit = Retrofit.Builder()

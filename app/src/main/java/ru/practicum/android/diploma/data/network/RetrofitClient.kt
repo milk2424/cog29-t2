@@ -12,10 +12,12 @@ import ru.practicum.android.diploma.data.dto.VacancyDetailRequest
 import ru.practicum.android.diploma.data.dto.VacancyDetailResponse
 import ru.practicum.android.diploma.domain.NetworkChecker
 
+
 class RetrofitClient(private val apiService: ApiService, private val networkChecker: NetworkChecker) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-        if (!networkChecker.isNetworkAvailable())
-            return Response().apply { resultCode = -1 }
+        if (!networkChecker.isNetworkAvailable()) {
+            return Response().apply { resultCode = NO_INTERNET }
+        }
         return withContext(Dispatchers.IO) {
             try {
                 when (dto) {
@@ -34,13 +36,20 @@ class RetrofitClient(private val apiService: ApiService, private val networkChec
                         apiService.getVacancyById(dto.id)
                     ).ok()
 
-                    else -> Response().apply { resultCode = 400 }
+                    else -> Response().apply { resultCode = HTTP_BAD_REQUEST }
                 }
             } catch (_: Throwable) {
-                Response().apply { resultCode = 500 }
+                Response().apply { resultCode = HTTP_SERVER_ERROR }
             }
         }
     }
 
-    private fun Response.ok() = apply { resultCode = 200 }
+    private fun Response.ok() = apply { resultCode = HTTP_OK }
+
+    private companion object {
+        const val NO_INTERNET = -1
+        const val HTTP_OK = 200
+        const val HTTP_BAD_REQUEST = 400
+        const val HTTP_SERVER_ERROR = 500
+    }
 }

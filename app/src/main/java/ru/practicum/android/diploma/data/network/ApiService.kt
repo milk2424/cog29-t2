@@ -15,6 +15,7 @@ interface ApiService {
     @GET("industries")
     suspend fun getIndustries(): List<FilterIndustryDto>
 
+    @Suppress("LongParameterList")
     @GET("vacancies")
     suspend fun getVacancies(
         @Query("area") area: Int?,
