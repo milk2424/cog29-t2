@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.database
+package ru.practicum.android.diploma.data.database.converter
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
@@ -6,10 +6,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 @ProvidedTypeConverter
-class SkillsConverter(private val gson: Gson) {
+class ListStringConverter(private val gson: Gson) {
     @TypeConverter
-    fun fromList(skills: List<String>): String {
-        return gson.toJson(skills)
+    fun fromList(list: List<String>): String {
+        return gson.toJson(list)
     }
 
     @TypeConverter
