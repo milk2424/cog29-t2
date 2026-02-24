@@ -32,11 +32,8 @@ class RetrofitClient(private val apiService: ApiService, private val networkChec
         }
     }
 
-    private fun Response.ok() = apply { resultCode = HTTP_OK }
-
     private companion object {
         const val NO_INTERNET = -1
-        const val HTTP_OK = 200
         const val HTTP_BAD_REQUEST = 400
         const val HTTP_SERVER_ERROR = 500
     }
