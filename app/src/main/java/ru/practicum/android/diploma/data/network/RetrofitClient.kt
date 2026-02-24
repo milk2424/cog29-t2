@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.data.dto.VacancyDetailRequest
 import ru.practicum.android.diploma.data.dto.VacancyDetailResponse
 import ru.practicum.android.diploma.domain.NetworkChecker
 
-
 class RetrofitClient(private val apiService: ApiService, private val networkChecker: NetworkChecker) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         if (!networkChecker.isNetworkAvailable()) {
