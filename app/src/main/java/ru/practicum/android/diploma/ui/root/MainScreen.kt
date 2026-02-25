@@ -27,9 +27,8 @@ fun MainScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            if (currentRoute in listOf(
-                    NavRoute.Tab.Main.route, NavRoute.Tab.Favorites.route, NavRoute.Tab.Team.route
-                )
+            if (currentRoute in
+                listOf(NavRoute.Tab.Main.route, NavRoute.Tab.Favorites.route, NavRoute.Tab.Team.route)
             ) {
                 BottomNavBar(navController, currentRoute)
             }
