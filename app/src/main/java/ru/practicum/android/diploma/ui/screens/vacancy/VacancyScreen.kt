@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.vacancy
+package ru.practicum.android.diploma.ui.screens.vacancy
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.data.network
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.dto.AppRequest
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.areas.AreasRequest
@@ -19,18 +17,16 @@ class RetrofitClient(private val apiService: ApiService, private val networkChec
         if (!networkChecker.isNetworkAvailable()) {
             return Response().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
-            try {
-                when (dto) {
-                    is AreasRequest -> AreasResponse(apiService.getAreas()).ok()
-                    is IndustriesRequest -> IndustriesResponse(apiService.getIndustries()).ok()
-                    is VacanciesByFilterRequest -> apiService.getVacancies(dto.toQueryMap()).ok()
-                    is VacancyDetailRequest -> VacancyDetailResponse(apiService.getVacancyById(dto.id)).ok()
-                    else -> Response().apply { resultCode = HTTP_BAD_REQUEST }
-                }
-            } catch (_: Throwable) {
-                Response().apply { resultCode = HTTP_SERVER_ERROR }
+        return try {
+            when (dto) {
+                is AreasRequest -> AreasResponse(apiService.getAreas()).ok()
+                is IndustriesRequest -> IndustriesResponse(apiService.getIndustries()).ok()
+                is VacanciesByFilterRequest -> apiService.getVacancies(dto.toQueryMap()).ok()
+                is VacancyDetailRequest -> VacancyDetailResponse(apiService.getVacancyById(dto.id)).ok()
+                else -> Response().apply { resultCode = HTTP_BAD_REQUEST }
             }
+        } catch (_: Throwable) {
+            Response().apply { resultCode = HTTP_SERVER_ERROR }
         }
     }
 

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.favorites
+package ru.practicum.android.diploma.ui.screens.favorites
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
