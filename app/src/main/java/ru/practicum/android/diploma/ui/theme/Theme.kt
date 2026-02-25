@@ -66,11 +66,10 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun DiplomaTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
-    MaterialTheme(
-        colorScheme = colorScheme, typography = DiplomaTypography, content = content
-    )
+    MaterialTheme(colorScheme = colorScheme, typography = DiplomaTypography, content = content)
 }
