@@ -52,6 +52,4 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
             }
         }
     }
-
-
 }
