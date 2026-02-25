@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
@@ -32,7 +33,6 @@ import ru.practicum.android.diploma.ui.theme.Dimens.secondaryPadding
 
 @Composable
 fun SearchScreen(navController: NavController) {
-
     val viewModel: SearchViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
@@ -49,14 +49,14 @@ fun SearchScreen(navController: NavController) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 modifier = Modifier.weight(1f),
-                text = "Поиск вакансий",
+                text = stringResource(id = R.string.search_title),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
             IconButton(onClick = { viewModel.onFilterClicked() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.filter_off__24px),
-                    contentDescription = "Фильтр",
+                    contentDescription = null,
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             }
@@ -78,7 +78,7 @@ fun SearchScreen(navController: NavController) {
             ),
             placeholder = {
                 Text(
-                    text = "Введите запрос",
+                    text = stringResource(R.string.search_placeholder),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
@@ -88,16 +88,15 @@ fun SearchScreen(navController: NavController) {
                     IconButton(onClick = { viewModel.onClearCLicked() }) {
                         Icon(
                             imageVector = clearIcon,
-                            contentDescription = "Очистить",
+                            contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 } else {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.search_24px),
-                        contentDescription = "Поиск",
+                        contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
-
                     )
                 }
             },
@@ -106,8 +105,5 @@ fun SearchScreen(navController: NavController) {
         if (uiState.isInitial) {
             Initial()
         }
-
     }
-
-
 }

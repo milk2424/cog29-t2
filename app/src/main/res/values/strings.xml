@@ -7,4 +7,7 @@
     <string name="tab_main">Главная</string>
     <string name="tab_favorites">Избранное</string>
     <string name="tab_team">Команда</string>
+
+    <string name="search_placeholder">Введите запрос</string>
+    <string name="search_title">Поиск вакансий</string>
 </resources>

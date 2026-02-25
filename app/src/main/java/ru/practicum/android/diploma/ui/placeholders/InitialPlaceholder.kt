@@ -19,10 +19,7 @@ fun Initial() {
     ) {
         Image(
             painter = painterResource(R.drawable.initial_placeholder),
-            contentDescription = "Placeholder"
-
-
+            contentDescription = null
         )
     }
-
 }
