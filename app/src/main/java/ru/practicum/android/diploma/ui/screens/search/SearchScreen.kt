@@ -80,7 +80,7 @@ fun SearchScreen(navController: NavController) {
                 Text(
                     text = stringResource(R.string.search_placeholder),
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.secondary
                 )
             },
             trailingIcon = {
