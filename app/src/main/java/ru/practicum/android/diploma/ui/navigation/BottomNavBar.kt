@@ -9,6 +9,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -17,7 +18,7 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 
 @Composable
 fun BottomNavBar(navController: NavController, currentRoute: String?) {
-    val items = listOf(NavRoute.Main, NavRoute.Favorites, NavRoute.Team)
+    val items = remember { listOf(NavRoute.Tab.Main, NavRoute.Tab.Favorites, NavRoute.Tab.Team) }
 
     Column {
         HorizontalDivider(thickness = Dimens.bottomNavBarDividerThickness, color = MaterialTheme.colorScheme.outline)

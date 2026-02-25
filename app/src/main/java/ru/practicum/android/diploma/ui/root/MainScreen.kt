@@ -10,13 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import ru.practicum.android.diploma.ui.favorites.FavoritesScreen
-import ru.practicum.android.diploma.ui.filter.FilterScreen
 import ru.practicum.android.diploma.ui.navigation.BottomNavBar
 import ru.practicum.android.diploma.ui.navigation.NavRoute
-import ru.practicum.android.diploma.ui.search.SearchScreen
-import ru.practicum.android.diploma.ui.team.TeamScreen
-import ru.practicum.android.diploma.ui.vacancy.VacancyScreen
+import ru.practicum.android.diploma.ui.screens.favorites.FavoritesScreen
+import ru.practicum.android.diploma.ui.screens.filter.FilterScreen
+import ru.practicum.android.diploma.ui.screens.search.SearchScreen
+import ru.practicum.android.diploma.ui.screens.team.TeamScreen
+import ru.practicum.android.diploma.ui.screens.vacancy.VacancyScreen
 
 @Composable
 fun MainScreen() {
@@ -27,11 +27,8 @@ fun MainScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            if (currentRoute in listOf(
-                    NavRoute.Main.route,
-                    NavRoute.Favorites.route,
-                    NavRoute.Team.route
-                )
+            if (currentRoute in
+                listOf(NavRoute.Tab.Main.route, NavRoute.Tab.Favorites.route, NavRoute.Tab.Team.route)
             ) {
                 BottomNavBar(navController, currentRoute)
             }
@@ -39,12 +36,12 @@ fun MainScreen() {
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = NavRoute.Main.route,
+            startDestination = NavRoute.Tab.Main.route,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(NavRoute.Main.route) { SearchScreen(navController) }
-            composable(NavRoute.Favorites.route) { FavoritesScreen(navController) }
-            composable(NavRoute.Team.route) { TeamScreen() }
+            composable(NavRoute.Tab.Main.route) { SearchScreen(navController) }
+            composable(NavRoute.Tab.Favorites.route) { FavoritesScreen(navController) }
+            composable(NavRoute.Tab.Team.route) { TeamScreen() }
             composable(NavRoute.VacancyDetails.route) { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
                 if (id.isNotEmpty()) {
