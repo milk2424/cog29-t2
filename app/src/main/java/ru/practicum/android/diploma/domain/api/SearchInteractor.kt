@@ -1,4 +1,8 @@
 package ru.practicum.android.diploma.domain.api
 
-class SearchInteractor {
+import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.domain.models.VacanciesResult
+
+interface SearchInteractor {
+    fun searchVacancies(expression: String): Flow<Pair<VacanciesResult?, String?>>
 }
