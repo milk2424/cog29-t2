@@ -7,7 +7,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-
 private const val COLOR_BLACK_DAY = 0xFF1A1B22
 private const val COLOR_BLACK_NIGHT = 0xFFFDFDFD
 private const val COLOR_BLACK_UNIVERSAL = 0xFF1A1B22
@@ -46,10 +45,7 @@ private val LightColorScheme = lightColorScheme(
     outline = Colors.LightGray,
 
     // цвета для поля зарплаты
-    tertiary = Colors.Gray,
-    onTertiary = Colors.Blue,
-    secondary = Colors.Gray,
-    onSecondary = Colors.BlackUniversal
+    tertiary = Colors.Gray, onTertiary = Colors.Blue, secondary = Colors.Gray, onSecondary = Colors.BlackUniversal
 )
 
 private val DarkColorScheme = darkColorScheme(
@@ -70,14 +66,11 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun DiplomaTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = DiplomaTypography,
-        content = content
+        colorScheme = colorScheme, typography = DiplomaTypography, content = content
     )
 }

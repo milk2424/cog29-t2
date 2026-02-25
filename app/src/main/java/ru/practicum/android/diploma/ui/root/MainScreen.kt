@@ -10,10 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import ru.practicum.android.diploma.ui.screens.favorites.FavoritesScreen
-import ru.practicum.android.diploma.ui.screens.filter.FilterScreen
 import ru.practicum.android.diploma.ui.navigation.BottomNavBar
 import ru.practicum.android.diploma.ui.navigation.NavRoute
+import ru.practicum.android.diploma.ui.screens.favorites.FavoritesScreen
+import ru.practicum.android.diploma.ui.screens.filter.FilterScreen
 import ru.practicum.android.diploma.ui.screens.search.SearchScreen
 import ru.practicum.android.diploma.ui.screens.team.TeamScreen
 import ru.practicum.android.diploma.ui.screens.vacancy.VacancyScreen
@@ -25,18 +25,14 @@ fun MainScreen() {
     val currentRoute = currentEntry?.destination?.route
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
+        modifier = Modifier.fillMaxSize(), bottomBar = {
             if (currentRoute in listOf(
-                    NavRoute.Tab.Main.route,
-                    NavRoute.Tab.Favorites.route,
-                    NavRoute.Tab.Team.route
+                    NavRoute.Tab.Main.route, NavRoute.Tab.Favorites.route, NavRoute.Tab.Team.route
                 )
             ) {
                 BottomNavBar(navController, currentRoute)
             }
-        }
-    ) { paddingValues ->
+        }) { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = NavRoute.Tab.Main.route,
