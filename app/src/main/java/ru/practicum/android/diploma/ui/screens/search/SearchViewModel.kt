@@ -21,7 +21,8 @@ class SearchViewModel : ViewModel() {
     fun onQueryChanged(query: String) {
         _uiState.value = _uiState.value.copy(
             query = query,
-            isInitial = query.isBlank()
+            isInitial = query.isBlank(),
+            isLoading = false
         )
 
         if (query.isNotBlank()) {
@@ -29,10 +30,11 @@ class SearchViewModel : ViewModel() {
         }
     }
 
-    fun onClearCLicked() {
+    fun onClearClicked() {
         _uiState.value = _uiState.value.copy(
             query = "",
-            isInitial = true
+            isInitial = true,
+            isLoading = false
         )
     }
 

@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import ru.practicum.android.diploma.R
 
 @Composable
-fun Initial() {
+fun InitialPlaceholder() {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
