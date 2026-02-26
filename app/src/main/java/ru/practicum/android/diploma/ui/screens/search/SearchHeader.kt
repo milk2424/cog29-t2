@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.theme.Dimens.mainPadding
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
 
 @Composable
 fun SearchHeader(
@@ -41,5 +41,5 @@ fun SearchHeader(
         }
     }
 
-    Spacer(modifier = Modifier.height(mainPadding))
+    Spacer(modifier = Modifier.height(paddingMedium))
 }

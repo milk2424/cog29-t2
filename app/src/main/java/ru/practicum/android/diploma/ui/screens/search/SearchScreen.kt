@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.ui.placeholders.InitialPlaceholder
 import ru.practicum.android.diploma.ui.placeholders.Loading
-import ru.practicum.android.diploma.ui.theme.Dimens.mainPadding
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
 
 @Composable
 fun SearchScreen(navController: NavController) {
@@ -24,7 +24,7 @@ fun SearchScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(mainPadding)
+            .padding(paddingMedium)
     ) {
         SearchHeader(
             onFilterClick = viewModel::onFilterClicked

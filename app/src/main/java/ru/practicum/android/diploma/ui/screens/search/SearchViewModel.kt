@@ -5,25 +5,35 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.SearchInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.debounce
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(
+    private val searchInteractor: SearchInteractor
+) : ViewModel() {
+
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
     private val searchDebounce: (String) -> Unit = debounce<String>(
         delayMillis = SEARCH_DELAY,
-        coroutineScope = viewModelScope
+        coroutineScope = viewModelScope,
+        useLastParam = true
     ) { query ->
         performSearch(query)
     }
 
     fun onQueryChanged(query: String) {
-        _uiState.value = _uiState.value.copy(
-            query = query,
-            isInitial = query.isBlank(),
-            isLoading = false
-        )
+        _uiState.update {
+            it.copy(
+                query = query,
+                isLoading = false,
+                isInitial = query.isBlank()
+            )
+        }
 
         if (query.isNotBlank()) {
             searchDebounce(query)
@@ -31,11 +41,9 @@ class SearchViewModel : ViewModel() {
     }
 
     fun onClearClicked() {
-        _uiState.value = _uiState.value.copy(
-            query = "",
-            isInitial = true,
-            isLoading = false
-        )
+        _uiState.update {
+            SearchUiState()
+        }
     }
 
     fun onFilterClicked() {
@@ -45,14 +53,38 @@ class SearchViewModel : ViewModel() {
     }
 
     private fun performSearch(query: String) {
-        _uiState.value = _uiState.value.copy(isLoading = true)
-        /**
-         * implement search here
-         */
+        _uiState.update { it.copy(isLoading = true) }
+
+        viewModelScope.launch {
+            searchInteractor
+                .searchVacancies(query, page = 0)
+                .collect { resource ->
+                    when (resource) {
+                        is ru.practicum.android.diploma.util.Resource.Success -> {
+                            _uiState.update {
+                                it.copy(
+                                    isLoading = false,
+                                    vacancies = resource.data?.vacancies ?: emptyList()
+                                )
+                            }
+                        }
+                        // Будущая обработка ошибок
+                        is ru.practicum.android.diploma.util.Resource.Error -> {
+                            _uiState.update { it.copy(isLoading = false) }
+                        }
+                    }
+                }
+        }
     }
 
     companion object {
         private const val SEARCH_DELAY = 2000L
     }
-
 }
+
+data class SearchUiState(
+    val query: String = "",
+    val isLoading: Boolean = false,
+    val isInitial: Boolean = true,
+    val vacancies: List<Vacancy> = emptyList()
+)
