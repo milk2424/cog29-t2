@@ -24,7 +24,6 @@ fun SearchTextField(
     onQueryChanged: (String) -> Unit,
     onClearClicked: () -> Unit
 ) {
-
     val isClearButtonVisible = query.isNotEmpty()
     val clearIcon = ImageVector.vectorResource(id = R.drawable.close_24px)
 
