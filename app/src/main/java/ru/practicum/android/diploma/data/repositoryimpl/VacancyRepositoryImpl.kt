@@ -13,8 +13,8 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyRepository {
-    override fun searchVacancies(expression: String): Flow<Resource<VacanciesResult>> = flow {
-        val response = networkClient.doRequest(VacanciesByFilterRequest(text = expression))
+    override fun searchVacancies(expression: String, page: Int): Flow<Resource<VacanciesResult>> = flow {
+        val response = networkClient.doRequest(VacanciesByFilterRequest(text = expression, page = page))
         when (response.resultCode) {
             NO_INTERNET -> {
                 emit(Resource.Error("Проверьте подключение к интернету"))
@@ -43,7 +43,7 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
                             contactPhone = it.contacts?.phone
                         )
                     }
-                    emit(Resource.Success(VacanciesResult(data, found)))
+                    emit(Resource.Success(VacanciesResult(data, found, this.page, pages)))
                 }
             }
 
