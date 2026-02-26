@@ -7,6 +7,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.core.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.database.AppDatabase
 import ru.practicum.android.diploma.data.database.converter.ListStringConverter
@@ -14,12 +15,13 @@ import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitClient
-import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
 import ru.practicum.android.diploma.data.repositoryimpl.VacancyRepositoryImpl
+import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
 import ru.practicum.android.diploma.domain.NetworkChecker
-import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
-import ru.practicum.android.diploma.domain.team.repository.TeamRepository
 import ru.practicum.android.diploma.domain.api.VacancyRepository
+import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
+import ru.practicum.android.diploma.domain.team.model.Developer
+import ru.practicum.android.diploma.domain.team.repository.TeamRepository
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.com/"
@@ -66,7 +68,14 @@ val dataModule = module {
     single { get<AppDatabase>().vacancyDao() }
 
     single<TeamRepository> {
-        TeamRepositoryImpl()
+        val developers = listOf(
+            Developer(R.string.dev_vinokurov_name, R.string.dev_vinokurov_github),
+            Developer(R.string.dev_milko_name, R.string.dev_milko_github),
+            Developer(R.string.dev_pchelintsev_name, R.string.dev_pchelintsev_github),
+            Developer(R.string.dev_salnikov_name, R.string.dev_salnikov_github),
+            Developer(R.string.dev_sergeev_name, R.string.dev_sergeev_github)
+        )
+        TeamRepositoryImpl(developers)
     }
 
     single<ExternalNavigator> {
