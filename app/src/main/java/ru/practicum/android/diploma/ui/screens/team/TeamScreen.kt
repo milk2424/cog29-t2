@@ -17,7 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.team.TeamViewModel
-import ru.practicum.android.diploma.ui.screens.team.ui_elements.DeveloperListItem
+import ru.practicum.android.diploma.ui.screens.team.uielements.DeveloperListItem
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
 
 @OptIn(ExperimentalMaterial3Api::class)

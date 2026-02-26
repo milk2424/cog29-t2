@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
-import ru.practicum.android.diploma.domain.core.use_case.OpenInBrowserUseCase
-import ru.practicum.android.diploma.domain.team.use_case.LoadDevelopersTeamUseCase
+import ru.practicum.android.diploma.domain.core.usecase.OpenInBrowserUseCase
+import ru.practicum.android.diploma.domain.team.usecase.LoadDevelopersTeamUseCase
 
 val domainModule = module {
 

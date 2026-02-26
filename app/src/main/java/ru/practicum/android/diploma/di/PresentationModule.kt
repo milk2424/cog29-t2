@@ -6,6 +6,6 @@ import ru.practicum.android.diploma.presentation.team.TeamViewModel
 
 val presentationModule = module {
     viewModel {
-        TeamViewModel(get(),get())
+        TeamViewModel(get(), get())
     }
 }

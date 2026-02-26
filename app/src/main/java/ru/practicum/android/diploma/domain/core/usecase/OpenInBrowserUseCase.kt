@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.core.use_case
+package ru.practicum.android.diploma.domain.core.usecase
 
 import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
 

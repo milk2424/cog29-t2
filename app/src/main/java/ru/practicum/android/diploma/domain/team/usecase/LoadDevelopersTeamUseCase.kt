@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.team.use_case
+package ru.practicum.android.diploma.domain.team.usecase
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.team.model.Developer

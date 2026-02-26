@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.screens.team.ui_elements
+package ru.practicum.android.diploma.ui.screens.team.uielements
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
