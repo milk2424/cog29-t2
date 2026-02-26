@@ -7,6 +7,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.core.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.database.AppDatabase
 import ru.practicum.android.diploma.data.database.converter.ListStringConverter
 import ru.practicum.android.diploma.data.network.ApiService
@@ -15,6 +16,7 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitClient
 import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
 import ru.practicum.android.diploma.domain.NetworkChecker
+import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
 import ru.practicum.android.diploma.domain.team.repository.TeamRepository
 import java.util.concurrent.TimeUnit
 
@@ -63,5 +65,9 @@ val dataModule = module {
 
     single<TeamRepository> {
         TeamRepositoryImpl()
+    }
+
+    single<ExternalNavigator> {
+        ExternalNavigatorImpl(androidContext())
     }
 }

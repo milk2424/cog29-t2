@@ -19,7 +19,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.team.TeamViewModel
 import ru.practicum.android.diploma.ui.screens.team.ui_elements.DeveloperListItem
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
-import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +53,12 @@ fun TeamScreen(viewModel: TeamViewModel = koinViewModel()) {
                 )
             }
             items(listOfDevelopers) { developer ->
-                DeveloperListItem(developer)
+                DeveloperListItem(
+                    developer = developer,
+                    onIconClicked = { url ->
+                        viewModel.onGithubIconClicked(url)
+                    }
+                )
             }
         }
     }

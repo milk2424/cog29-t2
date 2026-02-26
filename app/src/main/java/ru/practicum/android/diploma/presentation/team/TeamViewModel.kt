@@ -5,10 +5,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.core.use_case.OpenInBrowserUseCase
 import ru.practicum.android.diploma.domain.team.model.Developer
 import ru.practicum.android.diploma.domain.team.use_case.LoadDevelopersTeamUseCase
 
-class TeamViewModel(private val loadDevelopersUseCase: LoadDevelopersTeamUseCase) : ViewModel() {
+class TeamViewModel(
+    private val loadDevelopersUseCase: LoadDevelopersTeamUseCase,
+    private val openInBrowserUseCase: OpenInBrowserUseCase
+) : ViewModel() {
 
     private val _developers = MutableStateFlow<List<Developer>>(emptyList())
     val developers = _developers.asStateFlow()
@@ -23,5 +27,9 @@ class TeamViewModel(private val loadDevelopersUseCase: LoadDevelopersTeamUseCase
                 _developers.value = developers
             }
         }
+    }
+
+    fun onGithubIconClicked(url: String) {
+        openInBrowserUseCase(url)
     }
 }
