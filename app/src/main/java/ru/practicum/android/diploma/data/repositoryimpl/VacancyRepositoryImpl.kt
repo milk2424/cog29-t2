@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.domain.api.VacancyRepository
 import ru.practicum.android.diploma.domain.models.VacanciesResult
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.ErrorType
 import ru.practicum.android.diploma.util.Resource
 
 class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyRepository {
@@ -17,7 +18,7 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
         val response = networkClient.doRequest(VacanciesByFilterRequest(text = expression, page = page))
         when (response.resultCode) {
             NO_INTERNET -> {
-                emit(Resource.Error("Проверьте подключение к интернету"))
+                emit(Resource.Error(ErrorType.NO_INTERNET))
             }
 
             HTTP_OK -> {
@@ -47,9 +48,7 @@ class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyR
                 }
             }
 
-            else -> {
-                emit(Resource.Error("Ошибка сервера"))
-            }
+            else -> emit(Resource.Error(ErrorType.SERVER_ERROR))
         }
     }
 }
