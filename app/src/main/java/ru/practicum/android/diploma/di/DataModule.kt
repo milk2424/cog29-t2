@@ -13,7 +13,9 @@ import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitClient
+import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
 import ru.practicum.android.diploma.domain.NetworkChecker
+import ru.practicum.android.diploma.domain.team.repository.TeamRepository
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.com/"
@@ -58,4 +60,8 @@ val dataModule = module {
     }
 
     single { get<AppDatabase>().vacancyDao() }
+
+    single<TeamRepository> {
+        TeamRepositoryImpl()
+    }
 }
