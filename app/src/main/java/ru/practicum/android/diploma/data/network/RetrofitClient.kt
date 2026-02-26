@@ -10,6 +10,9 @@ import ru.practicum.android.diploma.data.dto.vacancies.VacanciesByFilterRequest
 import ru.practicum.android.diploma.data.dto.vacancies.toQueryMap
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailRequest
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailResponse
+import ru.practicum.android.diploma.data.network.HttpCodes.HTTP_BAD_REQUEST
+import ru.practicum.android.diploma.data.network.HttpCodes.HTTP_SERVER_ERROR
+import ru.practicum.android.diploma.data.network.HttpCodes.NO_INTERNET
 import ru.practicum.android.diploma.domain.NetworkChecker
 
 class RetrofitClient(private val apiService: ApiService, private val networkChecker: NetworkChecker) : NetworkClient {
@@ -28,11 +31,5 @@ class RetrofitClient(private val apiService: ApiService, private val networkChec
         } catch (_: Throwable) {
             Response().apply { resultCode = HTTP_SERVER_ERROR }
         }
-    }
-
-    private companion object {
-        const val NO_INTERNET = -1
-        const val HTTP_BAD_REQUEST = 400
-        const val HTTP_SERVER_ERROR = 500
     }
 }
