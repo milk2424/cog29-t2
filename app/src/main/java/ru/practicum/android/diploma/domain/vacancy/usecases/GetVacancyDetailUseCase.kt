@@ -5,6 +5,6 @@ import ru.practicum.android.diploma.domain.api.VacancyRepository
 class GetVacancyDetailUseCase(
     private val repository: VacancyRepository
 ) {
-    operator fun invoke(id:String) =
+    operator fun invoke(id: String) =
         repository.getVacancyDetail(id)
 }
