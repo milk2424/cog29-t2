@@ -18,7 +18,7 @@ import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.team.TeamViewModel
 import ru.practicum.android.diploma.ui.screens.team.uielements.DeveloperListItem
-import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,11 +43,11 @@ fun TeamScreen(viewModel: TeamViewModel = koinViewModel()) {
         LazyColumn(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(horizontal = paddingMedium)
+                .padding(horizontal = paddingLarge)
         ) {
             item {
                 Text(
-                    modifier = Modifier.padding(vertical = paddingMedium),
+                    modifier = Modifier.padding(vertical = paddingLarge),
                     text = stringResource(R.string.developers_of_this_app),
                     style = MaterialTheme.typography.headlineLarge
                 )
