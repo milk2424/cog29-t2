@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.screens.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.search.SearchViewModel
 import ru.practicum.android.diploma.ui.placeholders.InitialPlaceholder
 import ru.practicum.android.diploma.ui.placeholders.Loading
+import ru.practicum.android.diploma.ui.theme.Dimens
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,11 +62,11 @@ fun SearchScreen(
                             )
                         }
                     }
-
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
-                )
+                ),
+                windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
         }
     ) { paddingValues ->
