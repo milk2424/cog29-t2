@@ -13,8 +13,10 @@ import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitClient
+import ru.practicum.android.diploma.data.repositoryimpl.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.repositoryimpl.VacancyRepositoryImpl
 import ru.practicum.android.diploma.domain.NetworkChecker
+import ru.practicum.android.diploma.domain.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.api.VacancyRepository
 import java.util.concurrent.TimeUnit
 
@@ -62,4 +64,6 @@ val dataModule = module {
     single { get<AppDatabase>().vacancyDao() }
 
     single<VacancyRepository> { VacancyRepositoryImpl(get()) }
+
+    single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 }
