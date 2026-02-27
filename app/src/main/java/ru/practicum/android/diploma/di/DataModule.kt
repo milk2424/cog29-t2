@@ -12,13 +12,12 @@ import ru.practicum.android.diploma.data.core.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.database.AppDatabase
 import ru.practicum.android.diploma.data.database.converter.ListStringConverter
 import ru.practicum.android.diploma.data.network.ApiService
-import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
-import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.data.network.RetrofitClient
+import ru.practicum.android.diploma.data.network.utils.NetworkCaller
+import ru.practicum.android.diploma.data.network.utils.NetworkCheckerImpl
 import ru.practicum.android.diploma.data.repositoryimpl.VacancyRepositoryImpl
 import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
-import ru.practicum.android.diploma.domain.NetworkChecker
 import ru.practicum.android.diploma.domain.api.VacancyRepository
+import ru.practicum.android.diploma.domain.api.utils.NetworkChecker
 import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
 import ru.practicum.android.diploma.domain.team.model.Developer
 import ru.practicum.android.diploma.domain.team.repository.TeamRepository
@@ -36,7 +35,8 @@ val dataModule = module {
                 .addInterceptor { chain ->
                     chain.proceed(
                         chain.request().newBuilder()
-                            .addHeader("Authorization", BuildConfig.API_ACCESS_TOKEN)
+                            .addHeader("Authorization", "Bearer ${BuildConfig.API_ACCESS_TOKEN}")
+                            .addHeader("Content-Type", "application/json")
                             .build()
                     )
                 }
@@ -53,8 +53,6 @@ val dataModule = module {
 
         retrofit.create(ApiService::class.java)
     }
-
-    single<NetworkClient> { RetrofitClient(get(), get()) }
 
     single { ListStringConverter(get()) }
 
@@ -82,5 +80,9 @@ val dataModule = module {
         ExternalNavigatorImpl(androidContext())
     }
 
-    single<VacancyRepository> { VacancyRepositoryImpl(get()) }
+    single {
+        NetworkCaller(get())
+    }
+
+    single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }
 }

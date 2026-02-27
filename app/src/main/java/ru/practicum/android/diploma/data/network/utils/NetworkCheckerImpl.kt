@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.network.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import ru.practicum.android.diploma.domain.NetworkChecker
+import ru.practicum.android.diploma.domain.api.utils.NetworkChecker
 
 class NetworkCheckerImpl(private val context: Context) : NetworkChecker {
     override fun isNetworkAvailable(): Boolean {
