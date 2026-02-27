@@ -33,11 +33,11 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
             )
         }
     ) { paddingValues ->
-        //данные есть в бд
+        // данные есть в бд
         VacancyList(emptyList(), paddingValues)
-        //в бд пусто
+        // в бд пусто
         ErrorImageWithDescription(R.drawable.img_favourites_empty_list, R.string.list_is_empty)
-        //ошибка при запросе в бд
+        // ошибка при запросе в бд
         ErrorImageWithDescription(R.drawable.img_cat_error, R.string.cannot_get_vacancies_list)
     }
 

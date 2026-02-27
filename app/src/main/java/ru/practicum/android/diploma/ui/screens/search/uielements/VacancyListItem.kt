@@ -35,7 +35,7 @@ fun VacancyListItem(vacancy: Vacancy, onVacancyClicked: (id: String) -> Unit) {
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
             .padding(vertical = paddingSmall)
-            .clickable{
+            .clickable {
                 onVacancyClicked(vacancy.id)
             }
     ) {

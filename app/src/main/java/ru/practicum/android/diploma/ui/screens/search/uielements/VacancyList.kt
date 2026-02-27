@@ -22,8 +22,8 @@ fun VacancyList(vacancies: List<Vacancy>, paddingValues: PaddingValues) {
             .padding(horizontal = paddingLarge),
     ) {
         items(vacancies) { vacancy ->
-            VacancyListItem(vacancy){
-                //переход на страницу вакансии
+            VacancyListItem(vacancy) {
+                // переход на страницу вакансии
             }
         }
     }
