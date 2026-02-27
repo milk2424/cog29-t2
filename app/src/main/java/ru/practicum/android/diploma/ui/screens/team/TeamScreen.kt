@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.screens.team
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,7 @@ import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.team.TeamViewModel
 import ru.practicum.android.diploma.ui.screens.team.uielements.DeveloperListItem
+import ru.practicum.android.diploma.ui.theme.Dimens
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +38,8 @@ fun TeamScreen(viewModel: TeamViewModel = koinViewModel()) {
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
         }
     ) { paddingValues ->

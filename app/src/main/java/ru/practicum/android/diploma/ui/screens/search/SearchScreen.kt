@@ -86,7 +86,8 @@ fun SearchScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
-                )
+                ),
+                windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
         }
     ) { paddingValues ->
