@@ -29,7 +29,7 @@ class VacancyRepositoryImpl(private val api: ApiService, private val networkCall
     override fun getVacancyDetail(id: String): Flow<ApiResult<Vacancy>> = flow {
         emit(ApiResult.Loading)
         val response = networkCaller.safeApiCall(
-            apiCall = { api.getVacancyDetail(id) },
+            apiCall = { api.getVacancyById(id) },
             transform = { dto -> dto.toDomain() }
         )
         emit(response)

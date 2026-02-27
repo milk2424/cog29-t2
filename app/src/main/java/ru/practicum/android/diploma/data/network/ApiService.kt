@@ -21,7 +21,4 @@ interface ApiService {
 
     @GET("vacancies/{id}")
     suspend fun getVacancyById(@Path("id") id: String): Response<VacancyDetailDto>
-
-    @GET("vacancies/{id}")
-    suspend fun getVacancyDetail(@Path("id") id: String): Response<VacancyDetailDto>
 }
