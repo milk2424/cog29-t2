@@ -6,20 +6,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
-import ru.practicum.android.diploma.presentation.search.SearchViewModel
 import ru.practicum.android.diploma.ui.placeholders.InitialPlaceholder
 import ru.practicum.android.diploma.ui.placeholders.Loading
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
 
 @Composable
-fun SearchScreen(navController: NavController) {
-    val viewModel: SearchViewModel = koinViewModel()
-    val uiState by viewModel.uiState.collectAsState()
+fun SearchScreen(navController: NavController, viewModel: SearchViewModel = koinViewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

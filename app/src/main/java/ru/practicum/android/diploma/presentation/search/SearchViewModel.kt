@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.SearchInteractor
+import ru.practicum.android.diploma.domain.api.utils.ApiResult
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.debounce
 
 class SearchViewModel(
@@ -59,18 +59,18 @@ class SearchViewModel(
         viewModelScope.launch {
             searchInteractor
                 .searchVacancies(query, page = 0)
-                .collect { resource ->
-                    when (resource) {
-                        is Resource.Success -> {
+                .collect { result ->
+                    when (result) {
+                        is ApiResult.Success -> {
                             _uiState.update {
                                 it.copy(
                                     isLoading = false,
-                                    vacancies = resource.data?.vacancies ?: emptyList()
+                                    vacancies = result.data?.vacancies ?: emptyList()
                                 )
                             }
                         }
                         // Будущая обработка ошибок
-                        is Resource.Error -> {
+                        else -> {
                             _uiState.update { it.copy(isLoading = false) }
                         }
                     }

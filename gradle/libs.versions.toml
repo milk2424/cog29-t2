@@ -3,6 +3,7 @@
 java = "VERSION_17"
 
 # Build constants
+kotlinxCollectionsImmutable = "0.4.0"
 minSdk = "26"
 compileSdk = "36"
 targetSdk = "36"
@@ -56,6 +57,7 @@ material3 = "1.4.0"
 
 [libraries]
 # Detekt
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
