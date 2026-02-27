@@ -9,6 +9,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import kotlinx.collections.immutable.persistentListOf
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
@@ -34,7 +35,7 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
         }
     ) { paddingValues ->
         // данные есть в бд
-        VacancyList(emptyList(), paddingValues)
+        VacancyList(persistentListOf(), paddingValues)
         // в бд пусто
         ErrorImageWithDescription(R.drawable.img_favourites_empty_list, R.string.list_is_empty)
         // ошибка при запросе в бд

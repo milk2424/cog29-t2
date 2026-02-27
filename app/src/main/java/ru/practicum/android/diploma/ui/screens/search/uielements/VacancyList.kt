@@ -9,12 +9,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import kotlinx.collections.immutable.ImmutableList
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.extensions.salaryStrings
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 
 @Composable
-fun VacancyList(vacancies: List<Vacancy>, paddingValues: PaddingValues) {
+fun VacancyList(vacancies: ImmutableList<Vacancy>, paddingValues: PaddingValues) {
     val salaryStrings = salaryStrings()
     LazyColumn(
         modifier = Modifier
@@ -23,7 +24,10 @@ fun VacancyList(vacancies: List<Vacancy>, paddingValues: PaddingValues) {
             .padding(paddingValues)
             .padding(horizontal = paddingLarge),
     ) {
-        items(vacancies) { vacancy ->
+        items(
+            items = vacancies,
+            key = { it.id }
+        ) { vacancy ->
             VacancyListItem(vacancy, salaryStrings) {
                 // переход на страницу вакансии
             }
