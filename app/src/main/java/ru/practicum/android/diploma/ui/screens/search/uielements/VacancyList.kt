@@ -10,10 +10,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.presentation.extensions.salaryStrings
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 
 @Composable
 fun VacancyList(vacancies: List<Vacancy>, paddingValues: PaddingValues) {
+    val salaryStrings = salaryStrings()
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -22,7 +24,7 @@ fun VacancyList(vacancies: List<Vacancy>, paddingValues: PaddingValues) {
             .padding(horizontal = paddingLarge),
     ) {
         items(vacancies) { vacancy ->
-            VacancyListItem(vacancy) {
+            VacancyListItem(vacancy, salaryStrings) {
                 // переход на страницу вакансии
             }
         }

@@ -19,17 +19,16 @@ import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.presentation.extensions.salaryStrings
 import ru.practicum.android.diploma.ui.theme.Dimens.iconCorners
 import ru.practicum.android.diploma.ui.theme.Dimens.logoBorderThickness
 import ru.practicum.android.diploma.ui.theme.Dimens.logoMedium
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
+import ru.practicum.android.diploma.util.SalaryStrings
 
 @Composable
-fun VacancyListItem(vacancy: Vacancy, onVacancyClicked: (id: String) -> Unit) {
+fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyClicked: (id: String) -> Unit) {
     val imageShape = RoundedCornerShape(iconCorners)
-    val salaryStrings = salaryStrings()
     Row(
         modifier = Modifier
             .fillMaxWidth()
