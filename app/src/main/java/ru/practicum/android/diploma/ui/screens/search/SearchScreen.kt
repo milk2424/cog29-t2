@@ -75,7 +75,6 @@ fun SearchScreen(
                 .padding(paddingValues)
                 .padding(paddingLarge)
         ) {
-
             SearchTextField(
                 query = uiState.query,
                 onQueryChanged = viewModel::onQueryChanged,
