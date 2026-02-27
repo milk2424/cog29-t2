@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.screens.favorites
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -15,6 +16,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
 import ru.practicum.android.diploma.ui.core.uielements.ErrorImageWithDescription
 import ru.practicum.android.diploma.ui.screens.search.uielements.VacancyList
+import ru.practicum.android.diploma.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +32,8 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
         }
     ) { paddingValues ->

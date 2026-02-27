@@ -12,4 +12,5 @@ object Dimens {
     val iconCorners = 12.dp
     val iconMedium = 24.dp
     val logoMedium = 48.dp
+    val insetsZero = 0.dp
 }
