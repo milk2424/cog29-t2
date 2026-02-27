@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.screens.search
+package ru.practicum.android.diploma.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.SearchInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.Resource
 import ru.practicum.android.diploma.util.debounce
 
 class SearchViewModel(
@@ -60,7 +61,7 @@ class SearchViewModel(
                 .searchVacancies(query, page = 0)
                 .collect { resource ->
                     when (resource) {
-                        is ru.practicum.android.diploma.util.Resource.Success -> {
+                        is Resource.Success -> {
                             _uiState.update {
                                 it.copy(
                                     isLoading = false,
@@ -69,7 +70,7 @@ class SearchViewModel(
                             }
                         }
                         // Будущая обработка ошибок
-                        is ru.practicum.android.diploma.util.Resource.Error -> {
+                        is Resource.Error -> {
                             _uiState.update { it.copy(isLoading = false) }
                         }
                     }
