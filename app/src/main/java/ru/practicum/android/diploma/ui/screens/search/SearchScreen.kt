@@ -44,7 +44,8 @@ import ru.practicum.android.diploma.ui.screens.search.uielements.VacancyList
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    navController: NavController, viewModel: SearchViewModel = koinViewModel()
+    navController: NavController,
+    viewModel: SearchViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -59,11 +60,13 @@ fun SearchScreen(
     }
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background, topBar = {
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
             TopAppBar(
                 title = {
                     Row(
-                        modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = stringResource(R.string.tab_main),
@@ -80,11 +83,13 @@ fun SearchScreen(
                         }
                     }
 
-                }, colors = TopAppBarDefaults.topAppBarColors(
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
                 )
             )
-        }) { paddingValues ->
+        }
+    ) { paddingValues ->
 
         Column(
             modifier = Modifier
