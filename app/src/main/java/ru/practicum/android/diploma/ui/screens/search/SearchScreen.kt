@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
+import ru.practicum.android.diploma.presentation.search.SearchViewModel
 import ru.practicum.android.diploma.ui.placeholders.InitialPlaceholder
 import ru.practicum.android.diploma.ui.placeholders.Loading
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingMedium
