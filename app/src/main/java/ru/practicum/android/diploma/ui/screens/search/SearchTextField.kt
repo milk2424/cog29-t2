@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.theme.Dimens.cornerRadius
+import ru.practicum.android.diploma.ui.theme.Dimens.iconCorners
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
 
 @Composable
@@ -30,7 +30,7 @@ fun SearchTextField(
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChanged,
-        shape = RoundedCornerShape(cornerRadius),
+        shape = RoundedCornerShape(iconCorners),
         modifier = Modifier
             .padding(vertical = paddingSmall)
             .fillMaxWidth(),
