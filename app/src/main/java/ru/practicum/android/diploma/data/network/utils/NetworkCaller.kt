@@ -11,9 +11,12 @@ class NetworkCaller(private val networkChecker: NetworkChecker) {
         return try {
             val response = apiCall()
             if (response.isSuccessful) {
-                val resultData = response.body()!!
-                val mappedData = transform(resultData)
-                ApiResult.Success(mappedData)
+                val resultData = response.body()
+                if (resultData == null) ApiResult.ServerError
+                else {
+                    val mappedData = transform(resultData)
+                    ApiResult.Success(mappedData)
+                }
             } else {
                 ApiResult.ServerError
             }

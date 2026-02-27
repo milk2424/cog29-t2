@@ -11,14 +11,14 @@ import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailDto
 
 interface ApiService {
     @GET("areas")
-    suspend fun getAreas(): List<FilterAreaDto>
+    suspend fun getAreas(): Response<List<FilterAreaDto>>
 
     @GET("industries")
-    suspend fun getIndustries(): List<FilterIndustryDto>
+    suspend fun getIndustries(): Response<List<FilterIndustryDto>>
 
     @GET("vacancies")
     suspend fun getVacancies(@QueryMap options: Map<String, String>): Response<VacanciesResponse>
 
     @GET("vacancies/{id}")
-    suspend fun getVacancyById(@Path("id") id: String): VacancyDetailDto
+    suspend fun getVacancyById(@Path("id") id: String): Response<VacancyDetailDto>
 }
