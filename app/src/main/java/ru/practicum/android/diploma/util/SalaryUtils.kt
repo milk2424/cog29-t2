@@ -29,12 +29,12 @@ data class SalaryStrings(
 fun formatSalaryRange(
     min: Int?,
     max: Int?,
-    currency: Currency?,
+    currency: String?,
     strings: SalaryStrings
 ): String {
     val minStr = min?.let { formatNumber(it) } ?: ""
     val maxStr = max?.let { formatNumber(it) } ?: ""
-    val symbol = currency?.symbol ?: ""
+    val symbol = currency ?: ""
 
     return when {
         min != null && max != null -> "${strings.from} $minStr ${strings.to} $maxStr $symbol"
