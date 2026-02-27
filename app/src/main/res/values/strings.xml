@@ -4,7 +4,7 @@
     <string name="from">От</string>
     <string name="to">До</string>
 
-    <string name="tab_main">Главная</string>
+    <string name="tab_main">Поиск вакансий</string>
     <string name="tab_favorites">Избранное</string>
     <string name="tab_team">Команда</string>
 
@@ -25,6 +25,8 @@
 
     <string name="dev_sergeev_name">Сергеев Андрей</string>
     <string name="dev_sergeev_github">https://github.com/ProklB</string>
+
+    <string name="search_placeholder">Введите запрос</string>
 
     <string name="list_is_empty">Список пуст</string>
     <string name="cannot_get_vacancies_list">Не удалось получить список вакансий</string>
