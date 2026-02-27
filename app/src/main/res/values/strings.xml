@@ -7,4 +7,22 @@
     <string name="tab_main">Главная</string>
     <string name="tab_favorites">Избранное</string>
     <string name="tab_team">Команда</string>
+
+    <string name="github_link">Ссылка на гитхаб</string>
+    <string name="developers_of_this_app">Над приложением работали</string>
+
+    <string name="dev_vinokurov_name">Винокуров Степан</string>
+    <string name="dev_vinokurov_github">https://github.com/Vinokurov-Stepan</string>
+
+    <string name="dev_milko_name">Милько Дмитрий</string>
+    <string name="dev_milko_github">https://github.com/milk2424</string>
+
+    <string name="dev_pchelintsev_name">Пчелинцев Андрей</string>
+    <string name="dev_pchelintsev_github">https://github.com/grey-bee</string>
+
+    <string name="dev_salnikov_name">Сальников Антон</string>
+    <string name="dev_salnikov_github">https://github.com/LampJuice</string>
+
+    <string name="dev_sergeev_name">Сергеев Андрей</string>
+    <string name="dev_sergeev_github">https://github.com/ProklB</string>
 </resources>

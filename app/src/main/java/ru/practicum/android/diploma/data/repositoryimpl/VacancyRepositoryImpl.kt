@@ -1,34 +1,26 @@
 package ru.practicum.android.diploma.data.repositoryimpl
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import ru.practicum.android.diploma.data.dto.vacancies.VacanciesByFilterRequest
-import ru.practicum.android.diploma.data.dto.vacancies.VacanciesResponse
-import ru.practicum.android.diploma.data.mapper.toDomain
-import ru.practicum.android.diploma.data.network.HttpCodes.HTTP_OK
-import ru.practicum.android.diploma.data.network.HttpCodes.NO_INTERNET
-import ru.practicum.android.diploma.data.network.NetworkClient
+import ru.practicum.android.diploma.data.dto.vacancies.toDomain
+import ru.practicum.android.diploma.data.dto.vacancies.toQueryMap
+import ru.practicum.android.diploma.data.network.ApiService
+import ru.practicum.android.diploma.data.network.utils.NetworkCaller
 import ru.practicum.android.diploma.domain.api.VacancyRepository
+import ru.practicum.android.diploma.domain.api.utils.ApiResult
 import ru.practicum.android.diploma.domain.models.VacanciesResult
-import ru.practicum.android.diploma.util.ErrorType
-import ru.practicum.android.diploma.util.Resource
 
-class VacancyRepositoryImpl(private val networkClient: NetworkClient) : VacancyRepository {
-    override fun searchVacancies(expression: String, page: Int): Flow<Resource<VacanciesResult>> = flow {
-        val response = networkClient.doRequest(VacanciesByFilterRequest(text = expression, page = page))
-        when (response.resultCode) {
-            NO_INTERNET -> {
-                emit(Resource.Error(ErrorType.NO_INTERNET))
-            }
-
-            HTTP_OK -> {
-                with(response as VacanciesResponse) {
-                    val data = vacancies.map { it.toDomain() }
-                    emit(Resource.Success(VacanciesResult(data, found, this.page, pages)))
-                }
-            }
-
-            else -> emit(Resource.Error(ErrorType.SERVER_ERROR))
-        }
-    }
+class VacancyRepositoryImpl(private val api: ApiService, private val networkCaller: NetworkCaller) : VacancyRepository {
+    override fun searchVacancies(expression: String, page: Int): Flow<ApiResult<VacanciesResult>> = flow {
+        emit(ApiResult.Loading)
+        val request = VacanciesByFilterRequest(text = expression, page = page)
+        val response = networkCaller.safeApiCall(
+            apiCall = { api.getVacancies(request.toQueryMap()) },
+            transform = { dto -> dto.toDomain() }
+        )
+        emit(response)
+    }.flowOn(Dispatchers.IO)
 }
