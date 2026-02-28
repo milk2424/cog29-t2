@@ -21,9 +21,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -49,13 +46,9 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    var clickTimer by remember { mutableLongStateOf(0L) }
-    val debouncedOnVacancyClick = remember(CLICK_DEBOUNCE_DELAY) {
-        { vacancyId: String ->
-            val currentTime = System.currentTimeMillis()
-            if (currentTime - clickTimer >= CLICK_DEBOUNCE_DELAY) {
-                navController.navigate("vacancy/$vacancyId")
-            }
+    val debouncedOnVacancyClick = { vacancyId: String ->
+        navController.navigate("vacancy/$vacancyId") {
+            launchSingleTop = true
         }
     }
 
@@ -82,7 +75,6 @@ fun SearchScreen(
                             )
                         }
                     }
-
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
@@ -162,5 +154,3 @@ private fun ShowDescription(
         )
     }
 }
-
-private const val CLICK_DEBOUNCE_DELAY = 1_000L
