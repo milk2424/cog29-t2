@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.domain.models.VacancyContacts
 import ru.practicum.android.diploma.domain.models.VacancyEmployer
 import ru.practicum.android.diploma.domain.models.VacancySalary
 
-@Suppress("StringLiteralDuplication")
+@Suppress("StringLiteralDuplication", "MaxLineLength")
 object PreviewData {
     val previewVacancy get() = previewVacancies[0]
 
@@ -26,7 +26,7 @@ object PreviewData {
         FilterIndustryDto(id = "41", name = "Розничная торговля"),
     )
 
-    private val descriptionSample = "Задачи, которые могут стать твоими:\n\n" +
+    private const val DESCRIPTION_SAMPLE ="Задачи, которые могут стать твоими:\n\n" +
         "Разработка новой функциональности мобильного приложения под Android, его архитектуры и исправление существующих недостатков;\n" +
         "Написание качественного, чистого, читаемого кода, code-review;\n" +
         "Разработка общих архитектурных решений;\n\n" +
@@ -50,7 +50,7 @@ object PreviewData {
             ),
             areaName = "Чекрушево",
             salary = VacancySalary(from = 1500, to = 2500, currency = "EUR"),
-            description = descriptionSample,
+            description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
             employment = "Полная занятость",
@@ -71,7 +71,7 @@ object PreviewData {
             ),
             areaName = "Новотулка (Самарская область)",
             salary = VacancySalary(from = null, to = 2200, currency = "GBP"),
-            description = descriptionSample,
+            description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
             employment = "Полная занятость",
@@ -92,7 +92,7 @@ object PreviewData {
             ),
             areaName = "Комсомольск (Ивановская область)",
             salary = VacancySalary(from = 8000, to = 18000, currency = "HKD"),
-            description = descriptionSample,
+            description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
             employment = "Полная занятость",
@@ -113,7 +113,7 @@ object PreviewData {
             ),
             areaName = "Сосновый",
             salary = VacancySalary(from = 1500, to = 2500, currency = "EUR"),
-            description = descriptionSample,
+            description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
             employment = "Полная занятость",
@@ -134,7 +134,7 @@ object PreviewData {
             ),
             areaName = "Судай",
             salary = VacancySalary(from = 1500, to = 2500, currency = "EUR"),
-            description = descriptionSample,
+            description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
             employment = "Полная занятость",

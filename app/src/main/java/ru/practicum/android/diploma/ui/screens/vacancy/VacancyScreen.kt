@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyContacts
 import ru.practicum.android.diploma.presentation.extensions.salaryStrings
 import ru.practicum.android.diploma.ui.preview.PreviewData
 import ru.practicum.android.diploma.ui.theme.DiplomaTheme
@@ -57,11 +58,9 @@ fun VacancyScreen(
 
         else -> R.drawable.favorites_off__24px
     }
-
     val showActions = state is VacancyScreenState.Content ||
-        (state is VacancyScreenState.Error && state.type == VacancyScreenState.ErrorType.NOT_FOUND)
+        state is VacancyScreenState.Error && state.type == VacancyScreenState.ErrorType.NOT_FOUND
     val actionsEnabled = state is VacancyScreenState.Content
-
     Scaffold(
         topBar = {
             VacancyTopBar(
@@ -105,7 +104,6 @@ fun VacancyScreen(
                 }
             }
         }
-
     }
 }
 
@@ -137,47 +135,12 @@ fun ContentBody(vacancy: Vacancy) {
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
         )
-        Card(
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.outline
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(0.dp, 24.dp, 0.dp, 0.dp),
-        ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // лого
-                AsyncImage(
-                    model = vacancy.employer.logo,
-                    contentDescription = null,
-                    placeholder = painterResource(R.drawable.img_no_employer_logo),
-                    error = painterResource(R.drawable.img_no_employer_logo),
-                    modifier = Modifier.size(48.dp)
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Column {
-                    Text(
-                        vacancy.employer.name,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    Text(
-                        vacancy.areaName,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-            }
-        }
+        EmployerCard(vacancy)
         Spacer(modifier = Modifier.height(24.dp))
         vacancy.experience?.let {
             Text(
-                stringResource(R.string.required_experience), style = MaterialTheme.typography.titleMedium,
+                stringResource(R.string.required_experience),
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -187,12 +150,16 @@ fun ContentBody(vacancy: Vacancy) {
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
-        val scheduleInfo = listOfNotNull(vacancy.employment, vacancy.schedule)
+        val scheduleInfo = listOfNotNull(
+            vacancy.employment,
+            vacancy.schedule
+        )
             .joinToString(", ")
         if (scheduleInfo.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                scheduleInfo, style = MaterialTheme.typography.bodyLarge,
+                scheduleInfo,
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
@@ -204,68 +171,117 @@ fun ContentBody(vacancy: Vacancy) {
         )
         DescriptionBlock(vacancy.description)
         if (vacancy.skills.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = stringResource(R.string.key_skills),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            vacancy.skills.forEach { skill ->
-                Row(modifier = Modifier.padding(start = 8.dp)) {
-                    Text(
-                        text = "·  ",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = skill,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                }
-            }
+            SkillsBlock(vacancy.skills)
         }
-
         vacancy.contacts?.let { contacts ->
-            Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = stringResource(R.string.contacts),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground,
+            ContactsBlock(contacts)
+        }
+    }
+}
+
+@Composable
+fun EmployerCard(vacancy: Vacancy) {
+    Card(
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.outline
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 24.dp, 0.dp, 0.dp),
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = vacancy.employer.logo,
+                contentDescription = null,
+                placeholder = painterResource(R.drawable.img_no_employer_logo),
+                error = painterResource(R.drawable.img_no_employer_logo),
+                modifier = Modifier.size(48.dp)
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            contacts.name?.takeIf { it.isNotBlank() }?.let {
+            Spacer(modifier = Modifier.width(12.dp))
+            Column {
                 Text(
-                    stringResource(R.string.contact_person),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground
+                    vacancy.employer.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onBackground)
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            contacts.email?.takeIf { it.isNotBlank() }?.let {
                 Text(
-                    "E-mail",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground
+                    vacancy.areaName,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            contacts.phone?.forEach { phone ->
-                Text(
-                    stringResource(R.string.phone),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(phone, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
-                Spacer(modifier = Modifier.height(16.dp))
             }
         }
+    }
+}
+
+@Composable
+fun SkillsBlock(skills: List<String>) {
+    Spacer(modifier = Modifier.height(24.dp))
+    Text(
+        text = stringResource(R.string.key_skills),
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.onBackground,
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    skills.forEach { skill ->
+        Row(modifier = Modifier.padding(start = 8.dp)) {
+            Text(
+                text = "·  ",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = skill,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+    }
+}
+
+@Composable
+fun ContactsBlock(contacts: VacancyContacts) {
+    Spacer(modifier = Modifier.height(24.dp))
+    Text(
+        text = stringResource(R.string.contacts),
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.onBackground,
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    contacts.name?.takeIf { it.isNotBlank() }?.let {
+        Text(
+            stringResource(R.string.contact_person),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onBackground)
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+    contacts.email?.takeIf { it.isNotBlank() }?.let {
+        Text(
+            "E-mail",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+    contacts.phone?.forEach { phone ->
+        Text(
+            stringResource(R.string.phone),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(phone, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -298,8 +314,7 @@ fun VacancyTopBar(
                 IconButton(
                     onClick = onShareClick,
                     enabled = actionsEnabled
-                )
-                {
+                ) {
                     Icon(
                         painterResource(R.drawable.sharing_24px),
                         tint = MaterialTheme.colorScheme.onBackground,
@@ -309,8 +324,7 @@ fun VacancyTopBar(
                 IconButton(
                     onClick = onFavoriteClick,
                     enabled = actionsEnabled
-                )
-                {
+                ) {
                     Icon(
                         painterResource(favoriteIcon),
                         tint = MaterialTheme.colorScheme.onBackground,
@@ -353,7 +367,6 @@ fun DescriptionBlock(description: String) {
         }
     }
 }
-
 
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 360, heightDp = 1400)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)

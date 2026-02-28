@@ -47,7 +47,7 @@ fun MainScreen() {
                 val id = backStackEntry.arguments?.getString("id") ?: ""
                 if (id.isNotEmpty()) {
                     VacancyScreen(
-                        state = VacancyScreenState.Loading, //TODO заменить на реальный стейт
+                        state = VacancyScreenState.Loading, // заменить на реальный стейт
                         onBackClick = {},
                         onShareClick = {},
                         onFavoriteClick = {},
