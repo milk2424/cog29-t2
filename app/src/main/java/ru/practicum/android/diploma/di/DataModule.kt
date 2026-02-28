@@ -84,5 +84,5 @@ val dataModule = module {
         NetworkCaller(get())
     }
 
-    single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }
+    single<VacancyRepository> { VacancyRepositoryImpl(get(), get(), get()) }
 }
