@@ -23,8 +23,16 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel = koinViewModel()) {
-    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+fun FavoritesScreen(
+    navController: NavController,
+    viewModel: FavoritesViewModel = koinViewModel()
+) {
+    val debouncedOnVacancyClick = { vacancyId: String ->
+        navController.navigate("vacancy/$vacancyId") {
+            launchSingleTop = true
+        }
+    }
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -39,6 +47,9 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                 windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
+            
+            VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
+            
         }
     ) { paddingValues ->
         when (val state = screenState) {
@@ -55,14 +66,8 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
             is FavoritesScreenState.Loading -> Loading()
 
             is FavoritesScreenState.Success -> {
-                VacancyList(
-                    state.vacancies,
-                    paddingValues
-                ) { id ->
-                    navController.navigate("vacancy/$id")
-                }
+                VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
             }
         }
     }
-
 }

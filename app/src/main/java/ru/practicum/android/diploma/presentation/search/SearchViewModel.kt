@@ -85,7 +85,8 @@ class SearchViewModel(
 
 data class SearchUiState(
     val query: String = "",
-    val isLoading: Boolean = false,
     val isInitial: Boolean = true,
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
     val vacancies: List<Vacancy> = emptyList()
 )

@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.theme.Dimens.iconCorners
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
 
 @Composable
@@ -32,7 +33,7 @@ fun SearchTextField(
         onValueChange = onQueryChanged,
         shape = RoundedCornerShape(iconCorners),
         modifier = Modifier
-            .padding(vertical = paddingSmall)
+            .padding(vertical = paddingSmall, horizontal = paddingLarge)
             .fillMaxWidth(),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.surface,
