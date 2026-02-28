@@ -15,7 +15,11 @@ import ru.practicum.android.diploma.presentation.extensions.salaryStrings
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 
 @Composable
-fun VacancyList(vacancies: ImmutableList<Vacancy>, paddingValues: PaddingValues) {
+fun VacancyList(
+    vacancies: ImmutableList<Vacancy>,
+    paddingValues: PaddingValues,
+    onVacancyClicked: (id: String) -> Unit
+) {
     val salaryStrings = salaryStrings()
     LazyColumn(
         modifier = Modifier
@@ -28,8 +32,8 @@ fun VacancyList(vacancies: ImmutableList<Vacancy>, paddingValues: PaddingValues)
             items = vacancies,
             key = { it.id }
         ) { vacancy ->
-            VacancyListItem(vacancy, salaryStrings) {
-                // переход на страницу вакансии
+            VacancyListItem(vacancy, salaryStrings) { id ->
+                onVacancyClicked(id)
             }
         }
     }
