@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.screens.vacancy
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,9 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +40,6 @@ import ru.practicum.android.diploma.ui.preview.PreviewData
 import ru.practicum.android.diploma.ui.theme.DiplomaTheme
 import ru.practicum.android.diploma.util.Currency
 import ru.practicum.android.diploma.util.formatSalaryRange
-
 
 @Composable
 fun VacancyScreen(
@@ -78,10 +81,23 @@ fun VacancyScreen(
                 .padding(0.dp, 16.dp, 0.dp, 0.dp)
         ) {
             when (state) {
-                is VacancyScreenState.Loading -> { /* спиннер */
+                is VacancyScreenState.Loading -> {
+                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                    }
                 }
 
-                is VacancyScreenState.Error -> { /* плейсхолдер по state.type */
+                is VacancyScreenState.Error -> {
+                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(
+                            text = when (state.type) {
+                                VacancyScreenState.ErrorType.SERVER_ERROR -> stringResource(R.string.server_error)
+                                VacancyScreenState.ErrorType.NOT_FOUND -> stringResource(R.string.vacancy_not_found)
+                            },
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
                 }
 
                 is VacancyScreenState.Content -> {
@@ -99,7 +115,11 @@ fun ContentBody(vacancy: Vacancy) {
     val currencySymbol = vacancy.salary?.currency?.let { code ->
         runCatching { Currency.valueOf(code).symbol }.getOrDefault(code)
     }
-    Column(modifier = Modifier.padding(16.dp, 0.dp)) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp, 0.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
         Text(
             vacancy.name,
             style = MaterialTheme.typography.headlineLarge,
@@ -120,7 +140,7 @@ fun ContentBody(vacancy: Vacancy) {
         Card(
             shape = RoundedCornerShape(12.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
+                containerColor = MaterialTheme.colorScheme.outline
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             modifier = Modifier
@@ -144,34 +164,38 @@ fun ContentBody(vacancy: Vacancy) {
                     Text(
                         vacancy.employer.name,
                         style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                     Text(
                         vacancy.areaName,
                         style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
         }
         Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            stringResource(R.string.required_experience),
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            "${vacancy.experience}",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            "${vacancy.employment}, ${vacancy.schedule}",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
+        vacancy.experience?.let {
+            Text(
+                stringResource(R.string.required_experience), style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                it,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+        val scheduleInfo = listOfNotNull(vacancy.employment, vacancy.schedule)
+            .joinToString(", ")
+        if (scheduleInfo.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                scheduleInfo, style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
         Spacer(modifier = Modifier.height(32.dp))
         Text(
             stringResource(R.string.vacancy_description),
@@ -179,7 +203,6 @@ fun ContentBody(vacancy: Vacancy) {
             color = MaterialTheme.colorScheme.onBackground,
         )
         DescriptionBlock(vacancy.description)
-
         if (vacancy.skills.isNotEmpty()) {
             Spacer(modifier = Modifier.height(24.dp))
             Text(
@@ -203,8 +226,47 @@ fun ContentBody(vacancy: Vacancy) {
                 }
             }
         }
-    }
 
+        vacancy.contacts?.let { contacts ->
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = stringResource(R.string.contacts),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            contacts.name?.takeIf { it.isNotBlank() }?.let {
+                Text(
+                    stringResource(R.string.contact_person),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onBackground)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            contacts.email?.takeIf { it.isNotBlank() }?.let {
+                Text(
+                    "E-mail",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            contacts.phone?.forEach { phone ->
+                Text(
+                    stringResource(R.string.phone),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(phone, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -228,7 +290,7 @@ fun VacancyTopBar(
                 stringResource(id = R.string.vacancy),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(start =4.dp),
+                modifier = Modifier.padding(start = 4.dp),
             )
         },
         actions = {
@@ -266,8 +328,7 @@ fun VacancyTopBar(
 
 @Composable
 fun DescriptionBlock(description: String) {
-    description.split("\n").forEach { line ->
-        if (line.isBlank()) return@forEach
+    description.split("\n").filter { it.isNotBlank() }.forEach { line ->
         if (line.trimEnd().endsWith(":")) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -294,7 +355,7 @@ fun DescriptionBlock(description: String) {
 }
 
 
-@Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showSystemUi = true)
+@Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 360, heightDp = 1400)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewVacancyScreen() {

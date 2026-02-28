@@ -34,4 +34,9 @@
     <string name="vacancy_description">Описание вакансии</string>
     <string name="responsibilities">Обязанности</string>
     <string name="key_skills">Ключевые навыки</string>
+    <string name="contacts">Контакты</string>
+    <string name="contact_person">Контактное лицо</string>
+    <string name="phone">Номер телеофона</string>
+    <string name="server_error">Ошибка Сервера</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
 </resources>
