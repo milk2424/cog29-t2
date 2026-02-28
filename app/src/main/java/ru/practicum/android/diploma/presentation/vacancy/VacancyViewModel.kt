@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.utils.ApiResult
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.impl.FavoritesInteractorImpl
+import ru.practicum.android.diploma.domain.impl.FavoritesInteractor
 import ru.practicum.android.diploma.domain.vacancy.usecases.GetVacancyDetailUseCase
 
 class VacancyViewModel(
@@ -69,89 +69,42 @@ class VacancyViewModel(
         currentVacancy?.let { getVacancyDetailUseCase.shareVacancy(it.getShareText()) }
     }
 
-    private fun Vacancy.getShareText(): String {
+    fun Vacancy.getShareText(): String {
         return buildString {
-            appendLine("$🔹 ВАКАНСИЯ: $name")
-            appendLine("═══════════════════════════")
-            appendLine()
-
-            appendLine("🏢 Компания: ${employer.name}")
-            if (!employer.logo.isNullOrEmpty()) {
-                appendLine("🖼 Логотип: ${employer.logo}")
-            }
-            appendLine()
-
-            appendLine("📍 Город: $areaName")
-            appendLine()
-
+            appendLine("🔹 $name")
+            appendLine("🏢 ${employer.name}")
+            appendLine("📍 $areaName")
             salary?.let {
-                append("💰 Зарплата: ")
                 when {
-                    it.from != null && it.to != null -> appendLine("от ${it.from} до ${it.to} ${it.currency}")
-                    it.from != null -> appendLine("от ${it.from} ${it.currency}")
-                    it.to != null -> appendLine("до ${it.to} ${it.currency}")
-                    else -> appendLine("не указана")
+                    it.from != null && it.to != null -> appendLine("💰 ${it.from}–${it.to} ${it.currency}")
+                    it.from != null -> appendLine("💰 от ${it.from} ${it.currency}")
+                    it.to != null -> appendLine("💰 до ${it.to} ${it.currency}")
                 }
-                appendLine()
-            } ?: run {
-                appendLine("💰 Зарплата: не указана")
-                appendLine()
             }
-
-            if (!experience.isNullOrBlank()) {
-                appendLine("📌 Опыт работы: $experience")
-                appendLine()
-            }
-
-            if (!schedule.isNullOrBlank() || !employment.isNullOrBlank()) {
-                append("⏰ Режим работы: ")
-                val workInfo = listOfNotNull(employment, schedule).joinToString(" · ")
-                appendLine(workInfo)
-                appendLine()
-            }
-
+            if (!experience.isNullOrBlank()) appendLine("📌 $experience")
+            val workInfo = listOfNotNull(employment, schedule).joinToString(" · ")
+            if (workInfo.isNotBlank()) appendLine("⏰ $workInfo")
             if (description.isNotBlank()) {
-                appendLine("📋 Описание:")
-                appendLine(description)
                 appendLine()
+                appendLine("📋 $description")
             }
-
             if (skills.isNotEmpty()) {
-                appendLine("🔧 Ключевые навыки:")
-                skills.forEachIndexed { index, skill ->
-                    appendLine("  ${index + 1}. $skill")
-                }
                 appendLine()
+                appendLine("🔧 ${skills.joinToString(" · ")}")
             }
-
             contacts?.let {
-                var hasContacts = false
                 val contactsText = StringBuilder()
-
                 it.phone?.let { phone ->
-                    contactsText.appendLine("📞 Телефон: $phone")
-                    hasContacts = true
+                    contactsText.appendLine("📞 $phone")
                 }
-
                 it.email?.let { email ->
-                    contactsText.appendLine("✉️ Email: $email")
-                    hasContacts = true
-                }
-
-                if (hasContacts) {
-                    appendLine("📱 Контакты:")
-                    append(contactsText.toString())
-                    appendLine()
+                    contactsText.appendLine("✉️ $email")
                 }
             }
-
             if (url.isNotBlank()) {
-                appendLine("🔗 Ссылка на вакансию:")
-                appendLine(url)
                 appendLine()
+                appendLine("🔗 $url")
             }
-
-            appendLine("═══════════════════════════")
         }
     }
 }
