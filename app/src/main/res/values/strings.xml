@@ -30,4 +30,8 @@
     <string name="cannot_get_vacancies_list">Не удалось Вакансия список вакансий</string>
 
     <string name="vacancy">Вакансия</string>
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="responsibilities">Обязанности</string>
+    <string name="key_skills">Ключевые навыки</string>
 </resources>

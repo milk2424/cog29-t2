@@ -148,14 +148,63 @@ fun ContentBody(vacancy: Vacancy) {
                     )
                     Text(
                         vacancy.areaName,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            stringResource(R.string.required_experience),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            "${vacancy.experience}",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            "${vacancy.employment}, ${vacancy.schedule}",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        Text(
+            stringResource(R.string.vacancy_description),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        DescriptionBlock(vacancy.description)
+
+        if (vacancy.skills.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = stringResource(R.string.key_skills),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            vacancy.skills.forEach { skill ->
+                Row(modifier = Modifier.padding(start = 8.dp)) {
+                    Text(
+                        text = "·  ",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = skill,
+                        style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
             }
         }
     }
-    Spacer(modifier = Modifier.height(24.dp))
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -179,7 +228,7 @@ fun VacancyTopBar(
                 stringResource(id = R.string.vacancy),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(4.dp, 0.dp, 0.dp, 0.dp),
+                modifier = Modifier.padding(start =4.dp),
             )
         },
         actions = {
@@ -213,6 +262,35 @@ fun VacancyTopBar(
             containerColor = MaterialTheme.colorScheme.background
         )
     )
+}
+
+@Composable
+fun DescriptionBlock(description: String) {
+    description.split("\n").forEach { line ->
+        if (line.isBlank()) return@forEach
+        if (line.trimEnd().endsWith(":")) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = line,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+        } else {
+            Row(modifier = Modifier.padding(start = 8.dp)) {
+                Text(
+                    text = "·  ",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Text(
+                    text = line,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+        }
+    }
 }
 
 
