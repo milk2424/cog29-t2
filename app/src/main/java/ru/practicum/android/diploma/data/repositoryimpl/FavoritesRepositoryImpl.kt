@@ -14,4 +14,3 @@ class FavoritesRepositoryImpl(private val dao: VacancyDao) : FavoritesRepository
     override suspend fun delete(vacancyId: String) = dao.deleteVacancy(vacancyId)
     override suspend fun isFavorite(vacancyId: String): Boolean = dao.getVacancy(vacancyId) != null
 }
-

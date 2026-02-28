@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.data.mapper
 
-import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailDto
 import ru.practicum.android.diploma.data.database.entity.VacancyEntity
+import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailDto
 import ru.practicum.android.diploma.data.model.Contacts
 import ru.practicum.android.diploma.data.model.Employer
 import ru.practicum.android.diploma.data.model.Employment
