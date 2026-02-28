@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.utils.ApiResult
-import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.impl.FavoritesInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.usecases.GetVacancyDetailUseCase
 
 class VacancyViewModel(
@@ -66,45 +66,75 @@ class VacancyViewModel(
     }
 
     fun shareVacancy() {
-        currentVacancy?.let { getVacancyDetailUseCase.shareVacancy(it.getShareText()) }
+        currentVacancy?.let { getVacancyDetailUseCase.shareVacancy(getShareText()) }
     }
 
-    fun Vacancy.getShareText(): String {
-        return buildString {
-            appendLine("🔹 $name")
-            appendLine("🏢 ${employer.name}")
-            appendLine("📍 $areaName")
-            salary?.let {
-                when {
-                    it.from != null && it.to != null -> appendLine("💰 ${it.from}–${it.to} ${it.currency}")
-                    it.from != null -> appendLine("💰 от ${it.from} ${it.currency}")
-                    it.to != null -> appendLine("💰 до ${it.to} ${it.currency}")
-                }
+    private fun getShareText(): String = buildString {
+        currentVacancy?.let {
+            appendHeader()
+            appendSalary()
+            appendIfNotBlank("📌 ", it.experience)
+            appendWorkInfo()
+            appendIfNotBlank("\n📋 ", it.description)
+            appendSkills()
+            appendContacts()
+            appendIfNotBlank("\n🔗 ", it.url)
+        }
+    }
+
+    private fun StringBuilder.appendHeader() {
+        currentVacancy?.let {
+            appendLine("🔹 ${it.name}")
+            appendLine("🏢 ${it.employer.name}")
+            appendLine("📍 ${it.areaName}")
+        }
+    }
+
+    private fun StringBuilder.appendSalary() {
+        currentVacancy?.salary?.let {
+            val salaryText = when {
+                it.from != null && it.to != null -> "💰 ${it.from}–${it.to} ${it.currency}"
+                it.from != null -> "💰 от ${it.from} ${it.currency}"
+                it.to != null -> "💰 до ${it.to} ${it.currency}"
+                else -> return
             }
-            if (!experience.isNullOrBlank()) appendLine("📌 $experience")
-            val workInfo = listOfNotNull(employment, schedule).joinToString(" · ")
-            if (workInfo.isNotBlank()) appendLine("⏰ $workInfo")
-            if (description.isNotBlank()) {
+            appendLine(salaryText)
+        }
+    }
+
+    private fun StringBuilder.appendWorkInfo() {
+        currentVacancy?.let {
+            val workInfo = listOfNotNull(it.employment, it.schedule).joinToString(" · ")
+            if (workInfo.isNotBlank()) {
+                appendLine("⏰ $workInfo")
+            }
+        }
+    }
+
+    private fun StringBuilder.appendSkills() {
+        currentVacancy?.let {
+            if (it.skills.isNotEmpty()) {
                 appendLine()
-                appendLine("📋 $description")
+                appendLine("🔧 ${it.skills.joinToString(" · ")}")
             }
-            if (skills.isNotEmpty()) {
-                appendLine()
-                appendLine("🔧 ${skills.joinToString(" · ")}")
+        }
+    }
+
+    private fun appendContacts() {
+        currentVacancy?.contacts?.let {
+            val contactsText = StringBuilder()
+            it.phone?.let { phone ->
+                contactsText.appendLine("📞 $phone")
             }
-            contacts?.let {
-                val contactsText = StringBuilder()
-                it.phone?.let { phone ->
-                    contactsText.appendLine("📞 $phone")
-                }
-                it.email?.let { email ->
-                    contactsText.appendLine("✉️ $email")
-                }
+            it.email?.let { email ->
+                contactsText.appendLine("✉️ $email")
             }
-            if (url.isNotBlank()) {
-                appendLine()
-                appendLine("🔗 $url")
-            }
+        }
+    }
+
+    private fun StringBuilder.appendIfNotBlank(prefix: String, value: String?) {
+        if (!value.isNullOrBlank()) {
+            appendLine("$prefix$value")
         }
     }
 }
