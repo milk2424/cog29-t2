@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.screens.search
+package ru.practicum.android.diploma.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -53,7 +53,7 @@ class SearchViewModel(
          */
     }
 
-    fun performSearch(query: String) {
+    private fun performSearch(query: String) {
         _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {

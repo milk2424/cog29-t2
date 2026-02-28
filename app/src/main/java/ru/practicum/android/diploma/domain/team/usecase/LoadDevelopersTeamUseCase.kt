@@ -7,4 +7,3 @@ import ru.practicum.android.diploma.domain.team.repository.TeamRepository
 class LoadDevelopersTeamUseCase(private val repository: TeamRepository) {
     operator fun invoke(): Flow<List<Developer>> = repository.getTeamDevelopers()
 }
-

@@ -14,8 +14,10 @@ import ru.practicum.android.diploma.data.database.converter.ListStringConverter
 import ru.practicum.android.diploma.data.network.ApiService
 import ru.practicum.android.diploma.data.network.utils.NetworkCaller
 import ru.practicum.android.diploma.data.network.utils.NetworkCheckerImpl
+import ru.practicum.android.diploma.data.repositoryimpl.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.repositoryimpl.VacancyRepositoryImpl
 import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
+import ru.practicum.android.diploma.domain.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.api.VacancyRepository
 import ru.practicum.android.diploma.domain.api.utils.NetworkChecker
 import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
@@ -85,4 +87,6 @@ val dataModule = module {
     }
 
     single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }
+
+    single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 }
