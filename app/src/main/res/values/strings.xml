@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
     <string name="no_salary">Зарплата не указана</string>
-    <string name="from">От</string>
-    <string name="to">До</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
 
     <string name="tab_main">Главная</string>
     <string name="tab_favorites">Избранное</string>
@@ -27,5 +27,7 @@
     <string name="dev_sergeev_github">https://github.com/ProklB</string>
 
     <string name="list_is_empty">Список пуст</string>
-    <string name="cannot_get_vacancies_list">Не удалось получить список вакансий</string>
+    <string name="cannot_get_vacancies_list">Не удалось Вакансия список вакансий</string>
+
+    <string name="vacancy">Вакансия</string>
 </resources>
