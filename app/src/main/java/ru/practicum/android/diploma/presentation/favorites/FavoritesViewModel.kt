@@ -18,13 +18,20 @@ class FavoritesViewModel(getFavouritesUseCase: GetAllFavoritesUseCase) : ViewMod
 
     val screenState: StateFlow<FavoritesScreenState> = getFavouritesUseCase()
         .map { vacancies ->
-            if (vacancies.isEmpty()) Empty
-            else Success(vacancies.toPersistentList())
+            if (vacancies.isEmpty()) {
+                Empty
+            } else {
+                Success(vacancies.toPersistentList())
+            }
         }
         .catch { emit(Error) }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(FINISH_STATE_DELAY),
             initialValue = Loading
         )
+
+    companion object {
+        private const val FINISH_STATE_DELAY = 5000L
+    }
 }
