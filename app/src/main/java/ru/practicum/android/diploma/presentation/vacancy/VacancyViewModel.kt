@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.utils.ApiResult
-import ru.practicum.android.diploma.domain.impl.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.usecases.GetVacancyDetailUseCase
 
@@ -47,7 +47,7 @@ class VacancyViewModel(
                         }
 
                         else -> {
-                            favoritesInteractor.remove(vacancy.id)
+                            favoritesInteractor.remove(vacancyId)
                             _uiState.value = VacancyUiState.Error
                         }
                     }
@@ -56,12 +56,20 @@ class VacancyViewModel(
     }
 
     fun toggleFavorite() {
-        favoritesInteractor.add(currentVacancy)
-        currentVacancy?.let {
-            _uiState.value = VacancyUiState.Content(
-                vacancy = it,
-                isFavorite = favoritesInteractor.isFavorite(currentVacancy?.id)
-            )
+        viewModelScope.launch {
+            currentVacancy?.let {
+                if (favoritesInteractor.isFavorite(it.id)) {
+                    favoritesInteractor.remove(it.id)
+                } else {
+                    favoritesInteractor.add(it)
+                }
+                currentVacancy?.id?.let { vacancyId ->
+                    _uiState.value = VacancyUiState.Content(
+                        vacancy = it,
+                        isFavorite = favoritesInteractor.isFavorite(vacancyId)
+                    )
+                }
+            }
         }
     }
 
