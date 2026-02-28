@@ -7,4 +7,3 @@ sealed interface ApiResult<out T> {
     data object UnknownError : ApiResult<Nothing>
     data object Loading : ApiResult<Nothing>
 }
-
