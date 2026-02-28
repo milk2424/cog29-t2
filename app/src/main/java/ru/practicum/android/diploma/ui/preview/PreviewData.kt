@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.domain.models.VacancyContacts
 import ru.practicum.android.diploma.domain.models.VacancyEmployer
 import ru.practicum.android.diploma.domain.models.VacancySalary
 
+@Suppress("StringLiteralDuplication")
 object PreviewData {
     val previewVacancy get() = previewVacancies[0]
 
