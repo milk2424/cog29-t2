@@ -31,7 +31,7 @@ fun VacancyDetailDto.toDomain() = Vacancy(
         VacancyContacts(
             name = it.name,
             email = it.email,
-            phone = it.phone
+            phone = it.phones.map { phone -> phone.formatted }
         )
     }
 )
