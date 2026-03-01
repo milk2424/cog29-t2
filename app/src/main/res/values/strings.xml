@@ -33,7 +33,11 @@
     <string name="founded_vacancies">Надено %d вакансий</string>
 
     <string name="list_is_empty">Список пуст</string>
-    <string name="cannot_get_vacancies_list">Не удалось Вакансия список вакансий</string>
+
+    <string name="cannot_get_vacancies_list">Не удалось получить список вакансий</string>
+
+    <string name="error_no_internet">Проверьте подключение к интернету</string>
+    <string name="error_occurred">Произошла ошибка</string>
 
     <string name="vacancy">Вакансия</string>
     <string name="required_experience">Требуемый опыт</string>
@@ -46,4 +50,5 @@
     <string name="server_error">Ошибка Сервера</string>
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
     <string name="e_mail">E-mail</string>
+
 </resources>
