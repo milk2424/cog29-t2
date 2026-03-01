@@ -24,17 +24,8 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoritesScreen(
-    navController: NavController,
-    viewModel: FavoritesViewModel = koinViewModel()
-) {
+fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel = koinViewModel()) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
-
-    val onVacancyClick = { vacancyId: String ->
-        navController.navigate("vacancy/$vacancyId") {
-            launchSingleTop = true
-        }
-    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -67,8 +58,12 @@ fun FavoritesScreen(
 
             is FavoritesScreenState.Success -> {
                 VacancyList(
-                    vacancies = (screenState as FavoritesScreenState.Success).vacancies.toPersistentList(),
-                    onVacancyClick = onVacancyClick,
+                    vacancies = state.vacancies,
+                    onVacancyClick = { vacancyId ->
+                        navController.navigate("vacancy/$vacancyId") {
+                            launchSingleTop = true
+                        }
+                    },
                     paddingValues = paddingValues
                 )
             }

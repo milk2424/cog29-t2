@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.data.model.Contacts
 import ru.practicum.android.diploma.data.model.Employer
 import ru.practicum.android.diploma.data.model.Employment
 import ru.practicum.android.diploma.data.model.Experience
+import ru.practicum.android.diploma.data.model.Phone
 import ru.practicum.android.diploma.data.model.Salary
 import ru.practicum.android.diploma.data.model.Schedule
 import ru.practicum.android.diploma.domain.models.Vacancy
@@ -38,7 +39,7 @@ fun VacancyDetailDto.toDomain() = Vacancy(
         VacancyContacts(
             name = it.name,
             email = it.email,
-            phone = it.phone
+            phone = it.phones.map { phone -> phone.formatted }
         )
     }
 )
@@ -68,7 +69,7 @@ fun VacancyEntity.toDomain() = Vacancy(
         VacancyContacts(
             name = it.name,
             email = it.email,
-            phone = it.phone
+            phone = it.phones.map { p -> p.formatted }
         )
     }
 )
@@ -94,7 +95,7 @@ fun Vacancy.toEntity() = VacancyEntity(
             id = "",
             name = it.name ?: "",
             email = it.email ?: "",
-            phone = it.phone ?: emptyList()
+            phones = it.phone?.map { p -> Phone(comment = null, formatted = p) } ?: emptyList()
         )
     },
     employer = Employer(id = "", name = employer.name, logo = employer.logo),
