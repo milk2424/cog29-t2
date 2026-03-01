@@ -45,4 +45,5 @@
     <string name="phone">Номер телеофона</string>
     <string name="server_error">Ошибка Сервера</string>
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
+    <string name="e_mail">E-mail</string>
 </resources>

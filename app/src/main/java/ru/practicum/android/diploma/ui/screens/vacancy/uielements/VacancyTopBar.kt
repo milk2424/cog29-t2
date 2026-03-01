@@ -31,12 +31,15 @@ fun VacancyTopBar(
     TopAppBar(
         navigationIcon = {
             IconButton(onClick = onBackClick) {
-                Icon(painterResource(R.drawable.arrow_back_24px), contentDescription = "")
+                Icon(
+                    painter = painterResource(id = R.drawable.arrow_back_24px),
+                    contentDescription = ""
+                )
             }
         },
         title = {
             Text(
-                stringResource(id = R.string.vacancy),
+                text = stringResource(id = R.string.vacancy),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(start = paddingXSmall),
@@ -49,7 +52,7 @@ fun VacancyTopBar(
                     enabled = actionsEnabled
                 ) {
                     Icon(
-                        painterResource(R.drawable.sharing_24px),
+                        painter = painterResource(id = R.drawable.sharing_24px),
                         tint = MaterialTheme.colorScheme.onBackground,
                         contentDescription = ""
                     )
@@ -59,7 +62,7 @@ fun VacancyTopBar(
                     enabled = actionsEnabled
                 ) {
                     Icon(
-                        painterResource(favoriteIcon),
+                        painter = painterResource(id = favoriteIcon),
                         tint = MaterialTheme.colorScheme.onBackground,
                         contentDescription = "",
                     )

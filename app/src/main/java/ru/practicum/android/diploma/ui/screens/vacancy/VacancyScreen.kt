@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -14,11 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.ui.preview.PreviewData
 import ru.practicum.android.diploma.ui.screens.vacancy.uielements.ContentBody
 import ru.practicum.android.diploma.ui.screens.vacancy.uielements.VacancyTopBar
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.ui.theme.DiplomaTheme
 
 @Composable
@@ -55,17 +55,18 @@ fun VacancyScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(0.dp, 16.dp, 0.dp, 0.dp)
+                .padding(top = paddingLarge)
         ) {
             when (state) {
                 is VacancyScreenState.Loading -> {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
-                    }
+                    LoadingPlaceholder()
                 }
 
                 is VacancyScreenState.ServerError -> {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
                         Text(
                             text = stringResource(R.string.server_error),
                             style = MaterialTheme.typography.titleLarge,
@@ -75,7 +76,10 @@ fun VacancyScreen(
                 }
 
                 is VacancyScreenState.NotFound -> {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
                         Text(
                             text = stringResource(R.string.vacancy_not_found),
                             style = MaterialTheme.typography.titleLarge,

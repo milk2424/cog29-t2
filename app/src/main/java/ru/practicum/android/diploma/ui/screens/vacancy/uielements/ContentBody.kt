@@ -35,14 +35,14 @@ fun ContentBody(vacancy: Vacancy) {
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            vacancy.name,
+            text = vacancy.name,
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(top = paddingSmall),
         )
         Text(
             text = formatSalaryRange(
-                vacancy.salary?.from,
+                min = vacancy.salary?.from,
                 max = vacancy.salary?.to,
                 currency = currencySymbol,
                 strings = salaryStrings
@@ -55,13 +55,13 @@ fun ContentBody(vacancy: Vacancy) {
         Spacer(modifier = Modifier.height(spacer24))
         vacancy.experience?.let {
             Text(
-                stringResource(R.string.required_experience),
+                text = stringResource(R.string.required_experience),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
             Spacer(modifier = Modifier.height(spacer4))
             Text(
-                it,
+                text = it,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
@@ -74,14 +74,14 @@ fun ContentBody(vacancy: Vacancy) {
         if (scheduleInfo.isNotEmpty()) {
             Spacer(modifier = Modifier.height(spacer8))
             Text(
-                scheduleInfo,
+                text = scheduleInfo,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
         Spacer(modifier = Modifier.height(spacer32))
         Text(
-            stringResource(R.string.vacancy_description),
+            text = stringResource(R.string.vacancy_description),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground,
         )

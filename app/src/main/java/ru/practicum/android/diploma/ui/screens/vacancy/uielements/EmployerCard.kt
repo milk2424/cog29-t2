@@ -52,12 +52,12 @@ fun EmployerCard(vacancy: Vacancy) {
             Spacer(modifier = Modifier.width(spacer12))
             Column {
                 Text(
-                    vacancy.employer.name,
+                    text = vacancy.employer.name,
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
-                    vacancy.areaName,
+                    text = vacancy.areaName,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )

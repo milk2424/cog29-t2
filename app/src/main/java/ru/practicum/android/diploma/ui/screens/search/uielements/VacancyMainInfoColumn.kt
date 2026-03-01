@@ -24,7 +24,12 @@ fun VacancyMainInfoColumn(vacancy: Vacancy, salaryStrings: SalaryStrings) {
                 color = MaterialTheme.colorScheme.onBackground
             )
             Text(
-                text = formatSalaryRange(salary?.from, salary?.to, salary?.currency, salaryStrings),
+                text = formatSalaryRange(
+                    min = salary?.from,
+                    max = salary?.to,
+                    currency = salary?.currency,
+                    strings = salaryStrings
+                ),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )

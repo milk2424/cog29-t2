@@ -24,32 +24,44 @@ fun ContactsBlock(contacts: VacancyContacts) {
     Spacer(modifier = Modifier.height(spacer16))
     contacts.name?.takeIf { it.isNotBlank() }?.let {
         Text(
-            stringResource(R.string.contact_person),
+            text = stringResource(R.string.contact_person),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(spacer4))
-        Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onBackground)
+        Text(
+            text = it,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground
+        )
         Spacer(modifier = Modifier.height(spacer16))
     }
     contacts.email?.takeIf { it.isNotBlank() }?.let {
         Text(
-            "E-mail",
+            text = stringResource(R.string.e_mail),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(spacer4))
-        Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            text = it,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(spacer16))
     }
     contacts.phone?.forEach { phone ->
         Text(
-            stringResource(R.string.phone),
+            text = stringResource(R.string.phone),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(spacer4))
-        Text(phone, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            text = phone,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(spacer16))
     }
 }
