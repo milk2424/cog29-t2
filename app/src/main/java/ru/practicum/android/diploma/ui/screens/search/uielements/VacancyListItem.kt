@@ -27,13 +27,13 @@ import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
 import ru.practicum.android.diploma.util.SalaryStrings
 
 @Composable
-fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyClicked: (id: String) -> Unit) {
+fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyClicked: ((String) -> Unit)) {
     val imageShape = RoundedCornerShape(iconCorners)
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
-            .padding(vertical = paddingSmall)
+            .padding(bottom = paddingSmall)
             .clickable {
                 onVacancyClicked(vacancy.id)
             }

@@ -8,19 +8,31 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import kotlinx.collections.immutable.persistentListOf
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.presentation.favorites.FavoritesScreenState
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
 import ru.practicum.android.diploma.ui.core.uielements.ErrorImageWithDescription
+import ru.practicum.android.diploma.ui.placeholders.Loading
 import ru.practicum.android.diploma.ui.screens.search.uielements.VacancyList
 import ru.practicum.android.diploma.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel = koinViewModel()) {
+fun FavoritesScreen(
+    navController: NavController,
+    viewModel: FavoritesViewModel = koinViewModel()
+) {
+    val debouncedOnVacancyClick = { vacancyId: String ->
+        navController.navigate("vacancy/$vacancyId") {
+            launchSingleTop = true
+        }
+    }
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -35,14 +47,27 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                 windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
+            
+            VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
+            
         }
     ) { paddingValues ->
-        // данные есть в бд
-        VacancyList(persistentListOf(), paddingValues)
-        // в бд пусто
-        ErrorImageWithDescription(R.drawable.img_favourites_empty_list, R.string.list_is_empty)
-        // ошибка при запросе в бд
-        ErrorImageWithDescription(R.drawable.img_cat_error, R.string.cannot_get_vacancies_list)
-    }
+        when (val state = screenState) {
+            is FavoritesScreenState.Empty -> ErrorImageWithDescription(
+                R.drawable.img_favourites_empty_list,
+                R.string.list_is_empty
+            )
 
+            is FavoritesScreenState.Error -> ErrorImageWithDescription(
+                R.drawable.img_cat_error,
+                R.string.cannot_get_vacancies_list
+            )
+
+            is FavoritesScreenState.Loading -> Loading()
+
+            is FavoritesScreenState.Success -> {
+                VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
+            }
+        }
+    }
 }
