@@ -25,7 +25,6 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 @Composable
 fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel = koinViewModel()) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
-
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -42,7 +41,7 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
             )
         }
     ) { paddingValues ->
-        when (screenState) {
+        when (val state = screenState) {
             is FavoritesScreenState.Empty -> ErrorImageWithDescription(
                 R.drawable.img_favourites_empty_list,
                 R.string.list_is_empty
