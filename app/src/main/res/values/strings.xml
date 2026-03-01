@@ -46,4 +46,6 @@
     <string name="server_error">Ошибка Сервера</string>
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
     <string name="e_mail">E-mail</string>
+
+    <string name="filter_settings">Настройки фильтрации</string>
 </resources>

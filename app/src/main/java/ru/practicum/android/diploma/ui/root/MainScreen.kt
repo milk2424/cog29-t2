@@ -56,7 +56,13 @@ fun MainScreen() {
                     navController.popBackStack()
                 }
             }
-            composable(NavRoute.Filter.route) { FilterScreen(navController) }
+            composable(NavRoute.Filter.route) {
+                FilterScreen(
+                    onBackClick = { navController.popBackStack() },
+                    onWorkplaceClick = { /* навигация на выбор места */ },
+                    onIndustryClick = { /* навигация на выбор отрасли */ },
+                )
+            }
         }
     }
 }
