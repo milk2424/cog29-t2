@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.domain.api.SearchInteractor
-import ru.practicum.android.diploma.domain.api.utils.ApiResult
-import ru.practicum.android.diploma.domain.models.VacanciesResult
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.core.utils.debounce
+import ru.practicum.android.diploma.domain.interactor.SearchInteractor
+import ru.practicum.android.diploma.domain.model.VacanciesResult
+import ru.practicum.android.diploma.domain.model.Vacancy
+import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,

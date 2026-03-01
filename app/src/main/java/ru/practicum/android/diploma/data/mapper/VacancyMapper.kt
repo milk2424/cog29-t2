@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data.mapper
 
-import ru.practicum.android.diploma.data.database.entity.VacancyEntity
+import ru.practicum.android.diploma.core.database.VacancyEntity
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailDto
 import ru.practicum.android.diploma.data.model.Contacts
 import ru.practicum.android.diploma.data.model.Employer
@@ -9,10 +9,10 @@ import ru.practicum.android.diploma.data.model.Experience
 import ru.practicum.android.diploma.data.model.Phone
 import ru.practicum.android.diploma.data.model.Salary
 import ru.practicum.android.diploma.data.model.Schedule
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.models.VacancyContacts
-import ru.practicum.android.diploma.domain.models.VacancyEmployer
-import ru.practicum.android.diploma.domain.models.VacancySalary
+import ru.practicum.android.diploma.domain.model.Vacancy
+import ru.practicum.android.diploma.domain.model.VacancyContacts
+import ru.practicum.android.diploma.domain.model.VacancyEmployer
+import ru.practicum.android.diploma.domain.model.VacancySalary
 
 fun VacancyDetailDto.toDomain() = Vacancy(
     id = id,

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import ru.practicum.android.diploma.domain.favorites.usecase.GetAllFavoritesUseCase
+import ru.practicum.android.diploma.domain.usecase.GetAllFavoritesUseCase
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreenState.Empty
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreenState.Error
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreenState.Loading

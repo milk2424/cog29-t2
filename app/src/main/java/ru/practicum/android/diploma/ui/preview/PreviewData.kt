@@ -2,10 +2,10 @@ package ru.practicum.android.diploma.ui.preview
 
 import ru.practicum.android.diploma.data.dto.areas.FilterAreaDto
 import ru.practicum.android.diploma.data.dto.industries.FilterIndustryDto
-import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.domain.models.VacancyContacts
-import ru.practicum.android.diploma.domain.models.VacancyEmployer
-import ru.practicum.android.diploma.domain.models.VacancySalary
+import ru.practicum.android.diploma.domain.model.Vacancy
+import ru.practicum.android.diploma.domain.model.VacancyContacts
+import ru.practicum.android.diploma.domain.model.VacancyEmployer
+import ru.practicum.android.diploma.domain.model.VacancySalary
 
 @Suppress("StringLiteralDuplication", "MaxLineLength")
 object PreviewData {

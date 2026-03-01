@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.presentation.extensions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.util.SalaryStrings
+import ru.practicum.android.diploma.core.utils.SalaryStrings
 
 @Composable
 fun salaryStrings(): SalaryStrings {

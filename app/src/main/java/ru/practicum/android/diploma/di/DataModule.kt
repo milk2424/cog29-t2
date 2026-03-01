@@ -8,21 +8,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.core.ExternalNavigatorImpl
-import ru.practicum.android.diploma.data.database.AppDatabase
-import ru.practicum.android.diploma.data.database.converter.ListStringConverter
-import ru.practicum.android.diploma.data.network.ApiService
-import ru.practicum.android.diploma.data.network.utils.NetworkCaller
-import ru.practicum.android.diploma.data.network.utils.NetworkCheckerImpl
-import ru.practicum.android.diploma.data.repositoryimpl.FavoritesRepositoryImpl
-import ru.practicum.android.diploma.data.repositoryimpl.VacancyRepositoryImpl
-import ru.practicum.android.diploma.data.team.impl.TeamRepositoryImpl
-import ru.practicum.android.diploma.domain.api.FavoritesRepository
-import ru.practicum.android.diploma.domain.api.VacancyRepository
-import ru.practicum.android.diploma.domain.api.utils.NetworkChecker
-import ru.practicum.android.diploma.domain.core.repository.ExternalNavigator
-import ru.practicum.android.diploma.domain.team.model.Developer
-import ru.practicum.android.diploma.domain.team.repository.TeamRepository
+import ru.practicum.android.diploma.core.database.AppDatabase
+import ru.practicum.android.diploma.core.database.ListStringConverter
+import ru.practicum.android.diploma.core.navigation.ExternalNavigator
+import ru.practicum.android.diploma.core.navigation.ExternalNavigatorImpl
+import ru.practicum.android.diploma.core.network.ApiService
+import ru.practicum.android.diploma.core.network.NetworkCaller
+import ru.practicum.android.diploma.core.network.NetworkChecker
+import ru.practicum.android.diploma.core.network.NetworkCheckerImpl
+import ru.practicum.android.diploma.data.repository.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.data.repository.TeamRepositoryImpl
+import ru.practicum.android.diploma.data.repository.VacancyRepositoryImpl
+import ru.practicum.android.diploma.domain.model.Developer
+import ru.practicum.android.diploma.domain.repository.FavoritesRepository
+import ru.practicum.android.diploma.domain.repository.TeamRepository
+import ru.practicum.android.diploma.domain.repository.VacancyRepository
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "http://155.212.163.151"

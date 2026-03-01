@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.dto.vacancies
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.vacancydetail.VacancyDetailDto
 import ru.practicum.android.diploma.data.mapper.toDomain
-import ru.practicum.android.diploma.domain.models.VacanciesResult
+import ru.practicum.android.diploma.domain.model.VacanciesResult
 
 data class VacanciesResponse(
     val found: Int = 0,
