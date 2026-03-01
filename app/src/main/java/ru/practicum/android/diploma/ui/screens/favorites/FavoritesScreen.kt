@@ -58,7 +58,7 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
                 VacancyList(
                     vacancies = state.vacancies,
                     onVacancyClick = { vacancyId ->
-                        navController.navigate("vacancy/$vacancyId"){
+                        navController.navigate("vacancy/$vacancyId") {
                             launchSingleTop = true
                         }
                     },
