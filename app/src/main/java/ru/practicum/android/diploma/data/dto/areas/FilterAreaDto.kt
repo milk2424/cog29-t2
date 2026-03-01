@@ -1,8 +1,8 @@
 package ru.practicum.android.diploma.data.dto.areas
 
 data class FilterAreaDto(
-    val id: Int,
+    val id: String,
     val name: String,
-    val parentId: Int?,
+    val parentId: String?,
     val areas: List<FilterAreaDto>
 )
