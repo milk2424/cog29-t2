@@ -11,10 +11,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.extensions.salaryStrings
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer24
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer32
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer4
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer8
 import ru.practicum.android.diploma.util.Currency
 import ru.practicum.android.diploma.util.formatSalaryRange
 
@@ -26,14 +31,14 @@ fun ContentBody(vacancy: Vacancy) {
     }
     Column(
         modifier = Modifier
-            .padding(16.dp, 0.dp)
+            .padding(horizontal = paddingLarge)
             .verticalScroll(rememberScrollState())
     ) {
         Text(
             vacancy.name,
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
+            modifier = Modifier.padding(top = paddingSmall),
         )
         Text(
             text = formatSalaryRange(
@@ -44,17 +49,17 @@ fun ContentBody(vacancy: Vacancy) {
             ),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
+            modifier = Modifier.padding(top = paddingSmall),
         )
         EmployerCard(vacancy)
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(spacer24))
         vacancy.experience?.let {
             Text(
                 stringResource(R.string.required_experience),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(spacer4))
             Text(
                 it,
                 style = MaterialTheme.typography.bodyLarge,
@@ -67,14 +72,14 @@ fun ContentBody(vacancy: Vacancy) {
         )
             .joinToString(", ")
         if (scheduleInfo.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(spacer8))
             Text(
                 scheduleInfo,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(spacer32))
         Text(
             stringResource(R.string.vacancy_description),
             style = MaterialTheme.typography.titleLarge,

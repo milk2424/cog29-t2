@@ -17,8 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.preview.PreviewData
-import ru.practicum.android.diploma.ui.screens.vacancy.uielements.VacancyTopBar
 import ru.practicum.android.diploma.ui.screens.vacancy.uielements.ContentBody
+import ru.practicum.android.diploma.ui.screens.vacancy.uielements.VacancyTopBar
 import ru.practicum.android.diploma.ui.theme.DiplomaTheme
 
 @Composable
@@ -37,8 +37,7 @@ fun VacancyScreen(
 
         else -> R.drawable.favorites_off__24px
     }
-    val showActions = state is VacancyScreenState.Content ||
-        state is VacancyScreenState.Error && state.type == VacancyScreenState.ErrorType.NOT_FOUND
+    val showActions = state is VacancyScreenState.Content || state is VacancyScreenState.NotFound
     val actionsEnabled = state is VacancyScreenState.Content
     Scaffold(
         topBar = {
@@ -65,13 +64,20 @@ fun VacancyScreen(
                     }
                 }
 
-                is VacancyScreenState.Error -> {
+                is VacancyScreenState.ServerError -> {
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            text = when (state.type) {
-                                VacancyScreenState.ErrorType.SERVER_ERROR -> stringResource(R.string.server_error)
-                                VacancyScreenState.ErrorType.NOT_FOUND -> stringResource(R.string.vacancy_not_found)
-                            },
+                            text = stringResource(R.string.server_error),
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                }
+
+                is VacancyScreenState.NotFound -> {
+                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(
+                            text = stringResource(R.string.vacancy_not_found),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                         )
@@ -85,7 +91,6 @@ fun VacancyScreen(
         }
     }
 }
-
 
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 360, heightDp = 1400)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)

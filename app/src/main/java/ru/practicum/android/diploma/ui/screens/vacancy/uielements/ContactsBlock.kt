@@ -7,28 +7,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.VacancyContacts
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer16
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer24
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer4
 
 @Composable
 fun ContactsBlock(contacts: VacancyContacts) {
-    Spacer(modifier = Modifier.height(24.dp))
+    Spacer(modifier = Modifier.height(spacer24))
     Text(
         text = stringResource(R.string.contacts),
         style = MaterialTheme.typography.titleLarge,
         color = MaterialTheme.colorScheme.onBackground,
     )
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = Modifier.height(spacer16))
     contacts.name?.takeIf { it.isNotBlank() }?.let {
         Text(
             stringResource(R.string.contact_person),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(spacer4))
         Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onBackground)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(spacer16))
     }
     contacts.email?.takeIf { it.isNotBlank() }?.let {
         Text(
@@ -36,9 +38,9 @@ fun ContactsBlock(contacts: VacancyContacts) {
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(spacer4))
         Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(spacer16))
     }
     contacts.phone?.forEach { phone ->
         Text(
@@ -46,8 +48,8 @@ fun ContactsBlock(contacts: VacancyContacts) {
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(spacer4))
         Text(phone, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.primary)
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(spacer16))
     }
 }

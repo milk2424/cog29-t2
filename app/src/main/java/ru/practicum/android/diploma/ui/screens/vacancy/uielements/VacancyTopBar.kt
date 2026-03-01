@@ -14,8 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingXSmall
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer6
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +39,7 @@ fun VacancyTopBar(
                 stringResource(id = R.string.vacancy),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(start = 4.dp),
+                modifier = Modifier.padding(start = paddingXSmall),
             )
         },
         actions = {
@@ -63,7 +64,7 @@ fun VacancyTopBar(
                         contentDescription = "",
                     )
                 }
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(spacer6))
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(

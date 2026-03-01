@@ -16,25 +16,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.theme.Dimens.iconCorners
+import ru.practicum.android.diploma.ui.theme.Dimens.insetsZero
+import ru.practicum.android.diploma.ui.theme.Dimens.logoMedium
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
+import ru.practicum.android.diploma.ui.theme.Dimens.paddingXLarge
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer12
 
 @Composable
 fun EmployerCard(vacancy: Vacancy) {
     Card(
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(iconCorners),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.outline
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = insetsZero),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp, 24.dp, 0.dp, 0.dp),
+            .padding(top = paddingXLarge),
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(paddingLarge),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -42,9 +47,9 @@ fun EmployerCard(vacancy: Vacancy) {
                 contentDescription = null,
                 placeholder = painterResource(R.drawable.img_no_employer_logo),
                 error = painterResource(R.drawable.img_no_employer_logo),
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(logoMedium)
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(spacer12))
             Column {
                 Text(
                     vacancy.employer.name,
