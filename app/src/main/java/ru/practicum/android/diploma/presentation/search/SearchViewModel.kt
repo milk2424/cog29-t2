@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -82,7 +83,7 @@ class SearchViewModel(
         viewModelScope.launch {
             searchInteractor
                 .searchVacancies(currentQuery, page = currentPage + 1)
-                .collect { result ->
+                .collectLatest { result ->
                     handlePaginationResult(result)
                 }
         }
@@ -116,7 +117,7 @@ class SearchViewModel(
         viewModelScope.launch {
             searchInteractor
                 .searchVacancies(query, page = 0)
-                .collect { result ->
+                .collectLatest { result ->
                     handleSearchResult(result)
                 }
         }
