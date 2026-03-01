@@ -62,4 +62,6 @@
     <string name="phone_symbol">📞</string>
     <string name="email_symbol">✉️</string>
     <string name="url_symbol">🔗</string>
+
+    <string name="filter_settings">Настройки фильтрации</string>
 </resources>
