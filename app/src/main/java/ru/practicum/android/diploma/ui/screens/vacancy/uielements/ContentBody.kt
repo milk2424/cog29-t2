@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.extensions.salaryStrings
@@ -18,7 +17,6 @@ import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingSmall
 import ru.practicum.android.diploma.ui.theme.Dimens.spacer24
 import ru.practicum.android.diploma.ui.theme.Dimens.spacer32
-import ru.practicum.android.diploma.ui.theme.Dimens.spacer4
 import ru.practicum.android.diploma.ui.theme.Dimens.spacer8
 import ru.practicum.android.diploma.util.Currency
 import ru.practicum.android.diploma.util.formatSalaryRange
@@ -54,17 +52,7 @@ fun ContentBody(vacancy: Vacancy) {
         EmployerCard(vacancy)
         Spacer(modifier = Modifier.height(spacer24))
         vacancy.experience?.let {
-            Text(
-                text = stringResource(R.string.required_experience),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            Spacer(modifier = Modifier.height(spacer4))
-            Text(
-                text = it,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+            TextBlock(title = R.string.required_experience, text = it)
         }
         val scheduleInfo = listOfNotNull(
             vacancy.employment,
@@ -73,18 +61,10 @@ fun ContentBody(vacancy: Vacancy) {
             .joinToString(", ")
         if (scheduleInfo.isNotEmpty()) {
             Spacer(modifier = Modifier.height(spacer8))
-            Text(
-                text = scheduleInfo,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+            TextBlock(text = scheduleInfo)
         }
         Spacer(modifier = Modifier.height(spacer32))
-        Text(
-            text = stringResource(R.string.vacancy_description),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
+        TitleBlock(R.string.vacancy_description)
         DescriptionBlock(vacancy.description)
         if (vacancy.skills.isNotEmpty()) {
             SkillsBlock(vacancy.skills)

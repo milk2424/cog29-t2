@@ -1,21 +1,19 @@
 package ru.practicum.android.diploma.ui.screens.vacancy.uielements
 
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.theme.Dimens.paddingXSmall
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer4
 import ru.practicum.android.diploma.ui.theme.Dimens.spacer6
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,12 +36,8 @@ fun VacancyTopBar(
             }
         },
         title = {
-            Text(
-                text = stringResource(id = R.string.vacancy),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(start = paddingXSmall),
-            )
+            Spacer(Modifier.height(spacer4))
+            TitleBlock(R.string.vacancy)
         },
         actions = {
             if (showActions) {

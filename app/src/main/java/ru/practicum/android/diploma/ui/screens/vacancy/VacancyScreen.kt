@@ -5,18 +5,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.ui.preview.PreviewData
 import ru.practicum.android.diploma.ui.screens.vacancy.uielements.ContentBody
+import ru.practicum.android.diploma.ui.screens.vacancy.uielements.TitleBlock
 import ru.practicum.android.diploma.ui.screens.vacancy.uielements.VacancyTopBar
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.ui.theme.DiplomaTheme
@@ -67,11 +65,7 @@ fun VacancyScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = stringResource(R.string.server_error),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
+                        TitleBlock(R.string.server_error)
                     }
                 }
 
@@ -80,11 +74,7 @@ fun VacancyScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = stringResource(R.string.vacancy_not_found),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
+                        TitleBlock(R.string.vacancy_not_found)
                     }
                 }
 
