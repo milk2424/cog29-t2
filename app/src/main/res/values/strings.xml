@@ -34,4 +34,7 @@
 
     <string name="list_is_empty">Список пуст</string>
     <string name="cannot_get_vacancies_list">Не удалось получить список вакансий</string>
+
+    <string name="error_no_internet">Проверьте подключение к интернету</string>
+    <string name="error_occurred">Произошла ошибка</string>
 </resources>

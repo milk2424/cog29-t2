@@ -13,4 +13,7 @@ object Dimens {
     val iconMedium = 24.dp
     val logoMedium = 48.dp
     val insetsZero = 0.dp
+    val paginationProgressSize = 24.dp
+    val paginationProgressStroke = 2.dp
+    val paginationVerticalPadding = 16.dp
 }
