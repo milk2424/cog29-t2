@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.extensions
+package ru.practicum.android.diploma.presentation.common.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource

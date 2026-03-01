@@ -19,7 +19,7 @@ import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer8
 import ru.practicum.android.diploma.core.utils.Currency
 import ru.practicum.android.diploma.core.utils.formatSalaryRange
 import ru.practicum.android.diploma.domain.model.Vacancy
-import ru.practicum.android.diploma.presentation.extensions.salaryStrings
+import ru.practicum.android.diploma.presentation.common.components.salaryStrings
 
 @Composable
 fun ContentBody(vacancy: Vacancy) {

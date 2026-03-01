@@ -23,7 +23,7 @@ import kotlinx.collections.immutable.ImmutableList
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.domain.model.Vacancy
-import ru.practicum.android.diploma.presentation.extensions.salaryStrings
+import ru.practicum.android.diploma.presentation.common.components.salaryStrings
 
 @Composable
 fun VacancyList(
