@@ -17,7 +17,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreenState
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
 import ru.practicum.android.diploma.ui.core.uielements.ErrorImageWithDescription
-import ru.practicum.android.diploma.ui.placeholders.Loading
+import ru.practicum.android.diploma.ui.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.ui.screens.search.uielements.VacancyList
 import ru.practicum.android.diploma.ui.theme.Dimens
 
@@ -25,8 +25,9 @@ import ru.practicum.android.diploma.ui.theme.Dimens
 @Composable
 fun FavoritesScreen(
     navController: NavController,
-    viewModel: FavoritesViewModel = koinViewModel()
+    viewModel: FavoritesViewModel = koinViewModel(),
 ) {
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
     val debouncedOnVacancyClick = { vacancyId: String ->
         navController.navigate("vacancy/$vacancyId") {
             launchSingleTop = true
@@ -47,8 +48,8 @@ fun FavoritesScreen(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                 windowInsets = WindowInsets(top = Dimens.insetsZero)
             )
-            
-            VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
+
+//            VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
             
         }
     ) { paddingValues ->
@@ -63,10 +64,10 @@ fun FavoritesScreen(
                 R.string.cannot_get_vacancies_list
             )
 
-            is FavoritesScreenState.Loading -> Loading()
+            is FavoritesScreenState.Loading -> LoadingPlaceholder()
 
             is FavoritesScreenState.Success -> {
-                VacancyList(persistentListOf(), debouncedOnVacancyClick, paddingValues)
+                VacancyList(state.vacancies, debouncedOnVacancyClick, paddingValues)
             }
         }
     }
