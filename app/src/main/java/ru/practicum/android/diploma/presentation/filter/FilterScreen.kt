@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.presentation.filter
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.core.uielements.AppScaffold
+import ru.practicum.android.diploma.ui.screens.filter.uielements.FilterButton
 import ru.practicum.android.diploma.ui.screens.filter.uielements.FilterListItem
 import ru.practicum.android.diploma.ui.screens.filter.uielements.SalaryTextField
 import ru.practicum.android.diploma.ui.screens.filter.uielements.TrailingArrow
 import ru.practicum.android.diploma.ui.screens.filter.uielements.TrailingCheckbox
 import ru.practicum.android.diploma.ui.theme.Dimens.spacer24
+import ru.practicum.android.diploma.ui.theme.Dimens.spacer8
 import ru.practicum.android.diploma.ui.theme.DiplomaTheme
 
 @Composable
@@ -62,7 +63,19 @@ fun FilterScreen(
                 onClick = { hideWithoutSalary = !hideWithoutSalary },
                 trailing = { TrailingCheckbox(hideWithoutSalary) }
             )
-            Row() { }
+            Spacer(Modifier.weight(1f))
+            FilterButton(
+                text = R.string.apply,
+                isPrimary = true,
+                onClick = {}
+            )
+            Spacer(Modifier.height(spacer8))
+            FilterButton(
+                text = R.string.reset,
+                isPrimary = false,
+                onClick = {}
+            )
+            Spacer(Modifier.height(spacer24))
         }
     }
 }
