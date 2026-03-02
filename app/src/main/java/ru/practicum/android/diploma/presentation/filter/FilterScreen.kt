@@ -64,17 +64,22 @@ fun FilterScreen(
                 trailing = { TrailingCheckbox(hideWithoutSalary) }
             )
             Spacer(Modifier.weight(1f))
-            FilterButton(
-                text = R.string.apply,
-                isPrimary = true,
-                onClick = {}
-            )
-            Spacer(Modifier.height(spacer8))
-            FilterButton(
-                text = R.string.reset,
-                isPrimary = false,
-                onClick = {}
-            )
+            if (hasFilters) {
+                FilterButton(
+                    text = R.string.apply,
+                    isPrimary = true,
+                    onClick = {}
+                )
+                Spacer(Modifier.height(spacer8))
+                FilterButton(
+                    text = R.string.reset,
+                    isPrimary = false,
+                    onClick = {
+                        salary = ""
+                        hideWithoutSalary = false
+                    }
+                )
+            }
             Spacer(Modifier.height(spacer24))
         }
     }
