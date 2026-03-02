@@ -8,5 +8,4 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 interface VacancyRepository {
     fun searchVacancies(expression: String, page: Int): Flow<ApiResult<VacanciesResult>>
     fun getVacancyDetail(id: String): Flow<ApiResult<Vacancy>>
-    fun shareVacancy(message: String)
 }

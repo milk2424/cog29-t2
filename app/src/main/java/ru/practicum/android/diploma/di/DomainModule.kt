@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.domain.impl.FavoritesInteractorImpl
 import ru.practicum.android.diploma.domain.impl.SearchInteractorImpl
 import ru.practicum.android.diploma.domain.team.usecase.LoadDevelopersTeamUseCase
 import ru.practicum.android.diploma.domain.vacancy.usecases.GetVacancyDetailUseCase
+import ru.practicum.android.diploma.domain.vacancy.usecases.ShareVacancyUseCase
 
 val domainModule = module {
 
@@ -17,6 +18,9 @@ val domainModule = module {
     }
     single {
         GetVacancyDetailUseCase(get())
+    }
+    single {
+        ShareVacancyUseCase(get())
     }
     single {
         OpenInBrowserUseCase(get())

@@ -12,14 +12,16 @@ import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.utils.ApiResult
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.vacancy.usecases.GetVacancyDetailUseCase
+import ru.practicum.android.diploma.domain.vacancy.usecases.ShareVacancyUseCase
 
 class VacancyViewModel(
     private val getVacancyDetailUseCase: GetVacancyDetailUseCase,
-    private val favoritesInteractor: FavoritesInteractor
+    private val favoritesInteractor: FavoritesInteractor,
+    private val shareVacancyUseCase: ShareVacancyUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<VacancyUiState>(VacancyUiState.Loading)
-    val uiState: StateFlow<VacancyUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<VacancyScreenState>(VacancyScreenState.Loading)
+    val uiState: StateFlow<VacancyScreenState> = _uiState.asStateFlow()
 
     private var currentVacancy: Vacancy? = null
 
@@ -27,28 +29,31 @@ class VacancyViewModel(
         viewModelScope.launch {
             getVacancyDetailUseCase(vacancyId)
                 .onStart {
-                    _uiState.value = VacancyUiState.Loading
+                    _uiState.value = VacancyScreenState.Loading
                 }
                 .collectLatest { result ->
                     when (result) {
                         is ApiResult.Loading -> {
-                            _uiState.value = VacancyUiState.Loading
+                            _uiState.value = VacancyScreenState.Loading
                         }
 
                         is ApiResult.Success -> {
                             result.data.let { vacancy ->
                                 currentVacancy = vacancy
                                 val isFavorite = favoritesInteractor.isFavorite(vacancy.id)
-                                _uiState.value = VacancyUiState.Content(
+                                _uiState.value = VacancyScreenState.Content(
                                     vacancy = vacancy,
                                     isFavorite = isFavorite
                                 )
                             }
                         }
 
+                        //Выполнить проверку на код 404 (при этом удалить вакансию из БД) и присвоить стейт VacancyScreenState.NotFound
+                        //else - просто присваиваем стейт VacancyScreenState.ServerError
+
                         else -> {
                             favoritesInteractor.remove(vacancyId)
-                            _uiState.value = VacancyUiState.Error
+                            _uiState.value = VacancyScreenState.NotFound
                         }
                     }
                 }
@@ -64,7 +69,7 @@ class VacancyViewModel(
                     favoritesInteractor.add(it)
                 }
                 currentVacancy?.id?.let { vacancyId ->
-                    _uiState.value = VacancyUiState.Content(
+                    _uiState.value = VacancyScreenState.Content(
                         vacancy = it,
                         isFavorite = favoritesInteractor.isFavorite(vacancyId)
                     )
@@ -74,85 +79,8 @@ class VacancyViewModel(
     }
 
     fun shareVacancy() {
-        currentVacancy?.let { getVacancyDetailUseCase.shareVacancy(getShareText()) }
-    }
-
-    private fun getShareText(): String = buildString {
-        currentVacancy?.let {
-            appendHeader()
-            appendSalary()
-            appendIfNotBlank("📌 ", it.experience)
-            appendWorkInfo()
-            appendIfNotBlank("\n📋 ", it.description)
-            appendSkills()
-            appendContacts()
-            appendIfNotBlank("\n🔗 ", it.url)
+        currentVacancy?.let { vacancy ->
+            shareVacancyUseCase(vacancy)
         }
     }
-
-    private fun StringBuilder.appendHeader() {
-        currentVacancy?.let {
-            appendLine("🔹 ${it.name}")
-            appendLine("🏢 ${it.employer.name}")
-            appendLine("📍 ${it.areaName}")
-        }
-    }
-
-    private fun StringBuilder.appendSalary() {
-        currentVacancy?.salary?.let {
-            val salaryText = when {
-                it.from != null && it.to != null -> "💰 ${it.from}–${it.to} ${it.currency}"
-                it.from != null -> "💰 от ${it.from} ${it.currency}"
-                it.to != null -> "💰 до ${it.to} ${it.currency}"
-                else -> return
-            }
-            appendLine(salaryText)
-        }
-    }
-
-    private fun StringBuilder.appendWorkInfo() {
-        currentVacancy?.let {
-            val workInfo = listOfNotNull(it.employment, it.schedule).joinToString(" · ")
-            if (workInfo.isNotBlank()) {
-                appendLine("⏰ $workInfo")
-            }
-        }
-    }
-
-    private fun StringBuilder.appendSkills() {
-        currentVacancy?.let {
-            if (it.skills.isNotEmpty()) {
-                appendLine()
-                appendLine("🔧 ${it.skills.joinToString(" · ")}")
-            }
-        }
-    }
-
-    private fun appendContacts() {
-        currentVacancy?.contacts?.let {
-            val contactsText = StringBuilder()
-            it.phone?.let { phone ->
-                contactsText.appendLine("📞 $phone")
-            }
-            it.email?.let { email ->
-                contactsText.appendLine("✉️ $email")
-            }
-        }
-    }
-
-    private fun StringBuilder.appendIfNotBlank(prefix: String, value: String?) {
-        if (!value.isNullOrBlank()) {
-            appendLine("$prefix$value")
-        }
-    }
-}
-
-sealed interface VacancyUiState {
-    data object Loading : VacancyUiState
-    data object Error : VacancyUiState
-
-    data class Content(
-        val vacancy: Vacancy,
-        val isFavorite: Boolean
-    ) : VacancyUiState
 }

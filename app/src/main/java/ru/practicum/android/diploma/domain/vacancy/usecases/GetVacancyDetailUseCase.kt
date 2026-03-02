@@ -7,8 +7,4 @@ class GetVacancyDetailUseCase(
 ) {
     operator fun invoke(id: String) =
         repository.getVacancyDetail(id)
-
-    fun shareVacancy(message: String) {
-        repository.shareVacancy(message)
-    }
 }

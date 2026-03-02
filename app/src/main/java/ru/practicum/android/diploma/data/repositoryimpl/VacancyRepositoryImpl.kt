@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.data.repositoryimpl
 
-import android.content.Context
-import android.content.Intent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,8 +17,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacancyRepositoryImpl(
     private val api: ApiService,
-    private val networkCaller: NetworkCaller,
-    private val context: Context
+    private val networkCaller: NetworkCaller
 ) : VacancyRepository {
     override fun searchVacancies(expression: String, page: Int): Flow<ApiResult<VacanciesResult>> = flow {
         emit(ApiResult.Loading)
@@ -40,13 +37,4 @@ class VacancyRepositoryImpl(
         )
         emit(response)
     }.flowOn(Dispatchers.IO)
-
-    override fun shareVacancy(message: String) {
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, message)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        context.startActivity(shareIntent)
-    }
 }

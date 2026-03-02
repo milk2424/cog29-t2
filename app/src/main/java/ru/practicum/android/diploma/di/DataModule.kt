@@ -25,7 +25,7 @@ import ru.practicum.android.diploma.domain.team.model.Developer
 import ru.practicum.android.diploma.domain.team.repository.TeamRepository
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.com/"
+private const val BASE_URL = "http://155.212.163.151"
 private const val NETWORK_TIMEOUT_SEC = 5L
 
 val dataModule = module {
@@ -86,7 +86,7 @@ val dataModule = module {
         NetworkCaller(get())
     }
 
-    single<VacancyRepository> { VacancyRepositoryImpl(get(), get(), get()) }
+    single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }
 
     single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 }
