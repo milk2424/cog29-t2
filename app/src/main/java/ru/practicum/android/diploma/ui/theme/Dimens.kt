@@ -7,10 +7,11 @@ object Dimens {
     val logoBorderThickness = 1.dp
     val paddingExtraLarge = 48.dp
     val paddingXLarge = 24.dp
+    val padding20 = 20.dp
+    val padding17 = 17.dp
     val paddingLarge = 16.dp
     val paddingMedium = 12.dp
     val paddingSmall = 8.dp
-    val paddingXSmall = 4.dp
     val iconCorners = 12.dp
     val iconMedium = 24.dp
     val logoMedium = 48.dp

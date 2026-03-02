@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.screens.filter.uielements
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -27,9 +28,11 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.ui.theme.Dimens
 import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
+import ru.practicum.android.diploma.ui.theme.DiplomaTheme
 
 @Composable
 fun SalaryTextField(
@@ -73,7 +76,7 @@ fun SalaryTextField(
                         color = if (isFocused) {
                             MaterialTheme.colorScheme.primary
                         } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant
+                            MaterialTheme.colorScheme.secondary
                         }
                     )
                     Box {
@@ -81,7 +84,7 @@ fun SalaryTextField(
                             Text(
                                 text = stringResource(R.string.enter_the_amount),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = MaterialTheme.colorScheme.secondary
                             )
                         }
                         innerTextField() // всегда! — курсор будет тут
@@ -104,4 +107,17 @@ fun SalaryTextField(
             .focusRequester(focusRequester)
             .onFocusChanged { isFocused = it.isFocused }
     )
+}
+
+@Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun PreviewSalaryTextField() {
+    DiplomaTheme {
+        SalaryTextField(
+            salary = "50000",
+            onSalaryChange = { },
+            onClear = { }
+        )
+    }
 }
