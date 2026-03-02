@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.vacancy
+package ru.practicum.android.diploma.presentation.vacancy.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Spacer

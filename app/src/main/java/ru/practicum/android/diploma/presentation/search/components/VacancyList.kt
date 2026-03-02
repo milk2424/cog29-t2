@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.search
+package ru.practicum.android.diploma.presentation.search.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.search
+package ru.practicum.android.diploma.presentation.search.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import ru.practicum.android.diploma.core.utils.SalaryStrings
 import ru.practicum.android.diploma.core.utils.formatSalaryRange
 import ru.practicum.android.diploma.domain.model.Vacancy
-import ru.practicum.android.diploma.presentation.favorites.mapVacancyNameAndArea
+import ru.practicum.android.diploma.presentation.favorites.components.mapVacancyNameAndArea
 
 @Composable
 fun VacancyMainInfoColumn(vacancy: Vacancy, salaryStrings: SalaryStrings) {

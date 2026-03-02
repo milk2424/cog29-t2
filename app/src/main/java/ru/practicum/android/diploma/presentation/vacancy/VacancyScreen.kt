@@ -5,15 +5,20 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
+import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
+import ru.practicum.android.diploma.presentation.vacancy.components.ContentBody
+import ru.practicum.android.diploma.presentation.vacancy.components.TitleBlock
 import ru.practicum.android.diploma.ui.preview.PreviewData
 
 @Composable
@@ -34,16 +39,31 @@ fun VacancyScreen(
     }
     val showActions = state is VacancyScreenState.Content || state is VacancyScreenState.NotFound
     val actionsEnabled = state is VacancyScreenState.Content
-    Scaffold(
-        topBar = {
-            VacancyTopBar(
-                showActions = showActions,
-                actionsEnabled = actionsEnabled,
-                favoriteIcon = favoriteIcon,
-                onBackClick = onBackClick,
-                onShareClick = onShareClick,
-                onFavoriteClick = onFavoriteClick
-            )
+    AppScaffold(
+        title = R.string.vacancy,
+        showStartButton = true,
+        onStartClick = onBackClick,
+        endActions = {
+            if (showActions) {
+                IconButton(
+                    onClick = onShareClick,
+                    enabled = actionsEnabled
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.sharing_24px),
+                        contentDescription = null
+                    )
+                }
+                IconButton(
+                    onClick = onFavoriteClick,
+                    enabled = actionsEnabled
+                ) {
+                    Icon(
+                        painter = painterResource(favoriteIcon),
+                        contentDescription = null
+                    )
+                }
+            }
         }
     ) { innerPadding ->
         Column(
