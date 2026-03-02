@@ -64,6 +64,7 @@
     <string name="url_symbol">🔗</string>
 
     <string name="filter_settings">Настройки фильтрации</string>
+    <string name="work_place">Место работы</string>
     <string name="work_place_selection">Выбор места работы</string>
     <string name="country_selection">Выбор страны</string>
     <string name="region_selection">Выбор региона</string>
