@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.ui.screens.filter
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,7 @@ fun FilterScreen(
 ) {
     var salary by remember { mutableStateOf("") }
     var hideWithoutSalary by remember { mutableStateOf(false) }
+    val hasFilters = salary.isNotEmpty() || hideWithoutSalary
     AppScaffold(
         title = R.string.filter_settings,
         onBackClick = onBackClick,
@@ -60,6 +62,7 @@ fun FilterScreen(
                 onClick = { hideWithoutSalary = !hideWithoutSalary },
                 trailing = { TrailingCheckbox(hideWithoutSalary) }
             )
+            Row() { }
         }
     }
 }
