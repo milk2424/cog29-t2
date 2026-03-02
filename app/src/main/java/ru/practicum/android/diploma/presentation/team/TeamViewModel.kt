@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.core.usecase.OpenInBrowserUseCase
-import ru.practicum.android.diploma.domain.team.model.Developer
-import ru.practicum.android.diploma.domain.team.usecase.LoadDevelopersTeamUseCase
+import ru.practicum.android.diploma.domain.model.Developer
+import ru.practicum.android.diploma.domain.usecase.LoadDevelopersTeamUseCase
+import ru.practicum.android.diploma.domain.usecase.OpenInBrowserUseCase
 
 class TeamViewModel(
     private val loadDevelopersUseCase: LoadDevelopersTeamUseCase,

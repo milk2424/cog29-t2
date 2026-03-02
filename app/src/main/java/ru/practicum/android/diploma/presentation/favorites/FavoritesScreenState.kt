@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.presentation.favorites
 
 import kotlinx.collections.immutable.PersistentList
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.model.Vacancy
 
 sealed interface FavoritesScreenState {
     data object Loading : FavoritesScreenState
