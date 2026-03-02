@@ -64,4 +64,17 @@
     <string name="url_symbol">🔗</string>
 
     <string name="filter_settings">Настройки фильтрации</string>
+    <string name="work_place_selection">Выбор места работы</string>
+    <string name="country_selection">Выбор страны</string>
+    <string name="region_selection">Выбор региона</string>
+    <string name="industry_selection">Выбор отрасли</string>
+    <string name="industry">Отрасль</string>
+    <string name="country">Страна</string>
+    <string name="region">Регион</string>
+    <string name="dont_show_without_salary">Не показывать без зарплаты</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="enter_the_amount">Введите сумму</string>
+    <string name="reset">Сбросить</string>
+    <string name="no_such_region">Такого региона нет</string>
+    <string name="failed_to_get_list">Не удалось получить список</string>
 </resources>
