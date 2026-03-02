@@ -48,8 +48,8 @@ class VacancyViewModel(
                             }
                         }
 
-                        //Выполнить проверку на код 404 (при этом удалить вакансию из БД) и присвоить стейт VacancyScreenState.NotFound
-                        //else - просто присваиваем стейт VacancyScreenState.ServerError
+                        // Выполнить проверку на код 404 (при этом удалить вакансию из БД) и присвоить стейт VacancyScreenState.NotFound
+                        // else - просто присваиваем стейт VacancyScreenState.ServerError
 
                         else -> {
                             favoritesInteractor.remove(vacancyId)
