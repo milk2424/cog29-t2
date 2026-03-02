@@ -25,4 +25,5 @@ object Dimens {
     val spacer16 = 16.dp
     val spacer24 = 24.dp
     val spacer32 = 32.dp
+    val progressBarSize = 44.dp
 }

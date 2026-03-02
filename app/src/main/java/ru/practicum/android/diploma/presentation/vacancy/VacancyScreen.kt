@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,28 +7,47 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
-import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.presentation.vacancy.components.ContentBody
 import ru.practicum.android.diploma.presentation.vacancy.components.TitleBlock
-import ru.practicum.android.diploma.ui.preview.PreviewData
 
 @Composable
 fun VacancyScreen(
-    state: VacancyScreenState,
-    onBackClick: () -> Unit,
-    onShareClick: () -> Unit,
-    onFavoriteClick: () -> Unit
+    navController: NavController,
+    vacancyId: String,
+    viewModel: VacancyViewModel = koinViewModel()
 ) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(vacancyId) {
+        viewModel.loadVacancy(vacancyId)
+    }
+
+    val onBackClick: () -> Unit = {
+        navController.popBackStack()
+    }
+
+    val onShareClick = {
+        viewModel.shareVacancy()
+    }
+
+    val onFavoriteClick = {
+        viewModel.toggleFavorite()
+    }
+
     val favoriteIcon = when (state) {
-        is VacancyScreenState.Content -> if (state.isFavorite) {
+        is VacancyScreenState.Content -> if ((state as VacancyScreenState.Content).isFavorite) {
             R.drawable.favorites_on__24px
         } else {
             R.drawable.favorites_off__24px
@@ -96,23 +114,23 @@ fun VacancyScreen(
                 }
 
                 is VacancyScreenState.Content -> {
-                    ContentBody(state.vacancy)
+                    ContentBody((state as VacancyScreenState.Content).vacancy)
                 }
             }
         }
     }
 }
 
-@Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 360, heightDp = 1400)
-@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
-@Composable
-fun PreviewVacancyScreen() {
-    DiplomaTheme {
-        VacancyScreen(
-            state = VacancyScreenState.Content(PreviewData.previewVacancy, false),
-            onBackClick = {},
-            onShareClick = {},
-            onFavoriteClick = {},
-        )
-    }
-}
+//@Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 360, heightDp = 1400)
+//@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
+//@Composable
+//private fun PreviewVacancyScreen() {
+//    DiplomaTheme {
+//        VacancyScreen(
+//            state = VacancyScreenState.Content(PreviewData.previewVacancy, false),
+//            onBackClick = {},
+//            onShareClick = {},
+//            onFavoriteClick = {},
+//        )
+//    }
+//}
