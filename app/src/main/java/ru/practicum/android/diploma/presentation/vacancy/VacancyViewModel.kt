@@ -63,17 +63,17 @@ class VacancyViewModel(
 
     fun toggleFavorite() {
         viewModelScope.launch {
-            val vacancy = currentVacancy ?: return@launch
-            if (favoritesInteractor.isFavorite(vacancy.id)) {
-                favoritesInteractor.remove(vacancy.id)
-            } else {
-                favoritesInteractor.add(vacancy)
+            currentVacancy?.let { vacancy ->
+                if (favoritesInteractor.isFavorite(vacancy.id)) {
+                    favoritesInteractor.remove(vacancy.id)
+                } else {
+                    favoritesInteractor.add(vacancy)
+                }
+                _uiState.value = VacancyScreenState.Content(
+                    vacancy = vacancy,
+                    isFavorite = favoritesInteractor.isFavorite(vacancy.id)
+                )
             }
-
-            _uiState.value = VacancyScreenState.Content(
-                vacancy = vacancy,
-                isFavorite = favoritesInteractor.isFavorite(vacancy.id)
-            )
         }
     }
 

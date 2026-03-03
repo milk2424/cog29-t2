@@ -34,9 +34,12 @@ class ShareVacancyUseCase(
     private fun StringBuilder.appendSalary(salary: VacancySalary?) {
         salary?.let {
             val salaryText = when {
-                it.from != null && it.to != null -> "${context.getString(R.string.salary_symbol)} ${it.from}–${it.to} ${it.currency}"
-                it.from != null -> "${context.getString(R.string.salary_symbol)} от ${it.from} ${it.currency}"
-                it.to != null -> "${context.getString(R.string.salary_symbol)} до ${it.to} ${it.currency}"
+                it.from != null && it.to != null ->
+                    "${context.getString(R.string.salary_symbol)} ${it.from}–${it.to} ${it.currency}"
+                it.from != null ->
+                    "${context.getString(R.string.salary_symbol)} от ${it.from} ${it.currency}"
+                it.to != null ->
+                    "${context.getString(R.string.salary_symbol)} до ${it.to} ${it.currency}"
                 else -> return
             }
             appendLine(salaryText)
