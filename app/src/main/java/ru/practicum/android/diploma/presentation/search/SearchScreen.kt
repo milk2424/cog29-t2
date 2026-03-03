@@ -1,11 +1,10 @@
 package ru.practicum.android.diploma.presentation.search
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,6 +21,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import kotlinx.collections.immutable.toImmutableList
@@ -108,20 +108,27 @@ fun SearchScreen(
                 }
 
                 else -> {
-                    if (uiState.foundVacancies > 0) {
-                        ShowDescription(
-                            stringResource(R.string.founded_vacancies, uiState.foundVacancies)
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        VacancyList(
+                            vacancies = uiState.vacancies.toImmutableList(),
+                            onVacancyClick = debouncedOnVacancyClick,
+                            onLoadNextPage = viewModel::loadNextPage,
+                            isLoadingNextPage = uiState.isLoadingNextPage,
+                            paddingValues = PaddingValues()
                         )
-                    }
-                    Spacer(modifier = Modifier.height(paddingSmall))
 
-                    VacancyList(
-                        vacancies = uiState.vacancies.toImmutableList(),
-                        onVacancyClick = debouncedOnVacancyClick,
-                        onLoadNextPage = viewModel::loadNextPage,
-                        isLoadingNextPage = uiState.isLoadingNextPage,
-                        paddingValues = PaddingValues()
-                    )
+                        if (uiState.foundVacancies > 0) {
+                            ShowDescription(
+                                message = stringResource(R.string.founded_vacancies, uiState.foundVacancies),
+                                modifier = Modifier
+                                    .align(Alignment.TopCenter)
+                                    .padding(top = paddingSmall)
+                                    .zIndex(1f)
+                            )
+                        }
+                    }
                 }
             }
         }
