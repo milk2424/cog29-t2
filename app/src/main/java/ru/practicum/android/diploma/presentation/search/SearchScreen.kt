@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.search
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -88,7 +89,11 @@ fun SearchScreen(
                     InitialPlaceholder()
                 }
 
-                uiState.isLoading -> {
+                uiState.isDebouncing -> {
+                    Box(modifier = Modifier.fillMaxSize())
+                }
+
+                uiState.isLoading && uiState.vacancies.isEmpty() -> {
                     LoadingPlaceholder()
                 }
 

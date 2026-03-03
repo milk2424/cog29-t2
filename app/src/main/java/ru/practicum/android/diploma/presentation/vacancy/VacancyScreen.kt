@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,17 +47,9 @@ fun VacancyScreen(
         viewModel.toggleFavorite()
     }
 
-    val favoriteIcon = when (state) {
-        is VacancyScreenState.Content -> if ((state as VacancyScreenState.Content).isFavorite) {
-            R.drawable.favorites_on__24px
-        } else {
-            R.drawable.favorites_off__24px
-        }
-
-        else -> R.drawable.favorites_off__24px
-    }
     val showActions = state is VacancyScreenState.Content || state is VacancyScreenState.NotFound
     val actionsEnabled = state is VacancyScreenState.Content
+
     AppScaffold(
         title = R.string.vacancy,
         showStartButton = true,
@@ -69,17 +62,36 @@ fun VacancyScreen(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.sharing_24px),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 IconButton(
                     onClick = onFavoriteClick,
                     enabled = actionsEnabled
                 ) {
-                    Icon(
-                        painter = painterResource(favoriteIcon),
-                        contentDescription = null
-                    )
+                    when (state) {
+                        is VacancyScreenState.Content ->
+                            if ((state as VacancyScreenState.Content).isFavorite) {
+                                Icon(
+                                    painter = painterResource(R.drawable.favorites_on__24px),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                            } else {
+                                Icon(
+                                    painter = painterResource(R.drawable.favorites_off__24px),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onBackground
+                                )
+                            }
+
+                        else -> Icon(
+                            painter = painterResource(R.drawable.favorites_off__24px),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
                 }
             }
         }
