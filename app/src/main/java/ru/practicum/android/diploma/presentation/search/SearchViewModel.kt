@@ -159,7 +159,7 @@ class SearchViewModel(
                 }
             }
 
-            is ApiResult.ServerError, is ApiResult.UnknownError -> {
+            else -> {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
@@ -201,7 +201,7 @@ class SearchViewModel(
                 showPaginationError(context.getString(R.string.error_no_internet))
             }
 
-            is ApiResult.ServerError, is ApiResult.UnknownError -> {
+            else -> {
                 showPaginationError(context.getString(R.string.error_occurred))
             }
         }
