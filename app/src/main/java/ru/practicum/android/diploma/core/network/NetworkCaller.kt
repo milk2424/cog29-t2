@@ -37,9 +37,6 @@ class NetworkCaller(private val networkChecker: NetworkChecker) {
                 }
             }
         } catch (e: IOException) {
-            Log.e("NetworkCaller", "Network error", e)
-            ApiResult.NetworkError
-        } catch (e: Exception) {
             Log.e("NetworkCaller", "Unknown error", e)
             ApiResult.UnknownError
         }
