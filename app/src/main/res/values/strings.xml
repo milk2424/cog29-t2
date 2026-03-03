@@ -51,4 +51,15 @@
     <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
     <string name="e_mail">E-mail</string>
 
+    <string name="vacancy_symbol">🔹</string>
+    <string name="organization_symbol">🏢</string>
+    <string name="location_symbol">📍</string>
+    <string name="salary_symbol">💰</string>
+    <string name="experience_symbol">📌</string>
+    <string name="work_info_symbol">⏰</string>
+    <string name="description_symbol">📋</string>
+    <string name="skills_symbol">🔧</string>
+    <string name="phone_symbol">📞</string>
+    <string name="email_symbol">✉️</string>
+    <string name="url_symbol">🔗</string>
 </resources>

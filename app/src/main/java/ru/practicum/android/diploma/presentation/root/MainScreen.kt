@@ -17,7 +17,6 @@ import ru.practicum.android.diploma.presentation.navigation.NavRoute
 import ru.practicum.android.diploma.presentation.search.SearchScreen
 import ru.practicum.android.diploma.presentation.team.TeamScreen
 import ru.practicum.android.diploma.presentation.vacancy.VacancyScreen
-import ru.practicum.android.diploma.presentation.vacancy.VacancyScreenState
 
 @Composable
 fun MainScreen() {
@@ -46,12 +45,7 @@ fun MainScreen() {
             composable(NavRoute.VacancyDetails.route) { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
                 if (id.isNotEmpty()) {
-                    VacancyScreen(
-                        state = VacancyScreenState.Loading, // заменить на реальный стейт
-                        onBackClick = {},
-                        onShareClick = {},
-                        onFavoriteClick = {},
-                    )
+                    VacancyScreen(navController, id)
                 } else {
                     navController.popBackStack()
                 }

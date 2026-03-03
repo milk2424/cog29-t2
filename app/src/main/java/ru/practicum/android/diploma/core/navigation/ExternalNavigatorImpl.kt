@@ -11,4 +11,13 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
         }
         context.startActivity(intent)
     }
+
+    override fun shareVacancy(vacancyInfo: String) {
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, vacancyInfo)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        context.startActivity(shareIntent)
+    }
 }
