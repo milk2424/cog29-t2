@@ -120,17 +120,3 @@ fun VacancyScreen(
         }
     }
 }
-
-// @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, widthDp = 360, heightDp = 1400)
-// @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
-// @Composable
-// private fun PreviewVacancyScreen() {
-//     DiplomaTheme {
-//         VacancyScreen(
-//             state = VacancyScreenState.Content(PreviewData.previewVacancy, false),
-//             onBackClick = {},
-//             onShareClick = {},
-//             onFavoriteClick = {},
-//         )
-//     }
-// }

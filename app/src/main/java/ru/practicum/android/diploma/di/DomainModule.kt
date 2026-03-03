@@ -20,7 +20,7 @@ val domainModule = module {
         GetVacancyDetailUseCase(get())
     }
     single {
-        ShareVacancyUseCase(get())
+        ShareVacancyUseCase(get(), get())
     }
     single {
         OpenInBrowserUseCase(get())

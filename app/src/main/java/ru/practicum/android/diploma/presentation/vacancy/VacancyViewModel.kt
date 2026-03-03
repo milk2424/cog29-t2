@@ -26,6 +26,10 @@ class VacancyViewModel(
     private var currentVacancy: Vacancy? = null
 
     fun loadVacancy(vacancyId: String) {
+        if (currentVacancy?.id == vacancyId && _uiState.value is VacancyScreenState.Content
+        ) {
+            return
+        }
         viewModelScope.launch {
             getVacancyDetailUseCase(vacancyId)
                 .onStart {
@@ -48,9 +52,6 @@ class VacancyViewModel(
                             }
                         }
 
-                        // Выполнить проверку на код 404 (при этом удалить вакансию из БД) и присвоить стейт VacancyScreenState.NotFound
-                        // else - просто присваиваем стейт VacancyScreenState.ServerError
-
                         else -> {
                             favoritesInteractor.remove(vacancyId)
                             _uiState.value = VacancyScreenState.NotFound
@@ -62,19 +63,17 @@ class VacancyViewModel(
 
     fun toggleFavorite() {
         viewModelScope.launch {
-            currentVacancy?.let {
-                if (favoritesInteractor.isFavorite(it.id)) {
-                    favoritesInteractor.remove(it.id)
-                } else {
-                    favoritesInteractor.add(it)
-                }
-                currentVacancy?.id?.let { vacancyId ->
-                    _uiState.value = VacancyScreenState.Content(
-                        vacancy = it,
-                        isFavorite = favoritesInteractor.isFavorite(vacancyId)
-                    )
-                }
+            val vacancy = currentVacancy ?: return@launch
+            if (favoritesInteractor.isFavorite(vacancy.id)) {
+                favoritesInteractor.remove(vacancy.id)
+            } else {
+                favoritesInteractor.add(vacancy)
             }
+
+            _uiState.value = VacancyScreenState.Content(
+                vacancy = vacancy,
+                isFavorite = favoritesInteractor.isFavorite(vacancy.id)
+            )
         }
     }
 
