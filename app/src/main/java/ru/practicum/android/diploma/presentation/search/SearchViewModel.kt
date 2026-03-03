@@ -141,8 +141,10 @@ class SearchViewModel(
                     }
                 }
             }
+
             is ApiResult.Loading -> {
             }
+
             is ApiResult.NetworkError -> {
                 _uiState.update {
                     it.copy(
@@ -152,7 +154,8 @@ class SearchViewModel(
                     )
                 }
             }
-            is ApiResult.ServerError, is ApiResult.UnknownError -> {
+
+            else -> {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
@@ -185,12 +188,15 @@ class SearchViewModel(
                 }
                 isNextPageLoading = false
             }
+
             is ApiResult.Loading -> {
             }
+
             is ApiResult.NetworkError -> {
                 showPaginationError(context.getString(R.string.error_no_internet))
             }
-            is ApiResult.ServerError, is ApiResult.UnknownError -> {
+
+            else -> {
                 showPaginationError(context.getString(R.string.error_occurred))
             }
         }
