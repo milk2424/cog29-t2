@@ -40,7 +40,8 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
                             launchSingleTop = true
                         }
                     },
-                    paddingValues = paddingValues
+                    paddingValues = paddingValues,
+                    foundVacancies = state.vacancies.size
                 )
             }
         }

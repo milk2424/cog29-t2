@@ -21,13 +21,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import kotlinx.collections.immutable.toImmutableList
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.components.ErrorImageWithDescription
 import ru.practicum.android.diploma.presentation.common.placeholders.InitialPlaceholder
@@ -120,18 +118,9 @@ fun SearchScreen(
                             onVacancyClick = debouncedOnVacancyClick,
                             onLoadNextPage = viewModel::loadNextPage,
                             isLoadingNextPage = uiState.isLoadingNextPage,
-                            paddingValues = PaddingValues()
+                            paddingValues = PaddingValues(),
+                            foundVacancies = uiState.foundVacancies
                         )
-
-                        if (uiState.foundVacancies > 0) {
-                            ShowDescription(
-                                message = stringResource(R.string.founded_vacancies, uiState.foundVacancies),
-                                modifier = Modifier
-                                    .align(Alignment.TopCenter)
-                                    .padding(top = paddingSmall)
-                                    .zIndex(1f)
-                            )
-                        }
                     }
                 }
             }
