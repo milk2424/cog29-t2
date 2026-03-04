@@ -43,6 +43,7 @@ class SearchViewModel(
                 query = query,
                 isLoading = false,
                 isInitial = query.isBlank(),
+                isDebouncing = query.isNotBlank(),
                 isError = false,
                 errorMessage = null
             )
@@ -56,9 +57,6 @@ class SearchViewModel(
     }
 
     fun onClearClicked() {
-        _uiState.update {
-            SearchUiState()
-        }
         clearSearchResults()
     }
 
@@ -106,8 +104,8 @@ class SearchViewModel(
 
         _uiState.update {
             it.copy(
-                isLoading = true,
                 isLoadingNextPage = false,
+                isDebouncing = false,
                 isError = false,
                 errorMessage = null,
                 vacancies = emptyList()
@@ -125,6 +123,12 @@ class SearchViewModel(
 
     private fun handleSearchResult(result: ApiResult<VacanciesResult>) {
         when (result) {
+            is ApiResult.Loading -> {
+                _uiState.update {
+                    it.copy(isLoading = true)
+                }
+            }
+
             is ApiResult.Success -> {
                 result.data?.let { data ->
                     currentPage = data.page
@@ -133,6 +137,7 @@ class SearchViewModel(
                     _uiState.update {
                         it.copy(
                             isLoading = false,
+                            isDebouncing = false,
                             vacancies = data.vacancies,
                             foundVacancies = data.found,
                             isError = false,
@@ -142,13 +147,11 @@ class SearchViewModel(
                 }
             }
 
-            is ApiResult.Loading -> {
-            }
-
             is ApiResult.NetworkError -> {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
+                        isDebouncing = false,
                         isError = true,
                         errorMessage = context.getString(R.string.error_no_internet)
                     )
@@ -159,6 +162,7 @@ class SearchViewModel(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
+                        isDebouncing = false,
                         isError = true,
                         errorMessage = context.getString(R.string.error_occurred)
                     )
@@ -169,6 +173,12 @@ class SearchViewModel(
 
     private fun handlePaginationResult(result: ApiResult<VacanciesResult>) {
         when (result) {
+            is ApiResult.Loading -> {
+                _uiState.update {
+                    it.copy(isLoadingNextPage = true)
+                }
+            }
+
             is ApiResult.Success -> {
                 result.data?.let { data ->
                     currentPage = data.page
@@ -187,9 +197,6 @@ class SearchViewModel(
                     }
                 }
                 isNextPageLoading = false
-            }
-
-            is ApiResult.Loading -> {
             }
 
             is ApiResult.NetworkError -> {
@@ -217,6 +224,10 @@ class SearchViewModel(
         maxPages = 0
         currentQuery = ""
         isNextPageLoading = false
+
+        _uiState.update {
+            SearchUiState()
+        }
     }
 
     companion object {
@@ -229,6 +240,7 @@ data class SearchUiState(
     val isInitial: Boolean = true,
     val isLoading: Boolean = false,
     val isLoadingNextPage: Boolean = false,
+    val isDebouncing: Boolean = false,
     val isError: Boolean = false,
     val errorMessage: String? = null,
     val vacancies: List<Vacancy> = emptyList(),
