@@ -123,51 +123,13 @@ class SearchViewModel(
 
     private fun handleSearchResult(result: ApiResult<VacanciesResult>) {
         when (result) {
-            is ApiResult.Loading -> {
-                _uiState.update {
-                    it.copy(isLoading = true)
-                }
-            }
+            is ApiResult.Loading -> showLoading()
 
-            is ApiResult.Success -> {
-                result.data?.let { data ->
-                    currentPage = data.page
-                    maxPages = data.pages
+            is ApiResult.Success -> showSuccess(result.data)
 
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            isDebouncing = false,
-                            vacancies = data.vacancies,
-                            foundVacancies = data.found,
-                            isError = false,
-                            errorMessage = null
-                        )
-                    }
-                }
-            }
+            is ApiResult.NetworkError -> showError(context.getString(R.string.error_no_internet))
 
-            is ApiResult.NetworkError -> {
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isDebouncing = false,
-                        isError = true,
-                        errorMessage = context.getString(R.string.error_no_internet)
-                    )
-                }
-            }
-
-            else -> {
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isDebouncing = false,
-                        isError = true,
-                        errorMessage = context.getString(R.string.error_occurred)
-                    )
-                }
-            }
+            else -> showError(context.getString(R.string.error_occurred))
         }
     }
 
@@ -206,6 +168,40 @@ class SearchViewModel(
             else -> {
                 showPaginationError(context.getString(R.string.error_occurred))
             }
+        }
+    }
+
+    private fun showLoading() {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+    }
+
+    private fun showError(message: String) {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                isDebouncing = false,
+                isError = true,
+                errorMessage = message
+            )
+        }
+    }
+
+    private fun showSuccess(data: VacanciesResult?) {
+        data ?: return
+        currentPage = data.page
+        maxPages = data.pages
+
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                isDebouncing = false,
+                vacancies = data.vacancies,
+                foundVacancies = data.found,
+                isError = false,
+                errorMessage = null
+            )
         }
     }
 
