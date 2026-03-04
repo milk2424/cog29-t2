@@ -88,7 +88,11 @@ fun SearchScreen(
                     InitialPlaceholder()
                 }
 
-                uiState.isLoading -> {
+                uiState.isDebouncing -> {
+                    Box(modifier = Modifier.fillMaxSize())
+                }
+
+                uiState.isLoading && uiState.vacancies.isEmpty() -> {
                     LoadingPlaceholder()
                 }
 
