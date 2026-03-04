@@ -19,7 +19,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.Dimens
 import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.domain.model.Vacancy
@@ -31,7 +33,8 @@ fun VacancyList(
     onVacancyClick: (String) -> Unit,
     paddingValues: PaddingValues,
     onLoadNextPage: (() -> Unit)? = null,
-    isLoadingNextPage: Boolean = false
+    isLoadingNextPage: Boolean = false,
+    foundVacancies: Int
 ) {
     val listState = rememberLazyListState()
     val salaryStrings = salaryStrings()
@@ -66,6 +69,23 @@ fun VacancyList(
             .padding(paddingValues)
             .padding(horizontal = paddingLarge)
     ) {
+        if (foundVacancies > 0) {
+            stickyHeader {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = Dimens.paddingSmall),
+                    contentAlignment = Alignment.Center
+                ) {
+                    ShowDescription(
+                        message = stringResource(
+                            R.string.founded_vacancies,
+                            foundVacancies
+                        )
+                    )
+                }
+            }
+        }
         items(
             items = vacancies,
             key = { it.id }
