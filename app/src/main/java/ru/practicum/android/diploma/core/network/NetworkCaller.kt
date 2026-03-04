@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.core.network
 
 import android.util.Log
+import com.google.gson.JsonParseException
 import retrofit2.Response
 import ru.practicum.android.diploma.domain.utils.ApiResult
-import java.io.IOException
 
 class NetworkCaller(private val networkChecker: NetworkChecker) {
     companion object {
@@ -36,8 +36,8 @@ class NetworkCaller(private val networkChecker: NetworkChecker) {
                     ApiResult.ServerError(code = response.code())
                 }
             }
-        } catch (e: IOException) {
-            Log.e("NetworkCaller", "Unknown error", e)
+        } catch (e: JsonParseException) {
+            Log.e("NetworkCaller", "JSON parsing error", e)
             ApiResult.UnknownError
         }
     }
