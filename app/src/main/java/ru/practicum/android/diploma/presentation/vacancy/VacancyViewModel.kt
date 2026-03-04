@@ -52,9 +52,13 @@ class VacancyViewModel(
                             }
                         }
 
-                        else -> {
+                        is ApiResult.NotFoundError -> {
                             favoritesInteractor.remove(vacancyId)
                             _uiState.value = VacancyScreenState.NotFound
+                        }
+
+                        else -> {
+                            _uiState.value = VacancyScreenState.ServerError
                         }
                     }
                 }
