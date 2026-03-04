@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import ru.practicum.android.diploma.R
@@ -25,9 +27,13 @@ import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingMedium
 import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
 import ru.practicum.android.diploma.core.utils.SalaryStrings
 import ru.practicum.android.diploma.domain.model.Vacancy
+import ru.practicum.android.diploma.presentation.common.components.AppImageLoader
 
 @Composable
 fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyClicked: ((String) -> Unit)) {
+    val context = LocalContext.current
+    val imageLoader = remember { AppImageLoader.get(context) }
+
     val imageShape = RoundedCornerShape(iconCorners)
     Row(
         modifier = Modifier
@@ -48,6 +54,7 @@ fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyCli
                     shape = imageShape
                 ),
             model = vacancy.employer.logo,
+            imageLoader = imageLoader,
             placeholder = painterResource(R.drawable.img_no_employer_logo),
             error = painterResource(R.drawable.img_no_employer_logo),
             contentScale = ContentScale.Inside,

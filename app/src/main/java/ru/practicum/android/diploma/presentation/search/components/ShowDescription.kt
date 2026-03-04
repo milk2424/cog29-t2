@@ -13,10 +13,11 @@ import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingXSmall
 
 @Composable
 fun ShowDescription(
-    message: String
+    message: String,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .padding(paddingXSmall)
             .background(
                 color = MaterialTheme.colorScheme.primary,
