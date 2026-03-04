@@ -57,9 +57,6 @@ class SearchViewModel(
     }
 
     fun onClearClicked() {
-        _uiState.update {
-            SearchUiState()
-        }
         clearSearchResults()
     }
 
@@ -107,7 +104,6 @@ class SearchViewModel(
 
         _uiState.update {
             it.copy(
-                isLoading = true,
                 isLoadingNextPage = false,
                 isDebouncing = false,
                 isError = false,
@@ -127,6 +123,12 @@ class SearchViewModel(
 
     private fun handleSearchResult(result: ApiResult<VacanciesResult>) {
         when (result) {
+            is ApiResult.Loading -> {
+                _uiState.update {
+                    it.copy(isLoading = true)
+                }
+            }
+
             is ApiResult.Success -> {
                 result.data?.let { data ->
                     currentPage = data.page
@@ -143,9 +145,6 @@ class SearchViewModel(
                         )
                     }
                 }
-            }
-
-            is ApiResult.Loading -> {
             }
 
             is ApiResult.NetworkError -> {
@@ -174,6 +173,12 @@ class SearchViewModel(
 
     private fun handlePaginationResult(result: ApiResult<VacanciesResult>) {
         when (result) {
+            is ApiResult.Loading -> {
+                _uiState.update {
+                    it.copy(isLoadingNextPage = true)
+                }
+            }
+
             is ApiResult.Success -> {
                 result.data?.let { data ->
                     currentPage = data.page
@@ -192,9 +197,6 @@ class SearchViewModel(
                     }
                 }
                 isNextPageLoading = false
-            }
-
-            is ApiResult.Loading -> {
             }
 
             is ApiResult.NetworkError -> {

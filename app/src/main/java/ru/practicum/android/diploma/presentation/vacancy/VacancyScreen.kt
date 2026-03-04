@@ -20,6 +20,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
+import ru.practicum.android.diploma.presentation.search.components.FavoriteIcon
 import ru.practicum.android.diploma.presentation.vacancy.components.ContentBody
 import ru.practicum.android.diploma.presentation.vacancy.components.TitleBlock
 
@@ -50,6 +51,8 @@ fun VacancyScreen(
     val showActions = state is VacancyScreenState.Content || state is VacancyScreenState.NotFound
     val actionsEnabled = state is VacancyScreenState.Content
 
+    val isFavorite = (state as? VacancyScreenState.Content)?.isFavorite == true
+
     AppScaffold(
         title = R.string.vacancy,
         showStartButton = true,
@@ -70,28 +73,9 @@ fun VacancyScreen(
                     onClick = onFavoriteClick,
                     enabled = actionsEnabled
                 ) {
-                    when (state) {
-                        is VacancyScreenState.Content ->
-                            if ((state as VacancyScreenState.Content).isFavorite) {
-                                Icon(
-                                    painter = painterResource(R.drawable.favorites_on__24px),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.error
-                                )
-                            } else {
-                                Icon(
-                                    painter = painterResource(R.drawable.favorites_off__24px),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onBackground
-                                )
-                            }
-
-                        else -> Icon(
-                            painter = painterResource(R.drawable.favorites_off__24px),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
+                    FavoriteIcon(
+                        isFavorite = isFavorite
+                    )
                 }
             }
         }
