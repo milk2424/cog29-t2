@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.di
 import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.interactor.FavoritesInteractor
 import ru.practicum.android.diploma.domain.interactor.FavoritesInteractorImpl
+import ru.practicum.android.diploma.domain.interactor.FilterInteractor
+import ru.practicum.android.diploma.domain.interactor.FilterInteractorImpl
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractorImpl
 import ru.practicum.android.diploma.domain.usecase.GetAllFavoritesUseCase
@@ -31,4 +33,6 @@ val domainModule = module {
     single<SearchInteractor> { SearchInteractorImpl(get()) }
 
     single<FavoritesInteractor> { FavoritesInteractorImpl(get()) }
+
+    single<FilterInteractor> { FilterInteractorImpl(get()) }
 }
