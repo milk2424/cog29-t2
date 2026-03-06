@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.screens.filter.uielements
+package ru.practicum.android.diploma.presentation.filter.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
@@ -14,10 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.theme.Dimens.itemHeight
-import ru.practicum.android.diploma.ui.theme.Dimens.paddingLarge
-import ru.practicum.android.diploma.ui.theme.DiplomaTheme
+import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
 
 @Composable
 fun FilterListItem(
@@ -31,9 +30,9 @@ fun FilterListItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(itemHeight)
+            .height(60.dp)
             .clickable(onClick = onClick)
-            .padding(horizontal = paddingLarge)
+            .padding(horizontal = 16.dp)
     ) {
         Column(modifier = Modifier.weight(1f)) {
             val color = if (isPlaceholder) {
@@ -57,7 +56,7 @@ fun FilterListItem(
                     text = value,
                     style = MaterialTheme.typography.bodyLarge,
                     color = color,
-                    modifier = Modifier.padding(end = paddingLarge)
+                    modifier = Modifier.padding(end = 16.dp)
                 )
             }
         }

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.filter
 
+import AppScaffold
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,20 +13,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.ui.core.uielements.AppScaffold
-import ru.practicum.android.diploma.ui.screens.filter.uielements.FilterButton
-import ru.practicum.android.diploma.ui.screens.filter.uielements.FilterListItem
-import ru.practicum.android.diploma.ui.screens.filter.uielements.SalaryTextField
-import ru.practicum.android.diploma.ui.screens.filter.uielements.TrailingArrow
-import ru.practicum.android.diploma.ui.screens.filter.uielements.TrailingCheckbox
-import ru.practicum.android.diploma.ui.theme.Dimens.spacer24
-import ru.practicum.android.diploma.ui.theme.Dimens.spacer8
-import ru.practicum.android.diploma.ui.theme.DiplomaTheme
+import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
+import ru.practicum.android.diploma.presentation.filter.components.FilterButton
+import ru.practicum.android.diploma.presentation.filter.components.FilterListItem
+import ru.practicum.android.diploma.presentation.filter.components.SalaryTextField
+import ru.practicum.android.diploma.presentation.filter.components.TrailingArrow
+import ru.practicum.android.diploma.presentation.filter.components.TrailingCheckbox
 
 @Composable
 fun FilterScreen(
-    onBackClick: () -> Unit,
+    onStartClick: () -> Unit,
     onWorkplaceClick: () -> Unit,
     onIndustryClick: () -> Unit,
 ) {
@@ -34,7 +33,8 @@ fun FilterScreen(
     val hasFilters = salary.isNotEmpty() || hideWithoutSalary
     AppScaffold(
         title = R.string.filter_settings,
-        onBackClick = onBackClick,
+        showStartButton = true,
+        onStartClick = onStartClick
     ) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
@@ -51,13 +51,13 @@ fun FilterScreen(
                 isPlaceholder = true,
                 trailing = { TrailingArrow() }
             )
-            Spacer(modifier = Modifier.height(spacer24))
+            Spacer(modifier = Modifier.height(24.dp))
             SalaryTextField(
                 salary = salary,
                 onSalaryChange = { salary = it },
                 onClear = { salary = "" }
             )
-            Spacer(modifier = Modifier.height(spacer24))
+            Spacer(modifier = Modifier.height(24.dp))
             FilterListItem(
                 label = R.string.dont_show_without_salary,
                 onClick = { hideWithoutSalary = !hideWithoutSalary },
@@ -70,7 +70,7 @@ fun FilterScreen(
                     isPrimary = true,
                     onClick = {}
                 )
-                Spacer(Modifier.height(spacer8))
+                Spacer(Modifier.height(8.dp))
                 FilterButton(
                     text = R.string.reset,
                     isPrimary = false,
@@ -80,7 +80,7 @@ fun FilterScreen(
                     }
                 )
             }
-            Spacer(Modifier.height(spacer24))
+            Spacer(Modifier.height(24.dp))
         }
     }
 }
@@ -91,7 +91,7 @@ fun FilterScreen(
 fun PreviewVacancyScreen() {
     DiplomaTheme {
         FilterScreen(
-            onBackClick = {},
+            onStartClick = {},
             onWorkplaceClick = {},
             onIndustryClick = {},
         )

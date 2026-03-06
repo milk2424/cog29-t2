@@ -48,7 +48,13 @@ fun MainScreen() {
             composable<Main> { SearchScreen(navController) }
             composable<Favorites> { FavoritesScreen(navController) }
             composable<Team> { TeamScreen() }
-            composable<Filter> { FilterScreen(navController) }
+            composable<Filter> {
+                FilterScreen(
+                    onStartClick = { navController.popBackStack() },
+                    onWorkplaceClick = {},
+                    onIndustryClick = {}
+                )
+            }
             composable<VacancyDetails> { backStackEntry ->
                 val route = backStackEntry.toRoute<VacancyDetails>()
                 VacancyScreen(navController, route.id)

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.screens.filter.uielements
+package ru.practicum.android.diploma.presentation.filter.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon

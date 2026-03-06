@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.favorites
 
+import AppScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -7,7 +8,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.components.ErrorImageWithDescription
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.presentation.navigation.VacancyDetails

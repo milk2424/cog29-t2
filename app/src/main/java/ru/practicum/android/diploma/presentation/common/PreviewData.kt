@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.preview
+package ru.practicum.android.diploma.presentation.common
 
 import ru.practicum.android.diploma.data.dto.areas.FilterAreaDto
 import ru.practicum.android.diploma.data.dto.industries.FilterIndustryDto
@@ -14,12 +14,30 @@ object PreviewData {
     val previewAreas = listOf(
         FilterAreaDto(id = "1", name = "Москва", parentId = "113", areas = emptyList()),
         FilterAreaDto(id = "2", name = "Санкт-Петербург", parentId = "113", areas = emptyList()),
-        FilterAreaDto(id = "1261", name = "Свердловская область", parentId = "113", areas = emptyList()),
-        FilterAreaDto(id = "1438", name = "Краснодарский край", parentId = "113", areas = emptyList()),
-        FilterAreaDto(id = "1202", name = "Новосибирская область", parentId = "113", areas = emptyList()),
+        FilterAreaDto(
+            id = "1261",
+            name = "Свердловская область",
+            parentId = "113",
+            areas = emptyList()
+        ),
+        FilterAreaDto(
+            id = "1438",
+            name = "Краснодарский край",
+            parentId = "113",
+            areas = emptyList()
+        ),
+        FilterAreaDto(
+            id = "1202",
+            name = "Новосибирская область",
+            parentId = "113",
+            areas = emptyList()
+        ),
     )
     val previewIndustries = listOf(
-        FilterIndustryDto(id = "7", name = "Информационные технологии, системная интеграция, интернет"),
+        FilterIndustryDto(
+            id = "7",
+            name = "Информационные технологии, системная интеграция, интернет"
+        ),
         FilterIndustryDto(id = "9", name = "Телекоммуникации, связь"),
         FilterIndustryDto(id = "43", name = "Финансовый сектор"),
         FilterIndustryDto(id = "48", name = "Медицина, фармацевтика, аптеки"),
