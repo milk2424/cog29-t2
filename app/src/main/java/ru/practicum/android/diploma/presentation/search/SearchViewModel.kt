@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.search
 
 import android.content.Context
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -142,7 +143,7 @@ class SearchViewModel(
             }
 
             is ApiResult.Success -> {
-                result.data?.let { data ->
+                result.data.let { data ->
                     currentPage = data.page
                     maxPages = data.pages
 
@@ -231,6 +232,7 @@ class SearchViewModel(
     }
 }
 
+@Immutable
 data class SearchUiState(
     val query: String = "",
     val isInitial: Boolean = true,
