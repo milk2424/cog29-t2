@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.common.components
+package ru.practicum.android.diploma.presentation.filter.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 
 @Composable
-fun AreaSelectionItem(text: String, onItemClicked: () -> Unit = {}) {
+fun AreaSelectionItem(text: String, onItemClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
