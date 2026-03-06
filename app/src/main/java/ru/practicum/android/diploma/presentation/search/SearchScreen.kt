@@ -27,8 +27,8 @@ fun SearchScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     LaunchedEffect(uiState.errorMessage) {
-        uiState.errorMessage?.let { message ->
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        uiState.errorMessage?.let { messageRes ->
+            Toast.makeText(context, messageRes, Toast.LENGTH_SHORT).show()
         }
     }
     AppScaffold(
