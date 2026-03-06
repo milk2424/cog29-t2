@@ -17,11 +17,13 @@ import ru.practicum.android.diploma.core.network.NetworkCaller
 import ru.practicum.android.diploma.core.network.NetworkCallerImpl
 import ru.practicum.android.diploma.core.network.NetworkChecker
 import ru.practicum.android.diploma.core.network.NetworkCheckerImpl
+import ru.practicum.android.diploma.data.repository.CountryRepositoryImpl
 import ru.practicum.android.diploma.data.repository.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.repository.FilterRepositoryImpl
 import ru.practicum.android.diploma.data.repository.TeamRepositoryImpl
 import ru.practicum.android.diploma.data.repository.VacancyRepositoryImpl
 import ru.practicum.android.diploma.domain.model.Developer
+import ru.practicum.android.diploma.domain.repository.CountryRepository
 import ru.practicum.android.diploma.domain.repository.FavoritesRepository
 import ru.practicum.android.diploma.domain.repository.FilterRepository
 import ru.practicum.android.diploma.domain.repository.TeamRepository
@@ -95,4 +97,5 @@ val dataModule = module {
 
     single<FilterRepository> { FilterRepositoryImpl(get()) }
 
+    single<CountryRepository> { CountryRepositoryImpl(get(), get()) }
 }

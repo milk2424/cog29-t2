@@ -7,6 +7,7 @@ import ru.practicum.android.diploma.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.domain.interactor.FilterInteractorImpl
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractorImpl
+import ru.practicum.android.diploma.domain.usecase.GetAllCountriesUseCase
 import ru.practicum.android.diploma.domain.usecase.GetAllFavoritesUseCase
 import ru.practicum.android.diploma.domain.usecase.GetVacancyDetailUseCase
 import ru.practicum.android.diploma.domain.usecase.LoadDevelopersTeamUseCase
@@ -35,4 +36,6 @@ val domainModule = module {
     single<FavoritesInteractor> { FavoritesInteractorImpl(get()) }
 
     single<FilterInteractor> { FilterInteractorImpl(get()) }
+
+    single { GetAllCountriesUseCase(get()) }
 }
