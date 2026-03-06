@@ -8,27 +8,27 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         sharedPreferences.edit()
             .putInt("salary", filter.salary ?: -1)
             .putBoolean("hide_without_salary", filter.hideWithoutSalary)
-            .putString("industry_id", filter.industryId)
+            .putInt("industry_id", filter.industryId ?: -1)
             .putString("industry_name", filter.industryName)
-            .putString("country_id", filter.countryId)
+            .putInt("country_id", filter.countryId ?: -1)
             .putString("country_name", filter.countryName)
-            .putString("region_id", filter.regionId)
+            .putInt("region_id", filter.regionId ?: -1)
             .putString("region_name", filter.regionName)
             .apply()
 
     }
 
-    override fun getFilter(): FilterSettings? {
+    override fun getFilter(): FilterSettings {
         val salary = sharedPreferences.getInt("salary", -1)
         val hideWithoutSalary = sharedPreferences.getBoolean("hide_without_salary", false)
 
-        val industryId = sharedPreferences.getString("industry_id", null)
+        val industryId = sharedPreferences.getInt("industry_id", -1)
         val industryName = sharedPreferences.getString("industry_name", null)
 
-        val countryId = sharedPreferences.getString("country_id", null)
+        val countryId = sharedPreferences.getInt("country_id", -1)
         val countryName = sharedPreferences.getString("country_name", null)
 
-        val regionId = sharedPreferences.getString("region_id", null)
+        val regionId = sharedPreferences.getInt("region_id", -1)
         val regionName = sharedPreferences.getString("region_name", null)
 
         return FilterSettings(
