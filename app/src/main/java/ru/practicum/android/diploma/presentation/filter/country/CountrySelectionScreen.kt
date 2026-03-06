@@ -22,7 +22,6 @@ fun CountrySelectionScreen(
     onNavigateBack: () -> Unit,
     viewModel: CountrySelectionViewModel = koinViewModel()
 ) {
-
     val state by viewModel.screenState.collectAsStateWithLifecycle()
 
     AppScaffold(

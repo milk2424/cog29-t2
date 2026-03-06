@@ -19,7 +19,11 @@ class CountrySelectionViewModel(getCountriesUseCase: GetAllCountriesUseCase) : V
         .map { result ->
             when (result) {
                 is ApiResult.Loading -> Loading
-                is ApiResult.NetworkError, is ApiResult.NotFoundError, is ApiResult.ServerError, is ApiResult.UnknownError -> Error
+                is ApiResult.NetworkError,
+                is ApiResult.NotFoundError,
+                is ApiResult.ServerError,
+                is ApiResult.UnknownError -> Error
+
                 is ApiResult.Success -> Success(result.data.toPersistentList())
             }
         }
