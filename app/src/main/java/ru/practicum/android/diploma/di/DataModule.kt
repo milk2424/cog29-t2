@@ -31,7 +31,6 @@ import java.util.concurrent.TimeUnit
 private const val BASE_URL = "http://155.212.163.151"
 private const val NETWORK_TIMEOUT_SEC = 5L
 
-
 val dataModule = module {
     single<NetworkChecker> { NetworkCheckerImpl(androidContext()) }
 
@@ -95,6 +94,5 @@ val dataModule = module {
     single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 
     single<FilterRepository> { FilterRepositoryImpl(get()) }
-
 
 }

@@ -31,7 +31,6 @@ class FilterStorageImpl(private val sharedPreferences: SharedPreferences) : Filt
         val regionId = sharedPreferences.getString("region_id", null)
         val regionName = sharedPreferences.getString("region_name", null)
 
-
         return FilterSettings(
             salary = if (salary == -1) null else salary,
             hideWithoutSalary = hideWithoutSalary,
