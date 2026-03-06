@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.search
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,12 +12,10 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.utils.debounce
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.model.VacanciesResult
-import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class SearchViewModel(
-    private val searchInteractor: SearchInteractor,
-    private val context: Context
+    private val searchInteractor: SearchInteractor
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -127,9 +124,9 @@ class SearchViewModel(
 
             is ApiResult.Success -> showSuccess(result.data)
 
-            is ApiResult.NetworkError -> showError(context.getString(R.string.error_no_internet))
+            is ApiResult.NetworkError -> showError(R.string.error_no_internet)
 
-            else -> showError(context.getString(R.string.error_occurred))
+            else -> showError(R.string.error_occurred)
         }
     }
 
@@ -142,7 +139,7 @@ class SearchViewModel(
             }
 
             is ApiResult.Success -> {
-                result.data?.let { data ->
+                result.data.let { data ->
                     currentPage = data.page
                     maxPages = data.pages
 
@@ -162,11 +159,11 @@ class SearchViewModel(
             }
 
             is ApiResult.NetworkError -> {
-                showPaginationError(context.getString(R.string.error_no_internet))
+                showPaginationError(R.string.error_no_internet)
             }
 
             else -> {
-                showPaginationError(context.getString(R.string.error_occurred))
+                showPaginationError(R.string.error_occurred)
             }
         }
     }
@@ -177,13 +174,13 @@ class SearchViewModel(
         }
     }
 
-    private fun showError(message: String) {
+    private fun showError(messageRes: Int) {
         _uiState.update {
             it.copy(
                 isLoading = false,
                 isDebouncing = false,
                 isError = true,
-                errorMessage = message
+                errorMessage = messageRes
             )
         }
     }
@@ -205,12 +202,12 @@ class SearchViewModel(
         }
     }
 
-    private fun showPaginationError(message: String) {
+    private fun showPaginationError(messageRes: Int) {
         isNextPageLoading = false
         _uiState.update {
             it.copy(
                 isLoadingNextPage = false,
-                errorMessage = message
+                errorMessage = messageRes
             )
         }
     }
@@ -230,15 +227,3 @@ class SearchViewModel(
         private const val SEARCH_DELAY = 2000L
     }
 }
-
-data class SearchUiState(
-    val query: String = "",
-    val isInitial: Boolean = true,
-    val isLoading: Boolean = false,
-    val isLoadingNextPage: Boolean = false,
-    val isDebouncing: Boolean = false,
-    val isError: Boolean = false,
-    val errorMessage: String? = null,
-    val vacancies: List<Vacancy> = emptyList(),
-    val foundVacancies: Int = 0
-)

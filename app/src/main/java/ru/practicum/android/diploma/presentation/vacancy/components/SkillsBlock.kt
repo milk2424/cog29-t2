@@ -8,18 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer16
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer24
 
 @Composable
 fun SkillsBlock(skills: List<String>) {
-    Spacer(modifier = Modifier.height(spacer24))
+    Spacer(modifier = Modifier.height(24.dp))
     TitleBlock(R.string.key_skills)
-    Spacer(modifier = Modifier.height(spacer16))
+    Spacer(modifier = Modifier.height(16.dp))
     skills.forEach { skill ->
-        Row(modifier = Modifier.padding(start = paddingSmall)) {
+        Row(modifier = Modifier.padding(start = 8.dp)) {
             Text(
                 text = "·  ",
                 style = MaterialTheme.typography.bodyLarge,

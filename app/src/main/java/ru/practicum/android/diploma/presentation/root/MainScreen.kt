@@ -6,14 +6,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreen
 import ru.practicum.android.diploma.presentation.filter.FilterScreen
 import ru.practicum.android.diploma.presentation.navigation.BottomNavBar
-import ru.practicum.android.diploma.presentation.navigation.NavRoute
+import ru.practicum.android.diploma.presentation.navigation.Favorites
+import ru.practicum.android.diploma.presentation.navigation.Filter
+import ru.practicum.android.diploma.presentation.navigation.Main
+import ru.practicum.android.diploma.presentation.navigation.Team
+import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.search.SearchScreen
 import ru.practicum.android.diploma.presentation.team.TeamScreen
 import ru.practicum.android.diploma.presentation.vacancy.VacancyScreen
@@ -22,35 +28,31 @@ import ru.practicum.android.diploma.presentation.vacancy.VacancyScreen
 fun MainScreen() {
     val navController = rememberNavController()
     val currentEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = currentEntry?.destination?.route
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            if (currentRoute in
-                listOf(NavRoute.Tab.Main.route, NavRoute.Tab.Favorites.route, NavRoute.Tab.Team.route)
-            ) {
-                BottomNavBar(navController, currentRoute)
+            val showBottomBar = currentEntry?.destination?.run {
+                hasRoute<Main>() || hasRoute<Favorites>() || hasRoute<Team>()
+            } == true
+            if (showBottomBar) {
+                BottomNavBar(navController)
             }
         }
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = NavRoute.Tab.Main.route,
+            startDestination = Main,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(NavRoute.Tab.Main.route) { SearchScreen(navController) }
-            composable(NavRoute.Tab.Favorites.route) { FavoritesScreen(navController) }
-            composable(NavRoute.Tab.Team.route) { TeamScreen() }
-            composable(NavRoute.VacancyDetails.route) { backStackEntry ->
-                val id = backStackEntry.arguments?.getString("id") ?: ""
-                if (id.isNotEmpty()) {
-                    VacancyScreen(navController, id)
-                } else {
-                    navController.popBackStack()
-                }
+            composable<Main> { SearchScreen(navController) }
+            composable<Favorites> { FavoritesScreen(navController) }
+            composable<Team> { TeamScreen() }
+            composable<Filter> { FilterScreen(navController) }
+            composable<VacancyDetails> { backStackEntry ->
+                val route = backStackEntry.toRoute<VacancyDetails>()
+                VacancyScreen(navController, route.id)
             }
-            composable(NavRoute.Filter.route) { FilterScreen(navController) }
         }
     }
 }

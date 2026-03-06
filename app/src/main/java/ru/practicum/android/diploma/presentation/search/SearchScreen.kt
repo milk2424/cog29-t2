@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
+import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.search.components.SearchContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,8 +28,8 @@ fun SearchScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     LaunchedEffect(uiState.errorMessage) {
-        uiState.errorMessage?.let { message ->
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        uiState.errorMessage?.let { messageRes ->
+            Toast.makeText(context, messageRes, Toast.LENGTH_SHORT).show()
         }
     }
     AppScaffold(
@@ -50,8 +51,8 @@ fun SearchScreen(
             onQueryChanged = viewModel::onQueryChanged,
             onCLearClicked = viewModel::onClearClicked,
             onLoadNextPage = viewModel::loadNextPage,
-            onVacancyClick = { id ->
-                navController.navigate("vacancy/$id") {
+            onVacancyClick = { vacancyId ->
+                navController.navigate(VacancyDetails(id = vacancyId)) {
                     launchSingleTop = true
                 }
             }

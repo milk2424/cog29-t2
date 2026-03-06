@@ -8,7 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer4
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun TextBlock(@StringRes title: Int? = null, text: String) {
@@ -18,7 +18,7 @@ fun TextBlock(@StringRes title: Int? = null, text: String) {
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground,
         )
-        Spacer(modifier = Modifier.height(spacer4))
+        Spacer(modifier = Modifier.height(4.dp))
     }
     Text(
         text = text,

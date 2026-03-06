@@ -47,7 +47,8 @@ class VacancyViewModel(
                                 val isFavorite = favoritesInteractor.isFavorite(vacancy.id)
                                 _uiState.value = VacancyScreenState.Content(
                                     vacancy = vacancy,
-                                    isFavorite = isFavorite
+                                    isFavorite = isFavorite,
+                                    descriptionLines = vacancy.description.toDescriptionLines()
                                 )
                             }
                         }
@@ -75,7 +76,8 @@ class VacancyViewModel(
                 }
                 _uiState.value = VacancyScreenState.Content(
                     vacancy = vacancy,
-                    isFavorite = favoritesInteractor.isFavorite(vacancy.id)
+                    isFavorite = favoritesInteractor.isFavorite(vacancy.id),
+                    descriptionLines = vacancy.description.toDescriptionLines()
                 )
             }
         }
@@ -87,3 +89,14 @@ class VacancyViewModel(
         }
     }
 }
+
+private fun String.toDescriptionLines(): List<DescriptionLine> =
+    split("\n")
+        .filter { it.isNotBlank() }
+        .map { line ->
+            if (line.trimEnd().endsWith(":")) {
+                DescriptionLine.Header(line)
+            } else {
+                DescriptionLine.Body(line)
+            }
+        }

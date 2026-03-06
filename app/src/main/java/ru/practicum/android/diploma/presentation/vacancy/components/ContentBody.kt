@@ -10,33 +10,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer24
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer32
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer8
 import ru.practicum.android.diploma.core.utils.Currency
 import ru.practicum.android.diploma.core.utils.formatSalaryRange
 import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.presentation.common.components.salaryStrings
+import ru.practicum.android.diploma.presentation.vacancy.DescriptionLine
 
 @Composable
-fun ContentBody(vacancy: Vacancy) {
+fun ContentBody(vacancy: Vacancy, descriptions: List<DescriptionLine>) {
     val salaryStrings = salaryStrings()
     val currencySymbol = vacancy.salary?.currency?.let { code ->
         runCatching { Currency.valueOf(code).symbol }.getOrDefault(code)
     }
     Column(
         modifier = Modifier
-            .padding(horizontal = paddingLarge)
+            .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Text(
             text = vacancy.name,
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(top = paddingSmall),
+            modifier = Modifier.padding(top = 8.dp),
         )
         Text(
             text = formatSalaryRange(
@@ -47,10 +44,10 @@ fun ContentBody(vacancy: Vacancy) {
             ),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(top = paddingSmall),
+            modifier = Modifier.padding(top = 8.dp),
         )
         EmployerCard(vacancy)
-        Spacer(modifier = Modifier.height(spacer24))
+        Spacer(modifier = Modifier.height(24.dp))
         vacancy.experience?.let {
             TextBlock(title = R.string.required_experience, text = it)
         }
@@ -60,12 +57,12 @@ fun ContentBody(vacancy: Vacancy) {
         )
             .joinToString(", ")
         if (scheduleInfo.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(spacer8))
+            Spacer(modifier = Modifier.height(8.dp))
             TextBlock(text = scheduleInfo)
         }
-        Spacer(modifier = Modifier.height(spacer32))
+        Spacer(modifier = Modifier.height(32.dp))
         TitleBlock(R.string.vacancy_description)
-        DescriptionBlock(vacancy.description)
+        DescriptionBlock(descriptions)
         if (vacancy.skills.isNotEmpty()) {
             SkillsBlock(vacancy.skills)
         }

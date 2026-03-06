@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.core.navigation.ExternalNavigator
 import ru.practicum.android.diploma.core.navigation.ExternalNavigatorImpl
 import ru.practicum.android.diploma.core.network.ApiService
 import ru.practicum.android.diploma.core.network.NetworkCaller
+import ru.practicum.android.diploma.core.network.NetworkCallerImpl
 import ru.practicum.android.diploma.core.network.NetworkChecker
 import ru.practicum.android.diploma.core.network.NetworkCheckerImpl
 import ru.practicum.android.diploma.data.repository.FavoritesRepositoryImpl
@@ -82,8 +83,8 @@ val dataModule = module {
         ExternalNavigatorImpl(androidContext())
     }
 
-    single {
-        NetworkCaller(get())
+    single<NetworkCaller> {
+        NetworkCallerImpl(get(), get())
     }
 
     single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }

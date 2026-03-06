@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -85,4 +86,5 @@ dependencies {
 
     // временка пока не переделаем темы на композ
     implementation(libs.ui.material)
+    implementation(libs.kotlinx.serialization.json)
 }
