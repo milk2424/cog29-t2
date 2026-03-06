@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
 
 class RootActivity : ComponentActivity() {
@@ -16,11 +15,5 @@ class RootActivity : ComponentActivity() {
                 MainScreen()
             }
         }
-        networkRequestExample(accessToken = BuildConfig.API_ACCESS_TOKEN)
     }
-
-    private fun networkRequestExample(accessToken: String) {
-        // ...
-    }
-
 }
