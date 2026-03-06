@@ -16,9 +16,10 @@ import ru.practicum.android.diploma.core.utils.Currency
 import ru.practicum.android.diploma.core.utils.formatSalaryRange
 import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.presentation.common.components.salaryStrings
+import ru.practicum.android.diploma.presentation.vacancy.DescriptionLine
 
 @Composable
-fun ContentBody(vacancy: Vacancy) {
+fun ContentBody(vacancy: Vacancy, descriptions: List<DescriptionLine>) {
     val salaryStrings = salaryStrings()
     val currencySymbol = vacancy.salary?.currency?.let { code ->
         runCatching { Currency.valueOf(code).symbol }.getOrDefault(code)
@@ -61,7 +62,7 @@ fun ContentBody(vacancy: Vacancy) {
         }
         Spacer(modifier = Modifier.height(32.dp))
         TitleBlock(R.string.vacancy_description)
-        DescriptionBlock(vacancy.description)
+        DescriptionBlock(descriptions)
         if (vacancy.skills.isNotEmpty()) {
             SkillsBlock(vacancy.skills)
         }

@@ -86,7 +86,7 @@ fun VacancyScreen(
                 .fillMaxSize()
                 .padding(top = 16.dp)
         ) {
-            when (state) {
+            when (val s = state) {
                 is VacancyScreenState.Loading -> {
                     LoadingPlaceholder()
                 }
@@ -110,7 +110,7 @@ fun VacancyScreen(
                 }
 
                 is VacancyScreenState.Content -> {
-                    ContentBody((state as VacancyScreenState.Content).vacancy)
+                    ContentBody(s.vacancy, s.descriptionLines)
                 }
             }
         }

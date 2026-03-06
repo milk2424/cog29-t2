@@ -10,6 +10,7 @@ sealed interface VacancyScreenState {
     data object NotFound : VacancyScreenState
     data class Content(
         val vacancy: Vacancy,
-        val isFavorite: Boolean
+        val isFavorite: Boolean,
+        val descriptionLines: List<DescriptionLine>
     ) : VacancyScreenState
 }
