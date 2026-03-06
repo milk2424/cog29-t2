@@ -39,7 +39,7 @@ fun ContentBody(vacancy: Vacancy, descriptions: List<DescriptionLine>) {
             text = formatSalaryRange(
                 min = vacancy.salary?.from,
                 max = vacancy.salary?.to,
-                currency = currencySymbol,
+                formattedCurrency = vacancy.salary?.formattedCurrency ?: "",
                 strings = salaryStrings
             ),
             style = MaterialTheme.typography.titleLarge,

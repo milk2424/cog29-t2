@@ -49,7 +49,7 @@ object PreviewData {
                 logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1200px-Microsoft_logo.svg.png"
             ),
             areaName = "Чекрушево",
-            salary = VacancySalary(from = 1500, to = 2500, currency = "EUR"),
+            salary = VacancySalary(from = 1500, to = 2500, currency = "EUR", formattedCurrency = VacancySalary.from("EUR")),
             description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
@@ -70,7 +70,7 @@ object PreviewData {
                 logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Yandex_logo_2021_Russian.svg/1024px-Yandex_logo_2021_Russian.svg.png"
             ),
             areaName = "Новотулка (Самарская область)",
-            salary = VacancySalary(from = null, to = 2200, currency = "GBP"),
+            salary = VacancySalary(from = null, to = 2200, currency = "GBP", formattedCurrency = VacancySalary.from("GBR")),
             description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
@@ -91,7 +91,7 @@ object PreviewData {
                 logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Yandex_logo_2021_Russian.svg/1024px-Yandex_logo_2021_Russian.svg.png"
             ),
             areaName = "Комсомольск (Ивановская область)",
-            salary = VacancySalary(from = 8000, to = 18000, currency = "HKD"),
+            salary = VacancySalary(from = 8000, to = 18000, currency = "HKD", formattedCurrency = VacancySalary.from("HKD")),
             description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
@@ -112,7 +112,7 @@ object PreviewData {
                 logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1200px-Apple_logo_black.svg.png"
             ),
             areaName = "Сосновый",
-            salary = VacancySalary(from = 1500, to = 2500, currency = "EUR"),
+            salary = VacancySalary(from = 1500, to = 2500, currency = "EUR", formattedCurrency = VacancySalary.from("EUR")),
             description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
@@ -133,7 +133,7 @@ object PreviewData {
                 logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Yandex_logo_2021_Russian.svg/1024px-Yandex_logo_2021_Russian.svg.png"
             ),
             areaName = "Судай",
-            salary = VacancySalary(from = 1500, to = 2500, currency = "EUR"),
+            salary = VacancySalary(from = 1500, to = 2500, currency = "EUR", formattedCurrency = VacancySalary.from("EUR")),
             description = DESCRIPTION_SAMPLE,
             experience = "Нет опыта",
             schedule = "Полный день",
