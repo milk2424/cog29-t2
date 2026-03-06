@@ -13,11 +13,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.presentation.search.components.FavoriteIcon
@@ -84,7 +84,7 @@ fun VacancyScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(top = paddingLarge)
+                .padding(top = 16.dp)
         ) {
             when (state) {
                 is VacancyScreenState.Loading -> {

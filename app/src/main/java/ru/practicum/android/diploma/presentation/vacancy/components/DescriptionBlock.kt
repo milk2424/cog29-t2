@@ -8,23 +8,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer16
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer4
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun DescriptionBlock(description: String) {
     description.split("\n").filter { it.isNotBlank() }.forEach { line ->
         if (line.trimEnd().endsWith(":")) {
-            Spacer(modifier = Modifier.height(spacer16))
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = line,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            Spacer(modifier = Modifier.height(spacer4))
+            Spacer(modifier = Modifier.height(4.dp))
         } else {
-            Row(modifier = Modifier.padding(start = paddingSmall)) {
+            Row(modifier = Modifier.padding(start = 8.dp)) {
                 Text(
                     text = "·  ",
                     style = MaterialTheme.typography.bodyLarge,

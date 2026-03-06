@@ -16,8 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingExtraLarge
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ErrorImageWithDescription(imageRes: Int, descriptionRes: Int) {
@@ -33,11 +32,11 @@ fun ErrorImageWithDescription(imageRes: Int, descriptionRes: Int) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(paddingLarge),
+                .padding(16.dp),
             contentScale = ContentScale.FillWidth
         )
         Text(
-            modifier = Modifier.padding(horizontal = paddingExtraLarge),
+            modifier = Modifier.padding(horizontal = 48.dp),
             text = stringResource(descriptionRes),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,

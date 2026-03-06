@@ -20,10 +20,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.presentation.common.components.salaryStrings
 
@@ -67,14 +66,14 @@ fun VacancyList(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(paddingValues)
-            .padding(horizontal = paddingLarge)
+            .padding(horizontal = 16.dp)
     ) {
         if (foundVacancies > 0) {
             stickyHeader {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = Dimens.paddingSmall),
+                        .padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     ShowDescription(
@@ -102,13 +101,13 @@ fun VacancyList(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = Dimens.paginationVerticalPadding),
+                        .padding(vertical = 16.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(Dimens.paginationProgressSize),
+                        modifier = Modifier.size(24.dp),
                         color = MaterialTheme.colorScheme.primary,
-                        strokeWidth = Dimens.paginationProgressStroke
+                        strokeWidth = 2.dp
                     )
                 }
             }
