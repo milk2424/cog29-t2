@@ -94,6 +94,9 @@ private fun String.toDescriptionLines(): List<DescriptionLine> =
     split("\n")
         .filter { it.isNotBlank() }
         .map { line ->
-            if (line.trimEnd().endsWith(":")) DescriptionLine.Header(line)
-            else DescriptionLine.Body(line)
+            if (line.trimEnd().endsWith(":")) {
+                DescriptionLine.Header(line)
+            } else {
+                DescriptionLine.Body(line)
+            }
         }
