@@ -26,6 +26,16 @@ fun FilterListItem(
     isPlaceholder: Boolean = false,
     trailing: @Composable () -> Unit,
 ) {
+    val color = if (isPlaceholder) {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    } else {
+        MaterialTheme.colorScheme.onBackground
+    }
+    val labelStyle = if (value != null) {
+        MaterialTheme.typography.bodyMedium
+    } else {
+        MaterialTheme.typography.bodyLarge
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -35,19 +45,10 @@ fun FilterListItem(
             .padding(horizontal = 16.dp)
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            val color = if (isPlaceholder) {
-                MaterialTheme.colorScheme.onSurfaceVariant
-            } else {
-                MaterialTheme.colorScheme.onBackground
-            }
             if (label != null) {
                 Text(
                     text = stringResource(id = label),
-                    style = if (value != null) {
-                        MaterialTheme.typography.bodyMedium
-                    } else {
-                        MaterialTheme.typography.bodyLarge
-                    },
+                    style = labelStyle,
                     color = color
                 )
             }

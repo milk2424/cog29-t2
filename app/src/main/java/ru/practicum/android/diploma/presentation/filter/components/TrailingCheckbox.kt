@@ -10,8 +10,11 @@ import ru.practicum.android.diploma.R
 fun TrailingCheckbox(checked: Boolean) {
     Icon(
         painter = painterResource(
-            if (checked) R.drawable.check_box_on__24px
-            else R.drawable.check_box_off__24px
+            id = if (checked) {
+                R.drawable.check_box_on__24px
+            } else {
+                R.drawable.check_box_off__24px
+            }
         ),
         contentDescription = null,
         tint = MaterialTheme.colorScheme.primary

@@ -10,8 +10,11 @@ import ru.practicum.android.diploma.R
 fun TrailingRadio(selected: Boolean) {
     Icon(
         painter = painterResource(
-            if (selected) R.drawable.radio_button_on__24px
-            else R.drawable.radio_button_off__24px
+            id = if (selected) {
+                R.drawable.radio_button_on__24px
+            } else {
+                R.drawable.radio_button_off__24px
+            }
         ),
         contentDescription = null,
         tint = MaterialTheme.colorScheme.primary
