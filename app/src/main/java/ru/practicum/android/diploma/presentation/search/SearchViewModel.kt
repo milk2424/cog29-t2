@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.presentation.search
 
-import androidx.annotation.StringRes
-import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +12,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.utils.debounce
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.model.VacanciesResult
-import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class SearchViewModel(
@@ -230,16 +227,3 @@ class SearchViewModel(
         private const val SEARCH_DELAY = 2000L
     }
 }
-
-@Immutable
-data class SearchUiState(
-    val query: String = "",
-    val isInitial: Boolean = true,
-    val isLoading: Boolean = false,
-    val isLoadingNextPage: Boolean = false,
-    val isDebouncing: Boolean = false,
-    val isError: Boolean = false,
-    @get:StringRes val errorMessage: Int? = null,
-    val vacancies: List<Vacancy> = emptyList(),
-    val foundVacancies: Int = 0
-)
