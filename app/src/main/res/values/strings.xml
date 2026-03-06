@@ -1,10 +1,65 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
     <string name="no_salary">Зарплата не указана</string>
-    <string name="from">От</string>
-    <string name="to">До</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
 
-    <string name="tab_main">Главная</string>
+    <string name="tab_main">Поиск вакансий</string>
     <string name="tab_favorites">Избранное</string>
     <string name="tab_team">Команда</string>
+
+    <string name="github_link">Ссылка на гитхаб</string>
+    <string name="developers_of_this_app">Над приложением работали</string>
+
+    <string name="dev_vinokurov_name">Винокуров Степан</string>
+    <string name="dev_vinokurov_github">https://github.com/Vinokurov-Stepan</string>
+
+    <string name="dev_milko_name">Милько Дмитрий</string>
+    <string name="dev_milko_github">https://github.com/milk2424</string>
+
+    <string name="dev_pchelintsev_name">Пчелинцев Андрей</string>
+    <string name="dev_pchelintsev_github">https://github.com/grey-bee</string>
+
+    <string name="dev_salnikov_name">Сальников Антон</string>
+    <string name="dev_salnikov_github">https://github.com/LampJuice</string>
+
+    <string name="dev_sergeev_name">Сергеев Андрей</string>
+    <string name="dev_sergeev_github">https://github.com/ProklB</string>
+
+    <string name="search_placeholder">Введите запрос</string>
+
+    <string name="no_internet">Нет интернета</string>
+    <string name="vacancies_not_exist">Таких вакансий нет</string>
+    <string name="founded_vacancies">Надено %d вакансий</string>
+
+    <string name="list_is_empty">Список пуст</string>
+
+    <string name="cannot_get_vacancies_list">Не удалось получить список вакансий</string>
+
+    <string name="error_no_internet">Проверьте подключение к интернету</string>
+    <string name="error_occurred">Произошла ошибка</string>
+
+    <string name="vacancy">Вакансия</string>
+    <string name="required_experience">Требуемый опыт</string>
+    <string name="vacancy_description">Описание вакансии</string>
+    <string name="responsibilities">Обязанности</string>
+    <string name="key_skills">Ключевые навыки</string>
+    <string name="contacts">Контакты</string>
+    <string name="contact_person">Контактное лицо</string>
+    <string name="phone">Номер телеофона</string>
+    <string name="server_error">Ошибка Сервера</string>
+    <string name="vacancy_not_found">Вакансия не найдена или удалена</string>
+    <string name="e_mail">E-mail</string>
+
+    <string name="vacancy_symbol">🔹</string>
+    <string name="organization_symbol">🏢</string>
+    <string name="location_symbol">📍</string>
+    <string name="salary_symbol">💰</string>
+    <string name="experience_symbol">📌</string>
+    <string name="work_info_symbol">⏰</string>
+    <string name="description_symbol">📋</string>
+    <string name="skills_symbol">🔧</string>
+    <string name="phone_symbol">📞</string>
+    <string name="email_symbol">✉️</string>
+    <string name="url_symbol">🔗</string>
 </resources>

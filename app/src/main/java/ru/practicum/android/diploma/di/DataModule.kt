@@ -7,16 +7,25 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.BuildConfig
-import ru.practicum.android.diploma.data.database.AppDatabase
-import ru.practicum.android.diploma.data.database.converter.ListStringConverter
-import ru.practicum.android.diploma.data.network.ApiService
-import ru.practicum.android.diploma.data.network.NetworkCheckerImpl
-import ru.practicum.android.diploma.data.network.NetworkClient
-import ru.practicum.android.diploma.data.network.RetrofitClient
-import ru.practicum.android.diploma.domain.NetworkChecker
+import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.core.database.AppDatabase
+import ru.practicum.android.diploma.core.database.ListStringConverter
+import ru.practicum.android.diploma.core.navigation.ExternalNavigator
+import ru.practicum.android.diploma.core.navigation.ExternalNavigatorImpl
+import ru.practicum.android.diploma.core.network.ApiService
+import ru.practicum.android.diploma.core.network.NetworkCaller
+import ru.practicum.android.diploma.core.network.NetworkChecker
+import ru.practicum.android.diploma.core.network.NetworkCheckerImpl
+import ru.practicum.android.diploma.data.repository.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.data.repository.TeamRepositoryImpl
+import ru.practicum.android.diploma.data.repository.VacancyRepositoryImpl
+import ru.practicum.android.diploma.domain.model.Developer
+import ru.practicum.android.diploma.domain.repository.FavoritesRepository
+import ru.practicum.android.diploma.domain.repository.TeamRepository
+import ru.practicum.android.diploma.domain.repository.VacancyRepository
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "https://practicum-diploma-8bc38133faba.herokuapp.com/"
+private const val BASE_URL = "http://155.212.163.151"
 private const val NETWORK_TIMEOUT_SEC = 5L
 
 val dataModule = module {
@@ -28,7 +37,8 @@ val dataModule = module {
                 .addInterceptor { chain ->
                     chain.proceed(
                         chain.request().newBuilder()
-                            .addHeader("Authorization", BuildConfig.API_ACCESS_TOKEN)
+                            .addHeader("Authorization", "Bearer ${BuildConfig.API_ACCESS_TOKEN}")
+                            .addHeader("Content-Type", "application/json")
                             .build()
                     )
                 }
@@ -46,8 +56,6 @@ val dataModule = module {
         retrofit.create(ApiService::class.java)
     }
 
-    single<NetworkClient> { RetrofitClient(get(), get()) }
-
     single { ListStringConverter(get()) }
 
     single {
@@ -58,4 +66,27 @@ val dataModule = module {
     }
 
     single { get<AppDatabase>().vacancyDao() }
+
+    single<TeamRepository> {
+        val developers = listOf(
+            Developer(R.string.dev_vinokurov_name, R.string.dev_vinokurov_github),
+            Developer(R.string.dev_milko_name, R.string.dev_milko_github),
+            Developer(R.string.dev_pchelintsev_name, R.string.dev_pchelintsev_github),
+            Developer(R.string.dev_salnikov_name, R.string.dev_salnikov_github),
+            Developer(R.string.dev_sergeev_name, R.string.dev_sergeev_github)
+        )
+        TeamRepositoryImpl(developers)
+    }
+
+    single<ExternalNavigator> {
+        ExternalNavigatorImpl(androidContext())
+    }
+
+    single {
+        NetworkCaller(get())
+    }
+
+    single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }
+
+    single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
 }
