@@ -2,6 +2,8 @@ package ru.practicum.android.diploma.presentation.filter
 
 import AppScaffold
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -12,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
@@ -31,13 +34,19 @@ fun FilterScreen(
     var salary by remember { mutableStateOf("") }
     var hideWithoutSalary by remember { mutableStateOf(false) }
     val hasFilters = salary.isNotEmpty() || hideWithoutSalary
+    val focusManager = LocalFocusManager.current
     AppScaffold(
         title = R.string.filter_settings,
         showStartButton = true,
         onStartClick = onStartClick
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ) { focusManager.clearFocus() }
         ) {
             FilterListItem(
                 label = R.string.work_place,

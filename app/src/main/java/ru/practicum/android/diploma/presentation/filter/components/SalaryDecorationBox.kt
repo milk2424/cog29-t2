@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -22,7 +23,7 @@ import ru.practicum.android.diploma.R
 @Composable
 fun SalaryDecorationBox(
     salary: String,
-    isFocused: Boolean,
+    labelColor: Color,
     onClear: () -> Unit,
     focusRequester: FocusRequester,
     innerTextField: @Composable () -> Unit
@@ -42,11 +43,7 @@ fun SalaryDecorationBox(
             Text(
                 text = stringResource(R.string.expected_salary),
                 style = MaterialTheme.typography.bodyMedium,
-                color = if (isFocused) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.secondary
-                }
+                color = labelColor
             )
             Box {
                 if (salary.isEmpty()) {
@@ -56,7 +53,7 @@ fun SalaryDecorationBox(
                         color = MaterialTheme.colorScheme.secondary
                     )
                 }
-                innerTextField() // всегда! — курсор будет тут
+                innerTextField()
             }
         }
         if (salary.isNotEmpty()) {

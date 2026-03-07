@@ -26,6 +26,11 @@ fun SalaryTextField(
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
+    val labelColor = when {
+        isFocused -> MaterialTheme.colorScheme.primary
+        salary.isNotEmpty() -> MaterialTheme.colorScheme.onSurface
+        else -> MaterialTheme.colorScheme.secondary
+    }
     BasicTextField(
         value = salary,
         onValueChange = { if (it.all { c -> c.isDigit() }) onSalaryChange(it) },
@@ -34,17 +39,11 @@ fun SalaryTextField(
         textStyle = MaterialTheme.typography.bodyLarge.copy(
             color = MaterialTheme.colorScheme.onSurface
         ),
-        cursorBrush = SolidColor(
-            if (isFocused || salary.isNotEmpty()) {
-                MaterialTheme.colorScheme.primary
-            } else {
-                MaterialTheme.colorScheme.onSurfaceVariant
-            }
-        ),
+        cursorBrush = SolidColor(value = labelColor),
         decorationBox = { innerTextField ->
             SalaryDecorationBox(
                 salary = salary,
-                isFocused = isFocused,
+                labelColor = labelColor,
                 onClear = onClear,
                 focusRequester = focusRequester,
                 innerTextField = innerTextField
