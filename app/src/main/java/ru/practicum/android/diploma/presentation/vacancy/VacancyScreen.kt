@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
-import AppScaffold
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.presentation.search.components.FavoriteIcon
 import ru.practicum.android.diploma.presentation.vacancy.components.ContentBody

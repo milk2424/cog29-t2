@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.team
 
-import AppScaffold
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.team.components.DeveloperListItem
 
 @OptIn(ExperimentalMaterial3Api::class)

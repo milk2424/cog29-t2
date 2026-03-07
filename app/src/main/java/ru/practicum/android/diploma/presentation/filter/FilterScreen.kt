@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.filter
 
-import AppScaffold
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -19,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
+import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.filter.components.FilterButton
 import ru.practicum.android.diploma.presentation.filter.components.FilterListItem
 import ru.practicum.android.diploma.presentation.filter.components.SalaryTextField
