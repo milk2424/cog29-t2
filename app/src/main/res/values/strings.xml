@@ -30,7 +30,7 @@
 
     <string name="no_internet">Нет интернета</string>
     <string name="vacancies_not_exist">Таких вакансий нет</string>
-    <string name="founded_vacancies">Надено %d вакансий</string>
+    <string name="founded_vacancies">Найдено %d вакансий</string>
     <string name="cannot_get_list">Не удалось получить список</string>
 
     <string name="list_is_empty">Список пуст</string>
@@ -66,4 +66,8 @@
 
     <string name="country_choosing">Выбор страны</string>
     <string name="other_region">Другие регионы</string>
+
+    <string name="industry_choosing">Выбор отрасли</string>
+    <string name="industry_search_hint">Введите отрасль</string>
+    <string name="choose">Выбрать</string>
 </resources>
