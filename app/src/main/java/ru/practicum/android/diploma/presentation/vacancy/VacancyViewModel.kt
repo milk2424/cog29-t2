@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.core.network.NetworkChecker
 import ru.practicum.android.diploma.domain.interactor.FavoritesInteractor
 import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.domain.usecase.GetVacancyDetailUseCase
@@ -17,7 +17,8 @@ import ru.practicum.android.diploma.domain.utils.ApiResult
 class VacancyViewModel(
     private val getVacancyDetailUseCase: GetVacancyDetailUseCase,
     private val favoritesInteractor: FavoritesInteractor,
-    private val shareVacancyUseCase: ShareVacancyUseCase
+    private val shareVacancyUseCase: ShareVacancyUseCase,
+    private val networkChecker: NetworkChecker,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<VacancyScreenState>(VacancyScreenState.Loading)
@@ -26,43 +27,40 @@ class VacancyViewModel(
     private var currentVacancy: Vacancy? = null
 
     fun loadVacancy(vacancyId: String) {
-        if (currentVacancy?.id == vacancyId && _uiState.value is VacancyScreenState.Content
-        ) {
-            return
-        }
         viewModelScope.launch {
-            getVacancyDetailUseCase(vacancyId)
-                .onStart {
-                    _uiState.value = VacancyScreenState.Loading
-                }
-                .collectLatest { result ->
-                    when (result) {
-                        is ApiResult.Loading -> {
-                            _uiState.value = VacancyScreenState.Loading
-                        }
-
-                        is ApiResult.Success -> {
-                            result.data.let { vacancy ->
-                                currentVacancy = vacancy
-                                val isFavorite = favoritesInteractor.isFavorite(vacancy.id)
+            _uiState.value = VacancyScreenState.Loading
+            if (networkChecker.isNetworkAvailable()) {
+                getVacancyDetailUseCase(vacancyId)
+                    .collectLatest { result ->
+                        when (result) {
+                            is ApiResult.Success -> {
+                                currentVacancy = result.data
+                                val isFavorite = favoritesInteractor.isFavorite(vacancyId)
                                 _uiState.value = VacancyScreenState.Content(
-                                    vacancy = vacancy,
+                                    vacancy = result.data,
                                     isFavorite = isFavorite,
-                                    descriptionLines = vacancy.description.toDescriptionLines()
+                                    descriptionLines = result.data.description.toDescriptionLines()
                                 )
                             }
-                        }
 
-                        is ApiResult.NotFoundError -> {
-                            favoritesInteractor.remove(vacancyId)
-                            _uiState.value = VacancyScreenState.NotFound
-                        }
-
-                        else -> {
-                            _uiState.value = VacancyScreenState.ServerError
+                            else -> {
+                                _uiState.value = VacancyScreenState.ServerError
+                            }
                         }
                     }
+            } else {
+                val cached = favoritesInteractor.getById(vacancyId)
+                if (cached != null) {
+                    currentVacancy = cached
+                    _uiState.value = VacancyScreenState.Content(
+                        vacancy = cached,
+                        isFavorite = true,
+                        descriptionLines = cached.description.toDescriptionLines()
+                    )
+                } else {
+                    _uiState.value = VacancyScreenState.ServerError
                 }
+            }
         }
     }
 
