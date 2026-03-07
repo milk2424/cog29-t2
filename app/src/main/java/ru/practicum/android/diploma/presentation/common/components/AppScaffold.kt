@@ -1,3 +1,5 @@
+package ru.practicum.android.diploma.presentation.common.components
+
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
