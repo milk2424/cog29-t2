@@ -55,7 +55,7 @@ class VacancyViewModel(
     }
 
     fun toggleFavorite() {
-        val currentState = (_uiState.value as? VacancyScreenState.Content) ?: return
+        val currentState = _uiState.value as? VacancyScreenState.Content ?: return
         val newIsFavorite = !currentState.isFavorite
         _uiState.value = currentState.copy(isFavorite = newIsFavorite)
         viewModelScope.launch {
