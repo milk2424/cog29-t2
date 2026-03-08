@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreen
 import ru.practicum.android.diploma.presentation.filter.FilterScreen
+import ru.practicum.android.diploma.presentation.filter.industry.IndustrySelectionScreen
 import ru.practicum.android.diploma.presentation.navigation.BottomNavBar
 import ru.practicum.android.diploma.presentation.navigation.Favorites
 import ru.practicum.android.diploma.presentation.navigation.Filter
@@ -23,6 +24,7 @@ import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.search.SearchScreen
 import ru.practicum.android.diploma.presentation.team.TeamScreen
 import ru.practicum.android.diploma.presentation.vacancy.VacancyScreen
+import ru.practicum.android.diploma.presentation.navigation.IndustrySelection
 
 @Composable
 fun MainScreen() {
@@ -58,6 +60,9 @@ fun MainScreen() {
             composable<VacancyDetails> { backStackEntry ->
                 val route = backStackEntry.toRoute<VacancyDetails>()
                 VacancyScreen(navController, route.id)
+            }
+            composable<IndustrySelection> {
+                IndustrySelectionScreen(navController = navController)
             }
         }
     }
