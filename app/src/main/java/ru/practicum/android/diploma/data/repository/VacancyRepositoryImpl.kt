@@ -12,27 +12,23 @@ import ru.practicum.android.diploma.data.dto.vacancies.toQueryMap
 import ru.practicum.android.diploma.data.mapper.toDomain
 import ru.practicum.android.diploma.domain.model.VacanciesResult
 import ru.practicum.android.diploma.domain.model.Vacancy
+import ru.practicum.android.diploma.domain.model.VacancySearchParams
 import ru.practicum.android.diploma.domain.repository.VacancyRepository
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class VacancyRepositoryImpl(private val api: ApiService, private val networkCaller: NetworkCaller) :
     VacancyRepository {
     override fun searchVacancies(
-        expression: String,
-        page: Int,
-        salary: Int?,
-        onlyWithSalary: Boolean?,
-        industry: Int?,
-        area: Int?
+        params: VacancySearchParams
     ): Flow<ApiResult<VacanciesResult>> = flow {
         emit(ApiResult.Loading)
         val request = VacanciesByFilterRequest(
-            text = expression,
-            page = page,
-            salary = salary,
-            onlyWithSalary = onlyWithSalary,
-            industry = industry,
-            area = area
+            text = params.expression,
+            page = params.page,
+            salary = params.salary,
+            onlyWithSalary = params.onlyWithSalary,
+            industry = params.industry,
+            area = params.area
         )
         val response = networkCaller.safeApiCall(
             apiCall = { api.getVacancies(request.toQueryMap()) },

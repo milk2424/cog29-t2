@@ -34,7 +34,6 @@ fun FilterScreen(
     onStartClick: () -> Unit,
     onWorkplaceClick: () -> Unit,
     onIndustryClick: () -> Unit,
-
 ) {
     var salary by remember { mutableStateOf("") }
     var hideWithoutSalary by remember { mutableStateOf(false) }
@@ -102,7 +101,7 @@ fun FilterScreen(
                                 regionName = null
                             )
                         )
-                        onStartClick()
+
                     }
                 )
                 Spacer(Modifier.height(8.dp))

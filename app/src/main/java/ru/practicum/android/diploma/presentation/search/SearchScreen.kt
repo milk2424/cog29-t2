@@ -47,8 +47,11 @@ fun SearchScreen(
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(
-                        if (uiState.hasFilter) R.drawable.filter_on__24px
-                        else R.drawable.filter_off__24px
+                        if (uiState.hasFilter) {
+                            R.drawable.filter_on__24px
+                        } else {
+                            R.drawable.filter_off__24px
+                        }
 
                     ),
                     contentDescription = null,
