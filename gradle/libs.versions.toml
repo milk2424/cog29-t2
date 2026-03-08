@@ -57,7 +57,7 @@ serialization-json = "1.7.3"
 #времянка
 material = "1.13.0"
 material3 = "1.4.0"
-foundation = "1.10.4"
+foundation = "1.10.3"
 
 [libraries]
 # Detekt
