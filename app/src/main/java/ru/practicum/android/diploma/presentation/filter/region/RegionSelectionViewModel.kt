@@ -35,8 +35,7 @@ class RegionSelectionViewModel(
                         is ApiResult.Loading -> {
                             _uiState.update {
                                 it.copy(
-                                    isLoading = true,
-                                    isError = false
+                                    isLoading = true, isError = false
                                 )
                             }
                         }
@@ -59,10 +58,7 @@ class RegionSelectionViewModel(
                         else -> {
                             _uiState.update {
                                 it.copy(
-                                    isLoading = false,
-                                    isError = true,
-                                    regions = emptyList(),
-                                    isEmpty = true
+                                    isLoading = false, isError = true, regions = emptyList(), isEmpty = true
                                 )
                             }
                         }
