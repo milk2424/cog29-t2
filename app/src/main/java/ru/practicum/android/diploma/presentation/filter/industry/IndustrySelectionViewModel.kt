@@ -55,10 +55,10 @@ class IndustrySelectionViewModel(
         loadIndustries()
     }
 
-    fun loadIndustries() {
+    private fun loadIndustries() {
         viewModelScope.launch {
             getIndustriesUseCase()
-                .catch { e ->
+                .catch { _ ->
                     _uiState.value = IndustrySelectionScreenState.Error
                 }
                 .collect { result ->
@@ -106,6 +106,7 @@ class IndustrySelectionViewModel(
             industries.isEmpty() && _searchQuery.value.isNotEmpty() -> {
                 _uiState.value = IndustrySelectionScreenState.EmptySearch
             }
+
             else -> {
                 _uiState.value = IndustrySelectionScreenState.Success(
                     industries = industries.toPersistentList(),
@@ -133,6 +134,6 @@ class IndustrySelectionViewModel(
     }
 
     companion object {
-        private const val SEARCH_DELAY = 2000L
+        private const val SEARCH_DELAY = 500L
     }
 }
