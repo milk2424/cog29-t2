@@ -85,6 +85,9 @@
     <string name="country_choosing">Выбор страны</string>
     <string name="other_region">Другие регионы</string>
 
+    <string name="region_choosing">Выбор региона</string>
+    <string name="region_not_exist">Такого региона нет</string>
+    <string name="regions_search_placeholder">Введите регион</string>
     <string name="industry_choosing">Выбор отрасли</string>
     <string name="industry_search_hint">Введите отрасль</string>
     <string name="industry_not_exist">Таких отраслей нет</string>
