@@ -93,7 +93,8 @@ fun PreviewWorkplaceSelectionScreen() {
                 countryName = "Россия",
                 regionName = null
             ),
-            onStartClick = {}, onCountryClick = {},
+            onStartClick = {},
+            onCountryClick = {},
             onRegionClick = {},
             onCountryClear = {},
             onRegionClear = {},
