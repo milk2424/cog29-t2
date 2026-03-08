@@ -83,14 +83,16 @@ fun WorkplaceSelectionContent(
     }
 }
 
-
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showSystemUi = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
 fun PreviewWorkplaceSelectionScreen() {
     DiplomaTheme {
         WorkplaceSelectionContent(
-            state = WorkplaceSelectionScreenState(countryName = "Россия", regionName = null),
+            state = WorkplaceSelectionScreenState(
+                countryName = "Россия",
+                regionName = null
+            ),
             onStartClick = {}, onCountryClick = {},
             onRegionClick = {},
             onCountryClear = {},
