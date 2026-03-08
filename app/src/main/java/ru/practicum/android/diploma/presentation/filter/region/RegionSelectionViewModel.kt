@@ -28,42 +28,52 @@ class RegionSelectionViewModel(
 
     fun loadRegions(countryId: String?) {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, isError = false) }
-            getRegionsUseCase(countryId)
-                .collect { result ->
-                    when (result) {
-                        is ApiResult.Loading -> {
-                            _uiState.update {
-                                it.copy(
-                                    isLoading = true, isError = false
-                                )
-                            }
-                        }
-
-                        is ApiResult.Success -> {
-                            result.data.let { regions ->
-                                originalList.clear()
-                                originalList.addAll(regions)
-                                _uiState.update {
-                                    it.copy(
-                                        isLoading = false,
-                                        isError = false,
-                                        regions = regions,
-                                        isEmpty = regions.isEmpty()
-                                    )
-                                }
-                            }
-                        }
-
-                        else -> {
-                            _uiState.update {
-                                it.copy(
-                                    isLoading = false, isError = true, regions = emptyList(), isEmpty = true
-                                )
-                            }
-                        }
-                    }
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    isError = false
+                )
+            }
+            getRegionsUseCase(countryId).collect { result ->
+                when (result) {
+                    is ApiResult.Success -> handleSuccess(result.data)
+                    is ApiResult.Loading -> handleLoading()
+                    else -> handleError()
                 }
+            }
+        }
+    }
+
+    private fun handleSuccess(regions: List<Area>) {
+        originalList.clear()
+        originalList.addAll(regions)
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                isError = false,
+                regions = regions,
+                isEmpty = regions.isEmpty()
+            )
+        }
+    }
+
+    private fun handleLoading() {
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                isError = false
+            )
+        }
+    }
+
+    private fun handleError() {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                isError = true,
+                regions = emptyList(),
+                isEmpty = true
+            )
         }
     }
 

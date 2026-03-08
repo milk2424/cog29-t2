@@ -53,15 +53,12 @@ class RegionRepositoryImpl(
     }
 
     private fun findCountryById(areas: List<Area>, countryId: String): Area? {
-        var result: Area? = null
-        for (area in areas) {
+        return areas.firstNotNullOfOrNull { area ->
             if (area.id == countryId) {
-                result = area
-                break
+                area
+            } else {
+                findCountryById(area.areas, countryId)
             }
-            result = findCountryById(area.areas, countryId)
-            if (result != null) break
         }
-        return result
     }
 }
