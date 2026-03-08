@@ -70,4 +70,5 @@
     <string name="industry_choosing">Выбор отрасли</string>
     <string name="industry_search_hint">Введите отрасль</string>
     <string name="choose">Выбрать</string>
+    <string name="industry_not_exist">Таких отраслей нет</string>
 </resources>

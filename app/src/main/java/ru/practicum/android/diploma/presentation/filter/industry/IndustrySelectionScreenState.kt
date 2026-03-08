@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.domain.model.Industry
 sealed interface IndustrySelectionScreenState {
     data object Loading : IndustrySelectionScreenState
     data object Error : IndustrySelectionScreenState
+    data object EmptySearch : IndustrySelectionScreenState
     data class Success(
         val industries: PersistentList<Industry>,
         val selectedIndustryId: String? = null

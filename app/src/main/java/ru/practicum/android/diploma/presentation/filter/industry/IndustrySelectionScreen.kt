@@ -70,6 +70,30 @@ fun IndustrySelectionScreen(
                     }
                 }
 
+                is IndustrySelectionScreenState.EmptySearch -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        IndustrySearchTextField(
+                            query = searchQuery,
+                            onQueryChanged = viewModel::onSearchQueryChanged,
+                            onClearClicked = viewModel::onClearSearchClicked
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            ErrorImageWithDescription(
+                                imageRes = R.drawable.img_cannot_get_list,
+                                descriptionRes = R.string.industry_not_exist
+                            )
+                        }
+                    }
+                }
+
                 is IndustrySelectionScreenState.Success -> {
                     Column(
                         modifier = Modifier.fillMaxSize()

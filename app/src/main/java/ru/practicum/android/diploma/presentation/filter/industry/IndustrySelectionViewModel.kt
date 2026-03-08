@@ -102,10 +102,17 @@ class IndustrySelectionViewModel(
     }
 
     private fun updateDisplayList(industries: List<Industry>) {
-        _uiState.value = IndustrySelectionScreenState.Success(
-            industries = industries.toPersistentList(),
-            selectedIndustryId = selectedIndustryId
-        )
+        when {
+            industries.isEmpty() && _searchQuery.value.isNotEmpty() -> {
+                _uiState.value = IndustrySelectionScreenState.EmptySearch
+            }
+            else -> {
+                _uiState.value = IndustrySelectionScreenState.Success(
+                    industries = industries.toPersistentList(),
+                    selectedIndustryId = selectedIndustryId
+                )
+            }
+        }
     }
 
     private fun updateSelectedState() {
