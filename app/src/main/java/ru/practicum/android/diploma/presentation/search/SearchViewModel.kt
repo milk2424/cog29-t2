@@ -105,7 +105,8 @@ class SearchViewModel(
                 isDebouncing = false,
                 isError = false,
                 errorMessage = null,
-                vacancies = emptyList()
+                vacancies = emptyList(),
+                isLoading = true
             )
         }
 
