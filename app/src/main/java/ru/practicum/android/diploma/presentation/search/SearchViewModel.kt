@@ -99,7 +99,6 @@ class SearchViewModel(
         }
     }
 
-
     private fun shouldLoadNextPage(state: SearchUiState): Boolean {
         return !isNextPageLoading &&
             !state.isLoading &&
