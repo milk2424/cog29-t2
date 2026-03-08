@@ -33,7 +33,7 @@ val domainModule = module {
     single {
         GetAllFavoritesUseCase(get())
     }
-    single<SearchInteractor> { SearchInteractorImpl(get()) }
+    single<SearchInteractor> { SearchInteractorImpl(get(), get()) }
 
     single<FavoritesInteractor> { FavoritesInteractorImpl(get()) }
 
