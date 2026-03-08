@@ -13,7 +13,7 @@ import kotlinx.collections.immutable.ImmutableList
 import ru.practicum.android.diploma.domain.model.Area
 
 @Composable
-fun AreaSelectionList(paddingValues: PaddingValues, items: ImmutableList<Area>, onItemClicked: () -> Unit) {
+fun AreaSelectionList(paddingValues: PaddingValues, items: ImmutableList<Area>, onItemClicked: (Area) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -26,7 +26,7 @@ fun AreaSelectionList(paddingValues: PaddingValues, items: ImmutableList<Area>, 
         ) { country ->
             AreaSelectionItem(country.name) {
                 // Передача данных назад в Фильтр
-                onItemClicked()
+                onItemClicked(country)
             }
         }
     }

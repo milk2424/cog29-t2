@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.domain.interactor
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.model.VacanciesResult
 import ru.practicum.android.diploma.domain.model.VacancySearchParams
@@ -16,10 +17,14 @@ class SearchInteractorImpl(
         val params = VacancySearchParams(
             expression = expression,
             page = page,
-            salary = filter?.salary,
-            onlyWithSalary = filter?.hideWithoutSalary,
-            industry = filter?.industryId,
-            area = filter?.regionId ?: filter?.countryId
+            salary = filter.salary,
+            onlyWithSalary = filter.hideWithoutSalary,
+            industry = filter.industryId,
+            area = filter.regionId ?: filter.countryId
+        )
+        Log.d(
+            "2222222222222222222222222222",
+            "Search params: expression=$expression, industr=${params.industry}, salary=${params.salary}"
         )
         return vacancyRepository.searchVacancies(params)
     }

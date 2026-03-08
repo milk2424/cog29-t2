@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
+import ru.practicum.android.diploma.presentation.filter.FilterSharedViewModel
 import ru.practicum.android.diploma.presentation.navigation.Filter
 import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.search.components.SearchContent
@@ -25,15 +26,21 @@ import ru.practicum.android.diploma.presentation.search.components.SearchContent
 @Composable
 fun SearchScreen(
     navController: NavController,
+    sharedViewModel: FilterSharedViewModel,
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val filter by sharedViewModel.filter.collectAsStateWithLifecycle()
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         navController.currentBackStackEntryFlow.collect {
             viewModel.refreshSearch()
         }
     }
+    val hasFilter = filter.countryName != null ||
+        filter.regionName != null ||
+        filter.salary != null ||
+        filter.hideWithoutSalary
 
     LaunchedEffect(uiState.errorMessage) {
         uiState.errorMessage?.let { messageRes ->
@@ -48,7 +55,7 @@ fun SearchScreen(
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(
-                        if (uiState.hasFilter) {
+                        if (hasFilter) {
                             R.drawable.filter_on__24px
                         } else {
                             R.drawable.filter_off__24px
@@ -56,7 +63,7 @@ fun SearchScreen(
 
                     ),
                     contentDescription = null,
-                    tint = if (uiState.hasFilter) {
+                    tint = if (hasFilter) {
                         Color.Unspecified
                     } else {
                         MaterialTheme.colorScheme.onBackground

@@ -20,18 +20,22 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.components.ErrorImageWithDescription
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
+import ru.practicum.android.diploma.presentation.filter.FilterSharedViewModel
 import ru.practicum.android.diploma.presentation.filter.industry.components.IndustryListItem
 import ru.practicum.android.diploma.presentation.filter.industry.components.IndustrySearchTextField
 
 @Composable
 fun IndustrySelectionScreen(
+    sharedViewModel: FilterSharedViewModel,
     navController: NavController,
-    viewModel: IndustrySelectionViewModel = koinViewModel()
+    viewModel: IndustrySelectionViewModel = koinViewModel(parameters = { parametersOf(sharedViewModel) })
 ) {
+    val filter by sharedViewModel.filter.collectAsStateWithLifecycle()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
 
