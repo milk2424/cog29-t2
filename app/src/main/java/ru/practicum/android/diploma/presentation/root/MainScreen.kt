@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.presentation.filter.workplace.WorkplaceSelec
 import ru.practicum.android.diploma.presentation.navigation.BottomNavBar
 import ru.practicum.android.diploma.presentation.navigation.Favorites
 import ru.practicum.android.diploma.presentation.navigation.Filter
+import ru.practicum.android.diploma.presentation.navigation.IndustrySelection
 import ru.practicum.android.diploma.presentation.navigation.Main
 import ru.practicum.android.diploma.presentation.navigation.Team
 import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
@@ -26,7 +27,6 @@ import ru.practicum.android.diploma.presentation.navigation.WorkplaceSelection
 import ru.practicum.android.diploma.presentation.search.SearchScreen
 import ru.practicum.android.diploma.presentation.team.TeamScreen
 import ru.practicum.android.diploma.presentation.vacancy.VacancyScreen
-import ru.practicum.android.diploma.presentation.navigation.IndustrySelection
 
 @Composable
 fun MainScreen() {
