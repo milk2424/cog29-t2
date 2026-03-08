@@ -4,6 +4,7 @@ import com.google.gson.JsonParseException
 import retrofit2.Response
 import ru.practicum.android.diploma.core.logging.AppLogger
 import ru.practicum.android.diploma.domain.utils.ApiResult
+import java.io.IOException
 
 class NetworkCallerImpl(
     private val networkChecker: NetworkChecker,
@@ -38,6 +39,9 @@ class NetworkCallerImpl(
         } catch (e: JsonParseException) {
             logger.error("NetworkCaller", "JSON parsing error", e)
             ApiResult.UnknownError
+        } catch (e: IOException) {
+            logger.error("NetworkCaller", "Network error", e)
+            ApiResult.NetworkError
         }
     }
 

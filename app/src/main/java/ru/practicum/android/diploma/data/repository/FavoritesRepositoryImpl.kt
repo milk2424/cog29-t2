@@ -13,4 +13,5 @@ class FavoritesRepositoryImpl(private val dao: VacancyDao) : FavoritesRepository
     override suspend fun add(vacancy: Vacancy) = dao.addVacancy(vacancy.toEntity())
     override suspend fun delete(vacancyId: String) = dao.deleteVacancy(vacancyId)
     override suspend fun isFavorite(vacancyId: String): Boolean = dao.getVacancy(vacancyId) != null
+    override suspend fun getById(vacancyId: String): Vacancy? = dao.getVacancy(vacancyId)?.toDomain()
 }
