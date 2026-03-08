@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.utils.debounce
+import ru.practicum.android.diploma.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.model.VacanciesResult
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class SearchViewModel(
-    private val searchInteractor: SearchInteractor
+    private val searchInteractor: SearchInteractor,
+    private val filterInteractor: FilterInteractor
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -32,6 +34,18 @@ class SearchViewModel(
         useLastParam = true
     ) { query ->
         performNewSearch(query)
+    }
+
+    init {
+        updateFilterState()
+    }
+
+    fun updateFilterState() {
+        _uiState.update {
+            it.copy(
+                hasFilter = filterInteractor.hasActiveFilter()
+            )
+        }
     }
 
     fun onQueryChanged(query: String) {
@@ -57,12 +71,6 @@ class SearchViewModel(
         clearSearchResults()
     }
 
-    fun onFilterClicked() {
-        /**
-         * implement filter here
-         */
-    }
-
     fun loadNextPage() {
         val currentState = _uiState.value
 
@@ -83,6 +91,14 @@ class SearchViewModel(
                 }
         }
     }
+
+    fun refreshSearch() {
+        updateFilterState()
+        if (currentQuery.isNotBlank()) {
+            performNewSearch(currentQuery)
+        }
+    }
+
 
     private fun shouldLoadNextPage(state: SearchUiState): Boolean {
         return !isNextPageLoading &&

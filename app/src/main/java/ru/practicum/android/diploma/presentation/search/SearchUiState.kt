@@ -9,6 +9,7 @@ data class SearchUiState(
     val query: String = "",
     val isInitial: Boolean = true,
     val isLoading: Boolean = false,
+    val hasFilter: Boolean = false,
     val isLoadingNextPage: Boolean = false,
     val isDebouncing: Boolean = false,
     val isError: Boolean = false,
