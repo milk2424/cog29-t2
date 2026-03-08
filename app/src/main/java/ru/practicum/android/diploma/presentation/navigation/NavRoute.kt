@@ -16,3 +16,6 @@ data class VacancyDetails(val id: String)
 
 @Serializable
 data object Filter
+
+@Serializable
+data object WorkplaceSelection
