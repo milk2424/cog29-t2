@@ -18,7 +18,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        SearchViewModel(get())
+        SearchViewModel(get(), get())
     }
 
     viewModel {

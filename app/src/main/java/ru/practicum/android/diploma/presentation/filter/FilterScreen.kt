@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,8 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.ui.theme.DiplomaTheme
+import ru.practicum.android.diploma.domain.model.FilterSettings
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.filter.components.FilterButton
 import ru.practicum.android.diploma.presentation.filter.components.FilterListItem
@@ -27,14 +30,23 @@ import ru.practicum.android.diploma.presentation.filter.components.TrailingCheck
 
 @Composable
 fun FilterScreen(
+    viewModel: FilterViewModel = koinViewModel(),
     onStartClick: () -> Unit,
     onWorkplaceClick: () -> Unit,
     onIndustryClick: () -> Unit,
+
 ) {
     var salary by remember { mutableStateOf("") }
     var hideWithoutSalary by remember { mutableStateOf(false) }
     val hasFilters = salary.isNotEmpty() || hideWithoutSalary
     val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(Unit) {
+        viewModel.loadFilter()?.let {
+            salary = it.salary?.toString() ?: ""
+            hideWithoutSalary = it.hideWithoutSalary
+        }
+    }
     AppScaffold(
         title = R.string.filter_settings,
         showStartButton = true,
@@ -77,13 +89,28 @@ fun FilterScreen(
                 FilterButton(
                     text = R.string.apply,
                     isPrimary = true,
-                    onClick = {}
+                    onClick = {
+                        viewModel.saveFilter(
+                            FilterSettings(
+                                salary = salary.toIntOrNull(),
+                                hideWithoutSalary = hideWithoutSalary,
+                                industryId = null,
+                                industryName = null,
+                                countryId = null,
+                                countryName = null,
+                                regionId = null,
+                                regionName = null
+                            )
+                        )
+                        onStartClick()
+                    }
                 )
                 Spacer(Modifier.height(8.dp))
                 FilterButton(
                     text = R.string.reset,
                     isPrimary = false,
                     onClick = {
+                        viewModel.clearFilter()
                         salary = ""
                         hideWithoutSalary = false
                     }
