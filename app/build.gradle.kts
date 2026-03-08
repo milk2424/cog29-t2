@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
     implementation(libs.material3)
+    implementation(libs.foundation)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)

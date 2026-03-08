@@ -22,7 +22,7 @@ import ru.practicum.android.diploma.R
 fun AppScaffold(
     title: Int,
     showStartButton: Boolean = false,
-    onStartClick: () -> Unit = {},
+    onStartClick: () -> Unit = { },
     endActions: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
