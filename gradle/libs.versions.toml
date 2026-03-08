@@ -57,6 +57,7 @@ serialization-json = "1.7.3"
 #времянка
 material = "1.13.0"
 material3 = "1.4.0"
+foundation = "1.10.3"
 
 [libraries]
 # Detekt
@@ -119,6 +120,7 @@ coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-androi
 #временка пока не переделаем темы на композ
 ui-material = { module = "com.google.android.material:material", version.ref = "material" }
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
