@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import kotlinx.collections.immutable.toImmutableList
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.domain.model.Area
 import ru.practicum.android.diploma.presentation.common.components.ErrorImageWithDescription
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
 import ru.practicum.android.diploma.presentation.filter.region.RegionSelectionScreenState
 
 @Composable
 fun RegionState(
+    onRegionClick: (Area) -> Unit,
     uiState: RegionSelectionScreenState,
     paddingValues: PaddingValues
 ) {
@@ -36,7 +38,7 @@ fun RegionState(
             AreaSelectionList(
                 paddingValues = paddingValues,
                 items = uiState.regions.toImmutableList(),
-                onItemClicked = {}
+                onItemClicked = onRegionClick
             )
         }
     }

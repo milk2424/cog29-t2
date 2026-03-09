@@ -25,3 +25,6 @@ data object WorkplaceSelection
 
 @Serializable
 data object IndustrySelection
+
+@Serializable
+data object CountrySelection

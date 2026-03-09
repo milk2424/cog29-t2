@@ -13,11 +13,13 @@ import ru.practicum.android.diploma.core.utils.debounce
 import ru.practicum.android.diploma.domain.model.Industry
 import ru.practicum.android.diploma.domain.usecase.GetIndustriesUseCase
 import ru.practicum.android.diploma.domain.utils.ApiResult
+import ru.practicum.android.diploma.presentation.filter.FilterSharedViewModel
 
 private const val SELECTED_INDUSTRY_ID_KEY = "selected_industry_id"
 private const val SELECTED_INDUSTRY_NAME_KEY = "selected_industry_name"
 
 class IndustrySelectionViewModel(
+    private val sharedViewModel: FilterSharedViewModel,
     private val getIndustriesUseCase: GetIndustriesUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -129,8 +131,9 @@ class IndustrySelectionViewModel(
     }
 
     fun onConfirmSelection() {
-        savedStateHandle[SELECTED_INDUSTRY_ID_KEY] = selectedIndustryId
-        savedStateHandle[SELECTED_INDUSTRY_NAME_KEY] = selectedIndustryName
+        selectedIndustryId?.toIntOrNull()?.let { industryId ->
+            sharedViewModel.setIndustry(industryId, selectedIndustryName)
+        }
     }
 
     companion object {

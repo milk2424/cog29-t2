@@ -7,11 +7,13 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
+import ru.practicum.android.diploma.presentation.filter.FilterSharedViewModel
 import ru.practicum.android.diploma.presentation.filter.components.RegionContent
 
 @Composable
 fun RegionSelectionScreen(
     countryId: String?,
+    sharedViewModel: FilterSharedViewModel,
     onNavigateBack: () -> Unit,
     viewModel: RegionSelectionViewModel = koinViewModel(
         parameters = { parametersOf(countryId) }
@@ -28,7 +30,14 @@ fun RegionSelectionScreen(
             uiState = uiState,
             paddingValues = paddingValues,
             onQueryChanged = viewModel::onQueryChanged,
-            onClearClicked = viewModel::onClearClicked
+            onClearClicked = viewModel::onClearClicked,
+            onRegionClick = { region ->
+                sharedViewModel.setRegion(
+                    region.id.toInt(),
+                    region.name
+                )
+                onNavigateBack()
+            }
         )
     }
 }

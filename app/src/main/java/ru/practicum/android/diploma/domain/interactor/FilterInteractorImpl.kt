@@ -9,7 +9,7 @@ class FilterInteractorImpl(private val repository: FilterRepository) : FilterInt
         repository.saveFilter(settings)
     }
 
-    override fun getFilter(): FilterSettings? {
+    override fun getFilter(): FilterSettings {
         return repository.getFilter()
     }
 
