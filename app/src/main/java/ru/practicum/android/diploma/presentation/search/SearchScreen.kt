@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
-import ru.practicum.android.diploma.presentation.filter.FilterSharedViewModel
 import ru.practicum.android.diploma.presentation.navigation.Filter
 import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.search.components.SearchContent
@@ -26,19 +25,12 @@ import ru.practicum.android.diploma.presentation.search.components.SearchContent
 @Composable
 fun SearchScreen(
     navController: NavController,
-    sharedViewModel: FilterSharedViewModel,
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val hasFilter by viewModel.hasFilter.collectAsStateWithLifecycle()
-    val sharedFilter by sharedViewModel.filter.collectAsStateWithLifecycle()
 
-    LaunchedEffect(sharedFilter) {
-        if (sharedFilter != viewModel.lastAppliedFilter) {
-            viewModel.refreshSearch(sharedFilter)
-        }
-    }
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {

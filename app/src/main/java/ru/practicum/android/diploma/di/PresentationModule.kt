@@ -19,7 +19,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        SearchViewModel(get(), get())
+        SearchViewModel(get(), get(), get())
     }
 
     viewModel {
@@ -44,14 +44,12 @@ val presentationModule = module {
 
     viewModel { WorkplaceSelectionViewModel() }
 
-//    viewModel {
-//        IndustrySelectionViewModel(get(), get(), get())
-//    }
     viewModel {
             (sharedViewModel: FilterSharedViewModel) ->
         IndustrySelectionViewModel(sharedViewModel, get(), get())
     }
-    viewModel {
+    single {
         FilterSharedViewModel(get())
     }
+
 }

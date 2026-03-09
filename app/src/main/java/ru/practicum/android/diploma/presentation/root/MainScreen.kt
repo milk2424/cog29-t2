@@ -59,7 +59,7 @@ fun MainScreen() {
             composable<Main> {
                 SearchScreen(
                     navController = navController,
-                    sharedViewModel = sharedViewModel
+                    viewModel = koinViewModel()
                 )
             }
             composable<Favorites> { FavoritesScreen(navController) }
