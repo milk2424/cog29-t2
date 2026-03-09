@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.utils.debounce
 import ru.practicum.android.diploma.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
+import ru.practicum.android.diploma.domain.model.FilterSettings
 import ru.practicum.android.diploma.domain.model.VacanciesResult
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
@@ -27,6 +28,7 @@ class SearchViewModel(
     private var maxPages = 0
     private var isNextPageLoading = false
     private var currentQuery = ""
+    var lastAppliedFilter: FilterSettings? = null
 
     private val searchDebounce: (String) -> Unit = debounce<String>(
         delayMillis = SEARCH_DELAY,
@@ -92,7 +94,8 @@ class SearchViewModel(
         }
     }
 
-    fun refreshSearch() {
+    fun refreshSearch(filter: FilterSettings) {
+        lastAppliedFilter = filter
         updateFilterState()
         if (currentQuery.isNotBlank()) {
             performNewSearch(currentQuery)

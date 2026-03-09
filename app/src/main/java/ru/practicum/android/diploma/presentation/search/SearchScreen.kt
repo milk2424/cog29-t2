@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -32,15 +33,16 @@ fun SearchScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val filter by sharedViewModel.filter.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        navController.currentBackStackEntryFlow.collect {
-            viewModel.refreshSearch()
-        }
-    }
     val hasFilter = filter.countryName != null ||
         filter.regionName != null ||
         filter.salary != null ||
         filter.hideWithoutSalary
+
+    LaunchedEffect(filter) {
+        if (filter != viewModel.lastAppliedFilter) {
+            viewModel.refreshSearch(filter)
+        }
+    }
 
     LaunchedEffect(uiState.errorMessage) {
         uiState.errorMessage?.let { messageRes ->
