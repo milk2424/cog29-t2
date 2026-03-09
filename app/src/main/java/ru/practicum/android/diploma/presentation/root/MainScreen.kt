@@ -15,12 +15,14 @@ import androidx.navigation.toRoute
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreen
 import ru.practicum.android.diploma.presentation.filter.FilterScreen
 import ru.practicum.android.diploma.presentation.filter.industry.IndustrySelectionScreen
+import ru.practicum.android.diploma.presentation.filter.region.RegionSelectionScreen
 import ru.practicum.android.diploma.presentation.filter.workplace.WorkplaceSelectionScreen
 import ru.practicum.android.diploma.presentation.navigation.BottomNavBar
 import ru.practicum.android.diploma.presentation.navigation.Favorites
 import ru.practicum.android.diploma.presentation.navigation.Filter
 import ru.practicum.android.diploma.presentation.navigation.IndustrySelection
 import ru.practicum.android.diploma.presentation.navigation.Main
+import ru.practicum.android.diploma.presentation.navigation.RegionSelection
 import ru.practicum.android.diploma.presentation.navigation.Team
 import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.navigation.WorkplaceSelection
@@ -62,6 +64,13 @@ fun MainScreen() {
             composable<VacancyDetails> { backStackEntry ->
                 val route = backStackEntry.toRoute<VacancyDetails>()
                 VacancyScreen(navController, route.id)
+            }
+            composable<RegionSelection> { backStackEntry ->
+                val route = backStackEntry.toRoute<RegionSelection>()
+                RegionSelectionScreen(
+                    countryId = route.countryId,
+                    onNavigateBack = { navController.popBackStack() }
+                )
             }
             composable<WorkplaceSelection> {
                 WorkplaceSelectionScreen(

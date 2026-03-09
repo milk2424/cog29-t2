@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
@@ -19,6 +18,7 @@ import ru.practicum.android.diploma.R
 @Composable
 fun SearchTextField(
     query: String,
+    placeholderText: String,
     onQueryChanged: (String) -> Unit,
     onClearClicked: () -> Unit
 ) {
@@ -40,7 +40,7 @@ fun SearchTextField(
         ),
         placeholder = {
             Text(
-                text = stringResource(R.string.search_placeholder),
+                text = placeholderText,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.secondary
             )
