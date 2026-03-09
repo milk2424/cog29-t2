@@ -28,6 +28,3 @@ data object IndustrySelection
 
 @Serializable
 data object CountrySelection
-
-@Serializable
-data object RegionSelection
