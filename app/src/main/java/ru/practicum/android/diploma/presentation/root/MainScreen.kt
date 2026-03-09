@@ -79,6 +79,7 @@ fun MainScreen() {
             composable<RegionSelection> { backStackEntry ->
                 val route = backStackEntry.toRoute<RegionSelection>()
                 RegionSelectionScreen(
+                    sharedViewModel = sharedViewModel,
                     countryId = route.countryId,
                     onNavigateBack = { navController.popBackStack() }
                 )
@@ -89,7 +90,12 @@ fun MainScreen() {
                     navController = navController,
                     onStartClick = { navController.popBackStack() },
                     onCountryClick = { navController.navigate(CountrySelection) },
-                    onRegionClick = {}
+                    onRegionClick = {
+                        val countryId = sharedViewModel.filter.value.countryId
+                        if (countryId != null && countryId > 0) {
+                            navController.navigate(RegionSelection(countryId.toString()))
+                        }
+                    }
                 )
             }
 

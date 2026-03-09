@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.domain.model.Area
 import ru.practicum.android.diploma.presentation.filter.region.RegionSelectionScreenState
 import ru.practicum.android.diploma.presentation.search.components.SearchTextField
 
@@ -17,7 +18,8 @@ fun RegionContent(
     uiState: RegionSelectionScreenState,
     paddingValues: PaddingValues,
     onQueryChanged: (String) -> Unit,
-    onClearClicked: () -> Unit
+    onClearClicked: () -> Unit,
+    onRegionClick: (Area) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -33,6 +35,7 @@ fun RegionContent(
         )
         RegionState(
             uiState = uiState,
+            onRegionClick = onRegionClick,
             paddingValues = PaddingValues()
         )
     }
