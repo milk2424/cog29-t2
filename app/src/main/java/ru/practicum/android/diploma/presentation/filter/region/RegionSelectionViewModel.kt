@@ -19,21 +19,12 @@ class RegionSelectionViewModel(
     private val _uiState = MutableStateFlow(RegionSelectionScreenState())
     val uiState: StateFlow<RegionSelectionScreenState> = _uiState.asStateFlow()
 
-    private val originalList: MutableList<Area> = mutableListOf()
-    private val filteredList: MutableList<Area> = mutableListOf()
-
     init {
         loadRegions(countryId)
     }
 
-    fun loadRegions(countryId: String?) {
+    private fun loadRegions(countryId: String?) {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    isLoading = true,
-                    isError = false
-                )
-            }
             getRegionsUseCase(countryId).collect { result ->
                 when (result) {
                     is ApiResult.Success -> handleSuccess(result.data)
@@ -45,14 +36,12 @@ class RegionSelectionViewModel(
     }
 
     private fun handleSuccess(regions: List<Area>) {
-        originalList.clear()
-        originalList.addAll(regions)
         _uiState.update {
             it.copy(
                 isLoading = false,
                 isError = false,
                 regions = regions,
-                isEmpty = regions.isEmpty()
+                originalRegions = regions
             )
         }
     }
@@ -72,14 +61,8 @@ class RegionSelectionViewModel(
                 isLoading = false,
                 isError = true,
                 regions = emptyList(),
-                isEmpty = true
+                originalRegions = emptyList()
             )
-        }
-    }
-
-    private fun updateDisplayList(updatedList: List<Area>) {
-        _uiState.update {
-            it.copy(regions = updatedList)
         }
     }
 
@@ -94,20 +77,17 @@ class RegionSelectionViewModel(
         _uiState.update {
             it.copy(query = "")
         }
-        updateDisplayList(originalList)
+        _uiState.update { it.copy(regions = it.originalRegions) }
     }
 
-    fun filter(searchQuery: String) {
-        filteredList.clear()
+    private fun filter(searchQuery: String) {
         if (searchQuery.isEmpty()) {
-            updateDisplayList(originalList)
+            _uiState.update { it.copy(regions = it.originalRegions) }
         } else {
-            for (item in originalList) {
-                if (item.name.contains(searchQuery, ignoreCase = true)) {
-                    filteredList.add(item)
-                }
+            val filtered = _uiState.value.originalRegions.filter { item ->
+                item.name.contains(searchQuery, ignoreCase = true)
             }
-            updateDisplayList(filteredList)
+            _uiState.update { it.copy(regions = filtered) }
         }
     }
 }

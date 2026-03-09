@@ -19,6 +19,8 @@ data object Filter
 
 @Serializable
 data class RegionSelection(val countryId: String?)
+
+@Serializable
 data object WorkplaceSelection
 
 @Serializable

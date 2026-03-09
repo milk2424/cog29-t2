@@ -14,8 +14,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import ru.practicum.android.diploma.presentation.favorites.FavoritesScreen
 import ru.practicum.android.diploma.presentation.filter.FilterScreen
-import ru.practicum.android.diploma.presentation.filter.region.RegionSelectionScreen
 import ru.practicum.android.diploma.presentation.filter.industry.IndustrySelectionScreen
+import ru.practicum.android.diploma.presentation.filter.region.RegionSelectionScreen
 import ru.practicum.android.diploma.presentation.filter.workplace.WorkplaceSelectionScreen
 import ru.practicum.android.diploma.presentation.navigation.BottomNavBar
 import ru.practicum.android.diploma.presentation.navigation.Favorites

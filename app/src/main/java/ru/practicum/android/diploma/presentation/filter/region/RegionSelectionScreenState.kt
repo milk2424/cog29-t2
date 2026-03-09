@@ -8,6 +8,6 @@ data class RegionSelectionScreenState(
     val query: String = "",
     val isLoading: Boolean = false,
     val isError: Boolean = false,
-    val isEmpty: Boolean = false,
-    val regions: List<Area> = emptyList()
+    val regions: List<Area> = emptyList(),
+    val originalRegions: List<Area> = emptyList()
 )
