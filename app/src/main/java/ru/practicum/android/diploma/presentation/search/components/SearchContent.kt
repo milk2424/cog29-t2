@@ -16,7 +16,7 @@ fun SearchContent(
     uiState: SearchUiState,
     paddingValues: PaddingValues,
     onQueryChanged: (String) -> Unit,
-    onCLearClicked: () -> Unit,
+    onClearClicked: () -> Unit,
     onLoadNextPage: () -> Unit,
     onVacancyClick: (String) -> Unit
 ) {
@@ -30,7 +30,7 @@ fun SearchContent(
             query = uiState.query,
             placeholderText = stringResource(R.string.search_placeholder),
             onQueryChanged = onQueryChanged,
-            onClearClicked = onCLearClicked
+            onClearClicked = onClearClicked
         )
 
         SearchState(uiState, onLoadNextPage, onVacancyClick)

@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -31,22 +30,22 @@ fun SearchScreen(
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val filter by sharedViewModel.filter.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val hasFilter = filter.countryName != null ||
-        filter.regionName != null ||
-        filter.salary != null ||
-        filter.hideWithoutSalary
+    val hasFilter by viewModel.hasFilter.collectAsStateWithLifecycle()
+    val sharedFilter by sharedViewModel.filter.collectAsStateWithLifecycle()
 
-    LaunchedEffect(filter) {
-        if (filter != viewModel.lastAppliedFilter) {
-            viewModel.refreshSearch(filter)
+    LaunchedEffect(sharedFilter) {
+        if (sharedFilter != viewModel.lastAppliedFilter) {
+            viewModel.refreshSearch(sharedFilter)
         }
     }
-
-    LaunchedEffect(uiState.errorMessage) {
-        uiState.errorMessage?.let { messageRes ->
-            Toast.makeText(context, messageRes, Toast.LENGTH_SHORT).show()
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is SearchViewModel.SearchEvent.ShowError -> {
+                    Toast.makeText(context, event.messageRes, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
     AppScaffold(
@@ -79,7 +78,7 @@ fun SearchScreen(
             uiState = uiState,
             paddingValues = paddingValues,
             onQueryChanged = viewModel::onQueryChanged,
-            onCLearClicked = viewModel::onClearClicked,
+            onClearClicked = viewModel::onClearClicked,
             onLoadNextPage = viewModel::loadNextPage,
             onVacancyClick = { vacancyId ->
                 navController.navigate(VacancyDetails(id = vacancyId)) {

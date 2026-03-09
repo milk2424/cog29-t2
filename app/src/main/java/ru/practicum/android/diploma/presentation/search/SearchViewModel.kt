@@ -2,10 +2,15 @@ package ru.practicum.android.diploma.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
@@ -14,6 +19,7 @@ import ru.practicum.android.diploma.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.model.FilterSettings
 import ru.practicum.android.diploma.domain.model.VacanciesResult
+import ru.practicum.android.diploma.domain.model.hasActiveFilter
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class SearchViewModel(
@@ -30,24 +36,26 @@ class SearchViewModel(
     private var currentQuery = ""
     var lastAppliedFilter: FilterSettings? = null
 
+    private val _filter = MutableStateFlow(filterInteractor.getFilter())
+    val filter = _filter.asStateFlow()
+
+    val hasFilter: StateFlow<Boolean> = _filter
+        .map { it.hasActiveFilter() }
+        .stateIn(viewModelScope, SharingStarted.Lazily, _filter.value.hasActiveFilter())
+
+    private val _events = MutableSharedFlow<SearchEvent>()
+    val events: SharedFlow<SearchEvent> = _events
+
+    sealed class SearchEvent {
+        data class ShowError(val messageRes: Int) : SearchEvent()
+    }
+
     private val searchDebounce: (String) -> Unit = debounce<String>(
         delayMillis = SEARCH_DELAY,
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { query ->
         performNewSearch(query)
-    }
-
-    init {
-        updateFilterState()
-    }
-
-    fun updateFilterState() {
-        _uiState.update {
-            it.copy(
-                hasFilter = filterInteractor.hasActiveFilter()
-            )
-        }
     }
 
     fun onQueryChanged(query: String) {
@@ -96,10 +104,14 @@ class SearchViewModel(
 
     fun refreshSearch(filter: FilterSettings) {
         lastAppliedFilter = filter
-        updateFilterState()
+        _filter.value = filter
         if (currentQuery.isNotBlank()) {
             performNewSearch(currentQuery)
         }
+    }
+
+    fun updateFilter(newFilter: FilterSettings) {
+        _filter.value = newFilter
     }
 
     private fun shouldLoadNextPage(state: SearchUiState): Boolean {
@@ -201,6 +213,9 @@ class SearchViewModel(
                 isError = true,
                 errorMessage = messageRes
             )
+        }
+        viewModelScope.launch {
+            _events.emit(SearchEvent.ShowError(messageRes))
         }
     }
 
