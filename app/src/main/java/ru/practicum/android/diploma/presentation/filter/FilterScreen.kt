@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.filter.components.FilterButton
@@ -24,7 +23,6 @@ import ru.practicum.android.diploma.presentation.filter.components.TrailingCheck
 
 @Composable
 fun FilterScreen(
-    viewModel: FilterViewModel = koinViewModel(),
     sharedViewModel: FilterSharedViewModel,
     onStartClick: () -> Unit,
     onWorkplaceClick: () -> Unit,
