@@ -34,7 +34,8 @@ fun FilterScreen(
     val hasFilters = filter.countryName != null ||
         filter.regionName != null ||
         filter.salary != null ||
-        filter.hideWithoutSalary
+        filter.hideWithoutSalary ||
+        filter.industryId != null
 
     val focusManager = LocalFocusManager.current
 

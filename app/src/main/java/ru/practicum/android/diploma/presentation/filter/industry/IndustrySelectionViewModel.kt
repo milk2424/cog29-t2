@@ -71,6 +71,11 @@ class IndustrySelectionViewModel(
 
                         is ApiResult.Success -> {
                             originalIndustries = result.data
+                            val filter = sharedViewModel.filter.value
+                            if (filter.industryId != null && filter.industryName != null) {
+                                selectedIndustryId = filter.industryId.toString()
+                                selectedIndustryName = filter.industryName
+                            }
                             updateDisplayList(originalIndustries)
                         }
 
