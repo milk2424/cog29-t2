@@ -26,7 +26,7 @@ import ru.practicum.android.diploma.presentation.search.components.PaginationMan
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
-    private val filterInteractor: FilterInteractor,
+    filterInteractor: FilterInteractor,
     private val sharedViewModel: FilterSharedViewModel
 ) : ViewModel() {
 
@@ -39,9 +39,8 @@ class SearchViewModel(
     var lastAppliedFilter: FilterSettings? = null
 
     private val _filter = MutableStateFlow(
-        filterInteractor.getFilter() ?: defaultFilter()
+        filterInteractor.getFilter()
     )
-    val filter = _filter.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -213,17 +212,6 @@ class SearchViewModel(
             SearchUiState()
         }
     }
-
-    private fun defaultFilter(): FilterSettings = FilterSettings(
-        salary = null,
-        hideWithoutSalary = false,
-        industryId = null,
-        industryName = null,
-        countryId = null,
-        countryName = null,
-        regionId = null,
-        regionName = null
-    )
 
     private fun updateVacancies(
         data: VacanciesResult,
