@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
     id("ru.practicum.android.diploma.plugins.developproperties")
 }
 
@@ -46,6 +47,7 @@ dependencies {
     implementation(libs.androidX.core)
     implementation(libs.androidX.appCompat)
     implementation(libs.material3)
+    implementation(libs.foundation)
 
     // region Unit tests
     testImplementation(libs.unitTests.junit)
@@ -85,4 +87,5 @@ dependencies {
 
     // временка пока не переделаем темы на композ
     implementation(libs.ui.material)
+    implementation(libs.kotlinx.serialization.json)
 }

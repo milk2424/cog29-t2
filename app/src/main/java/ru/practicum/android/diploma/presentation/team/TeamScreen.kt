@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.team.components.DeveloperListItem
 
@@ -28,11 +28,11 @@ fun TeamScreen(viewModel: TeamViewModel = koinViewModel()) {
         LazyColumn(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(horizontal = paddingLarge)
+                .padding(horizontal = 16.dp)
         ) {
             item {
                 Text(
-                    modifier = Modifier.padding(vertical = paddingLarge),
+                    modifier = Modifier.padding(vertical = 16.dp),
                     text = stringResource(R.string.developers_of_this_app),
                     style = MaterialTheme.typography.headlineLarge
                 )

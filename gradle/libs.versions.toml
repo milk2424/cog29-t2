@@ -51,9 +51,13 @@ datastore = "1.2.0"
 # Coroutines
 coroutines = "1.10.2"
 
+#serialization-json
+serialization-json = "1.7.3"
+
 #времянка
 material = "1.13.0"
 material3 = "1.4.0"
+foundation = "1.10.3"
 
 [libraries]
 # Detekt
@@ -65,6 +69,7 @@ staticAnalysis-detektTest = { module = "io.gitlab.arturbosch.detekt:detekt-test"
 staticAnalysis-detektFormatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
 staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
 
 # AndroidX
 androidX-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -115,12 +120,14 @@ coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-androi
 #временка пока не переделаем темы на композ
 ui-material = { module = "com.google.android.material:material", version.ref = "material" }
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-activity", "compose-navigation", "compose-lifecycle-viewmodel"]

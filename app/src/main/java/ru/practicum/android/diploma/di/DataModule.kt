@@ -14,13 +14,22 @@ import ru.practicum.android.diploma.core.navigation.ExternalNavigator
 import ru.practicum.android.diploma.core.navigation.ExternalNavigatorImpl
 import ru.practicum.android.diploma.core.network.ApiService
 import ru.practicum.android.diploma.core.network.NetworkCaller
+import ru.practicum.android.diploma.core.network.NetworkCallerImpl
 import ru.practicum.android.diploma.core.network.NetworkChecker
 import ru.practicum.android.diploma.core.network.NetworkCheckerImpl
+import ru.practicum.android.diploma.data.repository.CountryRepositoryImpl
 import ru.practicum.android.diploma.data.repository.FavoritesRepositoryImpl
+import ru.practicum.android.diploma.data.repository.FilterRepositoryImpl
+import ru.practicum.android.diploma.data.repository.IndustryRepositoryImpl
+import ru.practicum.android.diploma.data.repository.RegionRepositoryImpl
 import ru.practicum.android.diploma.data.repository.TeamRepositoryImpl
 import ru.practicum.android.diploma.data.repository.VacancyRepositoryImpl
 import ru.practicum.android.diploma.domain.model.Developer
+import ru.practicum.android.diploma.domain.repository.CountryRepository
 import ru.practicum.android.diploma.domain.repository.FavoritesRepository
+import ru.practicum.android.diploma.domain.repository.FilterRepository
+import ru.practicum.android.diploma.domain.repository.IndustryRepository
+import ru.practicum.android.diploma.domain.repository.RegionRepository
 import ru.practicum.android.diploma.domain.repository.TeamRepository
 import ru.practicum.android.diploma.domain.repository.VacancyRepository
 import java.util.concurrent.TimeUnit
@@ -82,11 +91,18 @@ val dataModule = module {
         ExternalNavigatorImpl(androidContext())
     }
 
-    single {
-        NetworkCaller(get())
+    single<NetworkCaller> {
+        NetworkCallerImpl(get(), get())
     }
 
     single<VacancyRepository> { VacancyRepositoryImpl(get(), get()) }
 
     single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
+
+    single<FilterRepository> { FilterRepositoryImpl(get()) }
+
+    single<CountryRepository> { CountryRepositoryImpl(get(), get()) }
+
+    single<RegionRepository> { RegionRepositoryImpl(get(), get()) }
+    single<IndustryRepository> { IndustryRepositoryImpl(get(), get()) }
 }

@@ -1,9 +1,12 @@
 package ru.practicum.android.diploma.di
 
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.presentation.favorites.FavoritesViewModel
+import ru.practicum.android.diploma.presentation.filter.FilterSharedViewModel
+import ru.practicum.android.diploma.presentation.filter.country.CountrySelectionViewModel
+import ru.practicum.android.diploma.presentation.filter.industry.IndustrySelectionViewModel
+import ru.practicum.android.diploma.presentation.filter.region.RegionSelectionViewModel
 import ru.practicum.android.diploma.presentation.search.SearchViewModel
 import ru.practicum.android.diploma.presentation.team.TeamViewModel
 import ru.practicum.android.diploma.presentation.vacancy.VacancyViewModel
@@ -14,10 +17,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        SearchViewModel(
-            searchInteractor = get(),
-            context = androidContext()
-        )
+        SearchViewModel(get(), get(), get())
     }
 
     viewModel {
@@ -27,4 +27,21 @@ val presentationModule = module {
     viewModel {
         VacancyViewModel(get(), get(), get())
     }
+
+    viewModel {
+        CountrySelectionViewModel(get())
+    }
+
+    viewModel { (countryId: String?) ->
+        RegionSelectionViewModel(countryId, get())
+    }
+
+    viewModel {
+            (sharedViewModel: FilterSharedViewModel) ->
+        IndustrySelectionViewModel(sharedViewModel, get(), get())
+    }
+    single {
+        FilterSharedViewModel(get())
+    }
+
 }

@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.presentation.search.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -12,16 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.iconCorners
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
 
 @Composable
 fun SearchTextField(
     query: String,
+    placeholderText: String,
     onQueryChanged: (String) -> Unit,
     onClearClicked: () -> Unit
 ) {
@@ -31,9 +28,9 @@ fun SearchTextField(
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChanged,
-        shape = RoundedCornerShape(iconCorners),
+        shape = MaterialTheme.shapes.medium,
         modifier = Modifier
-            .padding(vertical = paddingSmall, horizontal = paddingLarge)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
             .fillMaxWidth(),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.surface,
@@ -43,7 +40,7 @@ fun SearchTextField(
         ),
         placeholder = {
             Text(
-                text = stringResource(R.string.search_placeholder),
+                text = placeholderText,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.secondary
             )

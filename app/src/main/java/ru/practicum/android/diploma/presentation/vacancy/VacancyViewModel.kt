@@ -2,11 +2,11 @@ package ru.practicum.android.diploma.presentation.vacancy
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.interactor.FavoritesInteractor
 import ru.practicum.android.diploma.domain.model.Vacancy
@@ -22,39 +22,28 @@ class VacancyViewModel(
 
     private val _uiState = MutableStateFlow<VacancyScreenState>(VacancyScreenState.Loading)
     val uiState: StateFlow<VacancyScreenState> = _uiState.asStateFlow()
-
-    private var currentVacancy: Vacancy? = null
+    private var loadVacancyJob: Job? = null
 
     fun loadVacancy(vacancyId: String) {
-        if (currentVacancy?.id == vacancyId && _uiState.value is VacancyScreenState.Content
-        ) {
-            return
-        }
-        viewModelScope.launch {
+        loadVacancyJob?.cancel()
+        loadVacancyJob = viewModelScope.launch {
+            _uiState.value = VacancyScreenState.Loading
             getVacancyDetailUseCase(vacancyId)
-                .onStart {
-                    _uiState.value = VacancyScreenState.Loading
-                }
                 .collectLatest { result ->
                     when (result) {
-                        is ApiResult.Loading -> {
-                            _uiState.value = VacancyScreenState.Loading
-                        }
-
+                        is ApiResult.Loading -> {}
                         is ApiResult.Success -> {
-                            result.data.let { vacancy ->
-                                currentVacancy = vacancy
-                                val isFavorite = favoritesInteractor.isFavorite(vacancy.id)
-                                _uiState.value = VacancyScreenState.Content(
-                                    vacancy = vacancy,
-                                    isFavorite = isFavorite
-                                )
-                            }
+                            val isFavorite = favoritesInteractor.isFavorite(vacancyId)
+                            _uiState.value = createContentState(result.data, isFavorite)
                         }
 
-                        is ApiResult.NotFoundError -> {
-                            favoritesInteractor.remove(vacancyId)
-                            _uiState.value = VacancyScreenState.NotFound
+                        is ApiResult.NetworkError -> {
+                            val cached = favoritesInteractor.getById(vacancyId)
+                            _uiState.value = if (cached != null) {
+                                createContentState(cached, true)
+                            } else {
+                                VacancyScreenState.ServerError
+                            }
                         }
 
                         else -> {
@@ -66,24 +55,42 @@ class VacancyViewModel(
     }
 
     fun toggleFavorite() {
+        val currentState = _uiState.value as? VacancyScreenState.Content ?: return
+        val newIsFavorite = !currentState.isFavorite
+        _uiState.value = currentState.copy(isFavorite = newIsFavorite)
         viewModelScope.launch {
-            currentVacancy?.let { vacancy ->
-                if (favoritesInteractor.isFavorite(vacancy.id)) {
-                    favoritesInteractor.remove(vacancy.id)
+            try {
+                if (newIsFavorite) {
+                    favoritesInteractor.add(currentState.vacancy)
                 } else {
-                    favoritesInteractor.add(vacancy)
+                    favoritesInteractor.remove(currentState.vacancy.id)
                 }
-                _uiState.value = VacancyScreenState.Content(
-                    vacancy = vacancy,
-                    isFavorite = favoritesInteractor.isFavorite(vacancy.id)
-                )
+            } catch (_: Exception) {
+                _uiState.value = currentState
             }
         }
     }
 
     fun shareVacancy() {
-        currentVacancy?.let { vacancy ->
-            shareVacancyUseCase(vacancy)
-        }
+        val vacancy = (_uiState.value as? VacancyScreenState.Content)?.vacancy ?: return
+        shareVacancyUseCase(vacancy)
     }
 }
+
+private fun createContentState(vacancy: Vacancy, isFavorite: Boolean) =
+    VacancyScreenState.Content(
+        vacancy = vacancy,
+        isFavorite = isFavorite,
+        descriptionLines = vacancy.description.toDescriptionLines()
+    )
+
+private fun String.toDescriptionLines(): List<DescriptionLine> =
+    split("\n")
+        .filter { it.isNotBlank() }
+        .map { line ->
+            if (line.trimEnd().endsWith(":")) {
+                DescriptionLine.Header(line)
+            } else {
+                DescriptionLine.Body(line)
+            }
+        }

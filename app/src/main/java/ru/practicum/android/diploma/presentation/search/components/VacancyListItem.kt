@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -18,13 +17,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.iconCorners
-import ru.practicum.android.diploma.core.ui.theme.Dimens.logoBorderThickness
-import ru.practicum.android.diploma.core.ui.theme.Dimens.logoMedium
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingMedium
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingSmall
 import ru.practicum.android.diploma.core.utils.SalaryStrings
 import ru.practicum.android.diploma.domain.model.Vacancy
 import ru.practicum.android.diploma.presentation.common.components.AppImageLoader
@@ -34,22 +29,22 @@ fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyCli
     val context = LocalContext.current
     val imageLoader = remember { AppImageLoader.get(context) }
 
-    val imageShape = RoundedCornerShape(iconCorners)
+    val imageShape = MaterialTheme.shapes.medium
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
-            .padding(bottom = paddingSmall)
+            .padding(bottom = 8.dp)
             .clickable {
                 onVacancyClicked(vacancy.id)
             }
     ) {
         AsyncImage(
             modifier = Modifier
-                .size(logoMedium)
+                .size(48.dp)
                 .clip(imageShape)
                 .border(
-                    width = logoBorderThickness,
+                    width = 1.dp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     shape = imageShape
                 ),
@@ -60,7 +55,7 @@ fun VacancyListItem(vacancy: Vacancy, salaryStrings: SalaryStrings, onVacancyCli
             contentScale = ContentScale.Inside,
             contentDescription = null
         )
-        Spacer(modifier = Modifier.width(paddingMedium))
+        Spacer(modifier = Modifier.width(12.dp))
         VacancyMainInfoColumn(vacancy, salaryStrings)
     }
 }

@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.presentation.common.components.AppScaffold
 import ru.practicum.android.diploma.presentation.common.components.ErrorImageWithDescription
 import ru.practicum.android.diploma.presentation.common.placeholders.LoadingPlaceholder
+import ru.practicum.android.diploma.presentation.navigation.VacancyDetails
 import ru.practicum.android.diploma.presentation.search.components.VacancyList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +37,7 @@ fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel 
                 VacancyList(
                     vacancies = state.vacancies,
                     onVacancyClick = { vacancyId ->
-                        navController.navigate("vacancy/$vacancyId") {
+                        navController.navigate(VacancyDetails(id = vacancyId)) {
                             launchSingleTop = true
                         }
                     },

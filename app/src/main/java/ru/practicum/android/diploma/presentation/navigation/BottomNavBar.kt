@@ -9,27 +9,38 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.practicum.android.diploma.core.ui.theme.Dimens
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.compose.currentBackStackEntryAsState
+import ru.practicum.android.diploma.R
 
 @Composable
-fun BottomNavBar(navController: NavController, currentRoute: String?) {
-    val items = remember { listOf(NavRoute.Tab.Main, NavRoute.Tab.Favorites, NavRoute.Tab.Team) }
+fun BottomNavBar(navController: NavController) {
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val items = remember {
+        listOf(
+            TabItem(Main, R.string.tab_main, R.drawable.main_24px),
+            TabItem(Favorites, R.string.tab_favorites, R.drawable.favorites_on__24px),
+            TabItem(Team, R.string.tab_team, R.drawable.team_24px)
+        )
+    }
 
     Column {
-        HorizontalDivider(thickness = Dimens.bottomNavBarDividerThickness, color = MaterialTheme.colorScheme.outline)
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outline)
         NavigationBar(
             containerColor = MaterialTheme.colorScheme.background
         ) {
-            items.forEach { route ->
+            items.forEach { item ->
                 NavigationBarItem(
-                    selected = currentRoute == route.route,
+                    selected = currentBackStackEntry?.destination?.hasRoute(item.route::class) == true,
                     onClick = {
-                        navController.navigate(route.route) {
+                        navController.navigate(item.route) {
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true
                             restoreState = true
@@ -37,8 +48,8 @@ fun BottomNavBar(navController: NavController, currentRoute: String?) {
                     },
                     icon = {
                         Icon(
-                            painter = painterResource(route.iconRes),
-                            contentDescription = stringResource(route.labelRes)
+                            painter = painterResource(id = item.iconRes),
+                            contentDescription = stringResource(id = item.labelRes)
                         )
                     },
                     colors = NavigationBarItemDefaults.colors(
@@ -50,7 +61,7 @@ fun BottomNavBar(navController: NavController, currentRoute: String?) {
                     ),
                     label = {
                         Text(
-                            text = stringResource(route.labelRes),
+                            text = stringResource(id = item.labelRes),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -59,3 +70,9 @@ fun BottomNavBar(navController: NavController, currentRoute: String?) {
         }
     }
 }
+
+data class TabItem(
+    val route: Any,
+    val labelRes: Int,
+    val iconRes: Int
+)

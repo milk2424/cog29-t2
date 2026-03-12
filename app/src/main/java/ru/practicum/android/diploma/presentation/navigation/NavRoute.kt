@@ -1,19 +1,30 @@
 package ru.practicum.android.diploma.presentation.navigation
 
-import ru.practicum.android.diploma.R
+import kotlinx.serialization.Serializable
 
-sealed class NavRoute(val route: String) {
+@Serializable
+data object Main
 
-    sealed class Tab(
-        route: String,
-        val labelRes: Int,
-        val iconRes: Int
-    ) : NavRoute(route) {
-        object Main : Tab("main", R.string.tab_main, R.drawable.main_24px)
-        object Favorites : Tab("favorites", R.string.tab_favorites, R.drawable.favorites_on__24px)
-        object Team : Tab("team", R.string.tab_team, R.drawable.team_24px)
-    }
+@Serializable
+data object Favorites
 
-    object VacancyDetails : NavRoute("vacancy/{id}")
-    object Filter : NavRoute("filter")
-}
+@Serializable
+data object Team
+
+@Serializable
+data class VacancyDetails(val id: String)
+
+@Serializable
+data object Filter
+
+@Serializable
+data class RegionSelection(val countryId: String?)
+
+@Serializable
+data object WorkplaceSelection
+
+@Serializable
+data object IndustrySelection
+
+@Serializable
+data object CountrySelection

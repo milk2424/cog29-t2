@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,30 +15,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.core.ui.theme.Dimens.iconCorners
-import ru.practicum.android.diploma.core.ui.theme.Dimens.insetsZero
-import ru.practicum.android.diploma.core.ui.theme.Dimens.logoMedium
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingLarge
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paddingXLarge
-import ru.practicum.android.diploma.core.ui.theme.Dimens.spacer12
 import ru.practicum.android.diploma.domain.model.Vacancy
 
 @Composable
 fun EmployerCard(vacancy: Vacancy) {
     Card(
-        shape = RoundedCornerShape(iconCorners),
+        shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.outline
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = insetsZero),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = paddingXLarge),
+            .padding(top = 24.dp),
     ) {
         Row(
-            modifier = Modifier.padding(paddingLarge),
+            modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -47,9 +41,9 @@ fun EmployerCard(vacancy: Vacancy) {
                 contentDescription = null,
                 placeholder = painterResource(R.drawable.img_no_employer_logo),
                 error = painterResource(R.drawable.img_no_employer_logo),
-                modifier = Modifier.size(logoMedium)
+                modifier = Modifier.size(24.dp)
             )
-            Spacer(modifier = Modifier.width(spacer12))
+            Spacer(modifier = Modifier.width(12.dp))
             Column {
                 Text(
                     text = vacancy.employer.name,

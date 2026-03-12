@@ -27,7 +27,7 @@ fun VacancyMainInfoColumn(vacancy: Vacancy, salaryStrings: SalaryStrings) {
                 text = formatSalaryRange(
                     min = salary?.from,
                     max = salary?.to,
-                    currency = salary?.currency,
+                    formattedCurrency = salary?.formattedCurrency ?: "",
                     strings = salaryStrings
                 ),
                 style = MaterialTheme.typography.bodyLarge,

@@ -8,8 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import ru.practicum.android.diploma.core.ui.theme.Dimens.paginationProgressStroke
-import ru.practicum.android.diploma.core.ui.theme.Dimens.progressBarSize
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoadingPlaceholder() {
@@ -19,9 +18,9 @@ fun LoadingPlaceholder() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier
-                .size(progressBarSize),
+                .size(44.dp),
             color = MaterialTheme.colorScheme.primary,
-            strokeWidth = paginationProgressStroke
+            strokeWidth = 2.dp
         )
     }
 }

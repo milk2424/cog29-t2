@@ -26,7 +26,8 @@ fun VacancyDetailDto.toDomain() = Vacancy(
         VacancySalary(
             from = it.from,
             to = it.to,
-            currency = it.currency
+            currency = it.currency,
+            formattedCurrency = VacancySalary.from(it.currency)
         )
     },
     description = description,
@@ -56,7 +57,8 @@ fun VacancyEntity.toDomain() = Vacancy(
         VacancySalary(
             from = it.from,
             to = it.to,
-            currency = it.currency
+            currency = it.currency,
+            formattedCurrency = VacancySalary.from(it.currency)
         )
     },
     description = description,
