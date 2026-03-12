@@ -5,7 +5,6 @@ import ru.practicum.android.diploma.domain.model.Area
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 interface CountryRepository {
-
     fun loadCountries(): Flow<ApiResult<List<Area>>>
-
+    suspend fun getCountryById(countryId: String): Area?
 }
