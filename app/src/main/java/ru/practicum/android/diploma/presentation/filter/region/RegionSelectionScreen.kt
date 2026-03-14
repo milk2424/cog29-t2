@@ -44,6 +44,9 @@ fun RegionSelectionScreen(
                             onNavigateBack()
                         }
                     }
+                } else {
+                    sharedViewModel.setRegion(region.id.toInt(), region.name)
+                    onNavigateBack()
                 }
             }
         )
