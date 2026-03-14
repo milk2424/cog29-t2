@@ -10,10 +10,12 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.model.Area
 import ru.practicum.android.diploma.domain.usecase.GetRegionsUseCase
 import ru.practicum.android.diploma.domain.utils.ApiResult
+import ru.practicum.android.diploma.domain.usecase.GetCountryByIdUseCase
 
 class RegionSelectionViewModel(
     countryId: String?,
-    private val getRegionsUseCase: GetRegionsUseCase
+    private val getRegionsUseCase: GetRegionsUseCase,
+    private val getCountryByIdUseCase: GetCountryByIdUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegionSelectionScreenState())
@@ -88,6 +90,13 @@ class RegionSelectionViewModel(
                 item.name.contains(searchQuery, ignoreCase = true)
             }
             _uiState.update { it.copy(regions = filtered) }
+        }
+    }
+
+    fun getCountryName(countryId: String, onResult: (String?) -> Unit) {
+        viewModelScope.launch {
+            val country = getCountryByIdUseCase(countryId)
+            onResult(country?.name)
         }
     }
 }

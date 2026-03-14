@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.domain.interactor.SearchInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractorImpl
 import ru.practicum.android.diploma.domain.usecase.GetAllCountriesUseCase
 import ru.practicum.android.diploma.domain.usecase.GetAllFavoritesUseCase
+import ru.practicum.android.diploma.domain.usecase.GetCountryByIdUseCase
 import ru.practicum.android.diploma.domain.usecase.GetIndustriesUseCase
 import ru.practicum.android.diploma.domain.usecase.GetRegionsUseCase
 import ru.practicum.android.diploma.domain.usecase.GetVacancyDetailUseCase
@@ -43,4 +44,5 @@ val domainModule = module {
 
     single { GetRegionsUseCase(get()) }
     single { GetIndustriesUseCase(get()) }
+    single { GetCountryByIdUseCase(get()) }
 }

@@ -32,11 +32,21 @@ fun RegionSelectionScreen(
             onQueryChanged = viewModel::onQueryChanged,
             onClearClicked = viewModel::onClearClicked,
             onRegionClick = { region ->
-                sharedViewModel.setRegion(
-                    region.id.toInt(),
-                    region.name
-                )
-                onNavigateBack()
+                if (sharedViewModel.filter.value.countryId == null) {
+                    viewModel.getCountryName(region.parentId ?: "") { countryName ->
+                        sharedViewModel.setCountry(
+                            countryId = region.parentId?.toInt(),
+                            countryName = countryName
+                        )
+                        sharedViewModel.setRegion(
+                            regionId = region.id.toInt(),
+                            regionName = region.name
+                        )
+                        onNavigateBack()
+                    }
+                } else {
+                    onNavigateBack()
+                }
             }
         )
     }
