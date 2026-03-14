@@ -2,8 +2,10 @@ package ru.practicum.android.diploma.presentation.filter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.interactor.FilterInteractor
@@ -24,6 +26,9 @@ class FilterSharedViewModel(private val filterInteractor: FilterInteractor) : Vi
     )
     val filter: StateFlow<FilterSettings> = _filter
 
+    private val _applyFilter = MutableSharedFlow<Unit>()
+    val applyFilter = _applyFilter.asSharedFlow()
+
     init {
         viewModelScope.launch {
             val savedFilter = filterInteractor.getFilter()
@@ -31,6 +36,12 @@ class FilterSharedViewModel(private val filterInteractor: FilterInteractor) : Vi
                 countryId = savedFilter.countryId?.takeIf { it > 0 },
                 regionId = savedFilter.regionId?.takeIf { it > 0 }
             )
+        }
+    }
+
+    fun applyFilter() {
+        viewModelScope.launch {
+            _applyFilter.emit(Unit)
         }
     }
 
