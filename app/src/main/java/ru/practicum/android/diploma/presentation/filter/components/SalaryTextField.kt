@@ -59,7 +59,7 @@ fun SalaryTextField(
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewSalaryTextField() {
+private fun PreviewSalaryTextField() {
     DiplomaTheme {
         SalaryTextField(
             salary = "50000",

@@ -56,7 +56,7 @@ fun FilterButton(
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewFilterButton1() {
+private fun PreviewFilterButton1() {
     DiplomaTheme {
         FilterButton(
             text = R.string.apply,
@@ -69,7 +69,7 @@ fun PreviewFilterButton1() {
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewFilterButton2() {
+private fun PreviewFilterButton2() {
     DiplomaTheme {
         FilterButton(
             text = R.string.reset,
