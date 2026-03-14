@@ -47,8 +47,8 @@ class SearchViewModel(
             }
         }
         viewModelScope.launch {
-            sharedViewModel.applyFilter.collect {
-                if (currentQuery.isNotBlank()) {
+            sharedViewModel.applyFilter.collectLatest {
+                if (currentQuery.isNotBlank() && !_uiState.value.isLoading) {
                     performNewSearch(currentQuery)
                 }
             }
