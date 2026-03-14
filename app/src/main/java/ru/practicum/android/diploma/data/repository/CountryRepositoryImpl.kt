@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.domain.utils.ApiResult
 class CountryRepositoryImpl(private val api: ApiService, private val networkCaller: NetworkCaller) : CountryRepository {
     override fun loadCountries(): Flow<ApiResult<List<Area>>> = flow {
         emit(ApiResult.Loading)
-        val response = networkCaller.safeApiCall(
+        val response = networkCaller.executeApiCall(
             apiCall = {
                 api.getAreas()
             },

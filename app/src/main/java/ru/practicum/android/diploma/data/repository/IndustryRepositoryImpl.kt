@@ -16,7 +16,7 @@ class IndustryRepositoryImpl(
 
     override fun getIndustries(): Flow<ApiResult<List<Industry>>> = flow {
         emit(ApiResult.Loading)
-        val response = networkCaller.safeApiCall(
+        val response = networkCaller.executeApiCall(
             apiCall = { api.getIndustries() },
             transform = { dtoList -> dtoList.toDomain() }
         )
