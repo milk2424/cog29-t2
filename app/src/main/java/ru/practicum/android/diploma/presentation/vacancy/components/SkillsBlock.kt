@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import ru.practicum.android.diploma.R
 
 @Composable
@@ -16,7 +17,7 @@ fun SkillsBlock(skills: List<String>) {
     Spacer(modifier = Modifier.height(24.dp))
     TitleBlock(R.string.key_skills)
     Spacer(modifier = Modifier.height(16.dp))
-    skills.forEach { skill ->
+    skills.fastForEach { skill ->
         Row(modifier = Modifier.padding(start = 8.dp)) {
             Text(
                 text = "·  ",
