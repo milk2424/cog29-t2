@@ -109,7 +109,6 @@ class RegionSelectionViewModel(
 
     fun onRegionSelected(region: Area) {
         viewModelScope.launch {
-
             val country = if (countryId == null) getCountryByIdUseCase(region.parentId ?: "") else null
             _event.emit(
                 RegionSelectionEvent.Region(
