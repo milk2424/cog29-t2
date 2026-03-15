@@ -19,6 +19,7 @@ class RegionSelectionViewModel(
     private val getRegionsUseCase: GetRegionsUseCase,
     private val getCountryByIdUseCase: GetCountryByIdUseCase,
 ) : ViewModel() {
+
     private val _uiState = MutableStateFlow(RegionSelectionScreenState())
     val uiState: StateFlow<RegionSelectionScreenState> = _uiState.asStateFlow()
 

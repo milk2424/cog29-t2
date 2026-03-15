@@ -41,6 +41,8 @@ val domainModule = module {
     single<FilterInteractor> { FilterInteractorImpl(get()) }
 
     single { GetAllCountriesUseCase(get()) }
+    single { GetCountryByIdUseCase(get()) }
+
 
     single { GetRegionsUseCase(get()) }
     single { GetIndustriesUseCase(get()) }
