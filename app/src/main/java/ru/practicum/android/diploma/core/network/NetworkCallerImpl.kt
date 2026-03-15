@@ -10,7 +10,7 @@ class NetworkCallerImpl(
     private val networkChecker: NetworkChecker,
     private val logger: AppLogger
 ) : NetworkCaller {
-    override suspend fun <T, R> safeApiCall(
+    override suspend fun <T, R> executeApiCall(
         apiCall: suspend () -> Response<T>,
         transform: (T) -> R
     ): ApiResult<R> {

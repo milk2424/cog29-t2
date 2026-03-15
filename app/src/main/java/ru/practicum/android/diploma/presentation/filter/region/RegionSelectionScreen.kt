@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.filter.region
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
@@ -21,6 +22,24 @@ fun RegionSelectionScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is RegionSelectionViewModel.RegionSelectionEvent.Region -> {
+                    sharedViewModel.setCountry(
+                        countryId = event.countryId,
+                        countryName = event.countryName
+                    )
+                    sharedViewModel.setRegion(
+                        regionId = event.regionId,
+                        regionName = event.regionName
+                    )
+                    onNavigateBack()
+                }
+            }
+        }
+    }
+
     AppScaffold(
         title = R.string.region_choosing,
         showStartButton = true,
@@ -32,22 +51,7 @@ fun RegionSelectionScreen(
             onQueryChanged = viewModel::onQueryChanged,
             onClearClicked = viewModel::onClearClicked,
             onRegionClick = { region ->
-                if (countryId == null) {
-                    val countryIdFromRegion = region.parentId
-                    countryIdFromRegion?.let {
-                        viewModel.getCountryName(it) { countryName ->
-                            sharedViewModel.setCountry(
-                                countryId = countryIdFromRegion.toInt(),
-                                countryName = countryName
-                            )
-                            sharedViewModel.setRegion(region.id.toInt(), region.name)
-                            onNavigateBack()
-                        }
-                    }
-                } else {
-                    sharedViewModel.setRegion(region.id.toInt(), region.name)
-                    onNavigateBack()
-                }
+                viewModel.onRegionSelected(region)
             }
         )
     }

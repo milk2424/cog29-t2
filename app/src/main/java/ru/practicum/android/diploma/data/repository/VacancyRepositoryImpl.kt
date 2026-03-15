@@ -30,7 +30,7 @@ class VacancyRepositoryImpl(private val api: ApiService, private val networkCall
             industry = params.industry,
             area = params.area
         )
-        val response = networkCaller.safeApiCall(
+        val response = networkCaller.executeApiCall(
             apiCall = { api.getVacancies(request.toQueryMap()) },
             transform = { dto -> dto.toDomain() }
         )
@@ -39,7 +39,7 @@ class VacancyRepositoryImpl(private val api: ApiService, private val networkCall
 
     override fun getVacancyDetail(id: String): Flow<ApiResult<Vacancy>> = flow {
         emit(ApiResult.Loading)
-        val response = networkCaller.safeApiCall(
+        val response = networkCaller.executeApiCall(
             apiCall = { api.getVacancyById(id) },
             transform = { dto -> dto.toDomain() }
         )

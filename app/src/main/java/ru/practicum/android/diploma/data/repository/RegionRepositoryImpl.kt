@@ -18,7 +18,7 @@ class RegionRepositoryImpl(
 
     override fun loadRegions(countryId: String?): Flow<ApiResult<List<Area>>> = flow {
         emit(ApiResult.Loading)
-        val response = networkCaller.safeApiCall(
+        val response = networkCaller.executeApiCall(
             apiCall = { api.getAreas() },
             transform = { dtoList ->
                 val allAreas = dtoList.toDomain()

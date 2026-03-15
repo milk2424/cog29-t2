@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.model.VacancyContacts
 
@@ -21,7 +22,7 @@ fun ContactsBlock(contacts: VacancyContacts) {
         TextBlock(title = R.string.e_mail, text = it)
         Spacer(modifier = Modifier.height(16.dp))
     }
-    contacts.phone?.forEach { phone ->
+    contacts.phone?.fastForEach { phone ->
         TextBlock(title = R.string.phone, text = phone)
         Spacer(modifier = Modifier.height(16.dp))
     }

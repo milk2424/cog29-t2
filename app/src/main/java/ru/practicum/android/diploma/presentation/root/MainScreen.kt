@@ -92,13 +92,7 @@ fun MainScreen() {
                     onCountryClick = { navController.navigate(CountrySelection) },
                     onRegionClick = {
                         val countryId = sharedViewModel.filter.value.countryId
-                        navController.navigate(
-                            if (countryId != null) {
-                                RegionSelection(countryId.toString())
-                            } else {
-                                RegionSelection(null)
-                            }
-                        )
+                        navController.navigate(RegionSelection(countryId?.toString()))
                     }
                 )
             }

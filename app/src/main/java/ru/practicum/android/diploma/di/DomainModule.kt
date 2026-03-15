@@ -46,4 +46,5 @@ val domainModule = module {
 
     single { GetRegionsUseCase(get()) }
     single { GetIndustriesUseCase(get()) }
+    single { GetCountryByIdUseCase(get()) }
 }
