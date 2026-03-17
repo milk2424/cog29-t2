@@ -84,7 +84,10 @@ fun FilterScreen(
                 FilterButton(
                     text = R.string.apply,
                     isPrimary = true,
-                    onClick = onStartClick
+                    onClick = {
+                        sharedViewModel.applyFilter()
+                        onStartClick()
+                    }
                 )
                 Spacer(Modifier.height(8.dp))
                 FilterButton(

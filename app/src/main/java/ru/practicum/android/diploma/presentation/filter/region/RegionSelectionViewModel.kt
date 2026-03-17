@@ -2,18 +2,22 @@ package ru.practicum.android.diploma.presentation.filter.region
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.model.Area
+import ru.practicum.android.diploma.domain.usecase.GetCountryByIdUseCase
 import ru.practicum.android.diploma.domain.usecase.GetRegionsUseCase
 import ru.practicum.android.diploma.domain.utils.ApiResult
 
 class RegionSelectionViewModel(
-    countryId: String?,
-    private val getRegionsUseCase: GetRegionsUseCase
+    val countryId: String?,
+    private val getRegionsUseCase: GetRegionsUseCase,
+    private val getCountryByIdUseCase: GetCountryByIdUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegionSelectionScreenState())
@@ -21,6 +25,18 @@ class RegionSelectionViewModel(
 
     init {
         loadRegions(countryId)
+    }
+
+    private val _event = MutableSharedFlow<RegionSelectionEvent>()
+    val event: SharedFlow<RegionSelectionEvent> = _event
+
+    sealed class RegionSelectionEvent {
+        data class Region(
+            val countryId: Int? = null,
+            val countryName: String? = null,
+            val regionId: Int,
+            val regionName: String
+        ) : RegionSelectionEvent()
     }
 
     private fun loadRegions(countryId: String?) {
@@ -88,6 +104,20 @@ class RegionSelectionViewModel(
                 item.name.contains(searchQuery, ignoreCase = true)
             }
             _uiState.update { it.copy(regions = filtered) }
+        }
+    }
+
+    fun onRegionSelected(region: Area) {
+        viewModelScope.launch {
+            val country = if (countryId == null) getCountryByIdUseCase(region.parentId ?: "") else null
+            _event.emit(
+                RegionSelectionEvent.Region(
+                    countryId = country?.id?.toInt(),
+                    countryName = country?.name,
+                    regionId = region.id.toInt(),
+                    regionName = region.name
+                )
+            )
         }
     }
 }

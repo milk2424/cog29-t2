@@ -68,7 +68,7 @@ fun FilterListItem(
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewFilterListItemPlaceHolder() {
+private fun PreviewFilterListItemPlaceHolder() {
     DiplomaTheme {
         FilterListItem(
             label = R.string.country,
@@ -82,7 +82,7 @@ fun PreviewFilterListItemPlaceHolder() {
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewFilterListItem2() {
+private fun PreviewFilterListItem2() {
     DiplomaTheme {
         FilterListItem(
             label = R.string.country,
@@ -96,7 +96,7 @@ fun PreviewFilterListItem2() {
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewFilterListItem3() {
+private fun PreviewFilterListItem3() {
     DiplomaTheme {
         FilterListItem(
             label = R.string.dont_show_without_salary,
@@ -109,7 +109,7 @@ fun PreviewFilterListItem3() {
 @Preview(name = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewFilterListItem4() {
+private fun PreviewFilterListItem4() {
     DiplomaTheme {
         FilterListItem(
             value = "Авиационная, вертолетная и аэрокосмическая промышленность",

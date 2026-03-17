@@ -33,11 +33,10 @@ val presentationModule = module {
     }
 
     viewModel { (countryId: String?) ->
-        RegionSelectionViewModel(countryId, get())
+        RegionSelectionViewModel(countryId, get(), get())
     }
 
-    viewModel {
-            (sharedViewModel: FilterSharedViewModel) ->
+    viewModel { (sharedViewModel: FilterSharedViewModel) ->
         IndustrySelectionViewModel(sharedViewModel, get(), get())
     }
     single {

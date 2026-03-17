@@ -9,11 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import ru.practicum.android.diploma.presentation.vacancy.DescriptionLine
 
 @Composable
 fun DescriptionBlock(descriptions: List<DescriptionLine>) {
-    descriptions.forEach { description ->
+    descriptions.fastForEach { description ->
         when (description) {
             is DescriptionLine.Header -> {
                 Spacer(modifier = Modifier.height(16.dp))

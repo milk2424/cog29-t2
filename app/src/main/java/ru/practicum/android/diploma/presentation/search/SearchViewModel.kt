@@ -17,7 +17,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.core.utils.debounce
 import ru.practicum.android.diploma.domain.interactor.FilterInteractor
 import ru.practicum.android.diploma.domain.interactor.SearchInteractor
-import ru.practicum.android.diploma.domain.model.FilterSettings
 import ru.practicum.android.diploma.domain.model.VacanciesResult
 import ru.practicum.android.diploma.domain.model.hasActiveFilter
 import ru.practicum.android.diploma.domain.utils.ApiResult
@@ -36,7 +35,6 @@ class SearchViewModel(
     private val paginationManager = PaginationManager()
 
     private var currentQuery = ""
-    var lastAppliedFilter: FilterSettings? = null
 
     private val _filter = MutableStateFlow(
         filterInteractor.getFilter()
@@ -44,9 +42,14 @@ class SearchViewModel(
 
     init {
         viewModelScope.launch {
-            sharedViewModel.filter.collect { filter ->
-                if (filter != lastAppliedFilter) {
-                    refreshSearch(filter)
+            sharedViewModel.filter.collectLatest {
+                _filter.value = it
+            }
+        }
+        viewModelScope.launch {
+            sharedViewModel.applyFilter.collectLatest {
+                if (currentQuery.isNotBlank() && !_uiState.value.isLoading) {
+                    performNewSearch(currentQuery)
                 }
             }
         }
@@ -112,14 +115,6 @@ class SearchViewModel(
                 .collectLatest { result ->
                     handlePaginationResult(result)
                 }
-        }
-    }
-
-    fun refreshSearch(filter: FilterSettings) {
-        lastAppliedFilter = filter
-        _filter.value = filter
-        if (currentQuery.isNotBlank()) {
-            performNewSearch(currentQuery)
         }
     }
 
